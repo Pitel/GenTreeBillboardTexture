@@ -1,6 +1,6 @@
 PROG=demo
 CXX=g++
-CXXFLAGS=-O2 -Wall -Wextra -pedantic -pipe -march=native
+CXXFLAGS=-O2 -Wall -Wextra -pedantic-errors -pipe -march=native
 
 .PHONY: clean pack
 
