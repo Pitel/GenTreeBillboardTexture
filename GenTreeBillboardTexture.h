@@ -1,6 +1,10 @@
+#include "grammar.h"
+#include "param.h"
+#include "vis.h"
+
 #ifndef GENTREE_H
 #define GENTREE_H
 
-void GenTreeBillboardTexture(char *data, int width, int height, float param);
+void GenTreeBillboardTexture(/*char *data, int width, int height, float param*/);
 
 #endif
