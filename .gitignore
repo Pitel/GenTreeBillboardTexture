@@ -1,2 +1,4 @@
-*.o
+*.[ao]
+*.exe
 demo
+xlogin00.zip
