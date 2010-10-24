@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "GenTreeBillboardTexture.h"
 
-int main()	{
+int main() {
 	GenTreeBillboardTexture();
 	printf("Demonstrating!\n");
 	return 1;
