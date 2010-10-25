@@ -5,6 +5,6 @@
 #ifndef GENTREE_H
 #define GENTREE_H
 
-void GenTreeBillboardTexture(/*char *data, int width, int height, float param*/);
+void GenTreeBillboardTexture(char *data, int width, int height, unsigned int seed);
 
 #endif

@@ -2,7 +2,7 @@
 #include "GenTreeBillboardTexture.h"
 
 int main() {
-	GenTreeBillboardTexture();
+	GenTreeBillboardTexture(NULL, 0, 0, 23505);
 	printf("Demonstrating!\n");
 	return 1;
 }
