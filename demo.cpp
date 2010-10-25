@@ -4,5 +4,5 @@
 int main() {
 	GenTreeBillboardTexture(NULL, 0, 0, 23505);
 	printf("Demonstrating!\n");
-	return 1;
+	return 0;
 }
