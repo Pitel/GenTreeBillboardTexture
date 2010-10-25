@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <time.h>
 #include "GenTreeBillboardTexture.h"
 
 void GenTreeBillboardTexture(char *data, int width, int height, unsigned int seed) {
