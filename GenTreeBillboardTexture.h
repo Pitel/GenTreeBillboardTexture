@@ -1,6 +1,6 @@
-#include "grammar.h"
 #include "param.h"
 #include "vis.h"
+#include "grammar.h"
 
 #ifndef GENTREE_H
 #define GENTREE_H
