@@ -2,6 +2,6 @@
 #include "vis.h"
 
 void GenTreeBillboardTexture_visualize() {
-	printf("Visalizing tree...\n");
+	printf("Visualizing tree...\n");
 	return;
 }
