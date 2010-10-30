@@ -5,3 +5,4 @@ void GenTreeBillboardTexture_parametrize() {
 	printf("Generating parametrized tree...\n");
 	return;
 }
+//test funkcnosti GITu
