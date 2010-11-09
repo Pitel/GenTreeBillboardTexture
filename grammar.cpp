@@ -15,6 +15,12 @@ void TreeNode::printTree()
     TreeNode::printNodes.push(this);
     TreeNode::processPrint();
 }
+void TreeNode::printTreeWithParams()
+{
+	TreeNode::printNodes.push(this);
+	TreeNode::processPrintWithParams();
+}
+
 
 void TreeNode::processPrint()
 {
@@ -38,6 +44,30 @@ void TreeNode::processPrint()
       processPrint();
     }
 }
+
+void TreeNode::processPrintWithParams()
+{
+	int size = TreeNode::printNodes.size();
+	for(int i = 0;i < size;i++)
+	{
+		TreeNode* node = TreeNode::printNodes.front();
+		TreeNode::printNodes.pop();
+		std::cout << printableRules[node->type] << "[" << (std::string)(node->param) << "]" << "(childs: " << node->childNodes.size() << ")  ";
+
+		for(unsigned int i=0;i<node->childNodes.size();i++)
+		{
+			 TreeNode::printNodes.push(node->childNodes[i]);
+		}
+
+	}
+
+	if(size != 0)
+	{
+	  std::cout << endl << "==============" << endl;
+	  processPrintWithParams();
+	}
+}
+
 
 TreeNode* GenTreeBillboardTexture_grammar(string treeType, int depth ,int seed) {
 

@@ -29,10 +29,13 @@ class TreeNode
         treeNodeType type;
         TreeNode* parentNode;
         vector<TreeNode*> childNodes;
-        
+		paramInfo param;
+
         void printTree();
+        void printTreeWithParams();
         
-        static void processPrint();
+		static void processPrint();
+		static void processPrintWithParams();
 };
 
 //
