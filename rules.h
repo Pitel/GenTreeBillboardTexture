@@ -8,12 +8,12 @@
 
 using namespace std;
 
-enum treeNodeType {
+enum branchType {
     TRUNK,
     BRANCH,
     BRANCH_UP,
     BRANCH_DOWN,
-    LEAVES
+    LEAF
 };
 
 extern const char* printableRules[];
@@ -29,7 +29,7 @@ class GRules
       
         GRules(int);
         void AddRule(string, vector<int>);
-        int GetRule(string , treeNodeType, vector<int>*);
+        int GetRule(string , branchType, vector<int>*);
 };
 
 #endif

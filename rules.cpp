@@ -53,7 +53,7 @@ GRules::GRules(int seed)
     // BRANCH -> BRANCH_DOWN
     rule6.push_back(BRANCH);
     rule6.push_back(1);
-    rule6.push_back(LEAVES);
+    rule6.push_back(LEAF);
     
     this->rules.insert(pair<string, vector<int> >("tree1", rule1));
     this->rules.insert(pair<string, vector<int> >("tree1", rule2));
@@ -70,7 +70,7 @@ void GRules::AddRule(string name, vector<int> rule)
      this->rules.insert(pair<string, vector<int> >(name, rule));
 }
 
-int GRules::GetRule(string name, treeNodeType symbol, vector<int> *data)
+int GRules::GetRule(string name, branchType symbol, vector<int> *data)
 {
     pair<multimap<string, vector<int> >::iterator,multimap<string, vector<int> >::iterator> ret;
     multimap<string, vector<int> >::iterator it;

@@ -13,7 +13,7 @@
 
 typedef struct tNode {
     struct tNode* parentNode;
-    treeNodeType type;
+    branchType type;
     vector<struct tNode*> childNodes;
     paramInfo param;
 } treeNode;
@@ -25,8 +25,8 @@ class TreeNode
         static queue<TreeNode*> printNodes;
         
         TreeNode();
-        TreeNode(treeNodeType,TreeNode*);
-        treeNodeType type;
+        TreeNode(branchType,TreeNode*);
+        branchType type;
         TreeNode* parentNode;
         vector<TreeNode*> childNodes;
         

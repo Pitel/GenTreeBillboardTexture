@@ -4,7 +4,7 @@
 
 queue<TreeNode*> TreeNode::printNodes;
 
-TreeNode::TreeNode(treeNodeType type,TreeNode* parent)
+TreeNode::TreeNode(branchType type,TreeNode* parent)
 {
       this->type = type;
       parentNode = parent;
@@ -58,7 +58,7 @@ TreeNode* GenTreeBillboardTexture_grammar(string treeType, int depth ,int seed) 
         {
              for(int i = 2;i < 2 + rule[1]; i++)
              {
-                 TreeNode* node = new TreeNode((treeNodeType)rule[i],currentNode);
+                 TreeNode* node = new TreeNode((branchType)rule[i],currentNode);
                  currentNode->childNodes.push_back(node);
                  processingNodes.push(node);
              }
