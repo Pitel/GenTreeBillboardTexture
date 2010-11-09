@@ -7,6 +7,8 @@ void GenTreeBillboardTexture(char *data, size_t width, size_t height, unsigned i
 	
 	GenTreeBillboardTexture_parametrize(tree, PTREE_1, seed);
 	tree->printTreeWithParams();
+	boundingBox bb = getBoundingBox(tree);
+
 	GenTreeBillboardTexture_visualize();
 	
 	return;

@@ -57,6 +57,16 @@ typedef struct {
 	void (*branchDirectionFunc)(TreeNode *);
 } treeParams;
 
+typedef struct {
+	float minX;
+	float maxX;
+	float minY;
+	float maxY;
+	float minZ;
+	float maxZ;
+	operator std::string(){ std::stringstream tmp; tmp << "{x: [" << minX << "," << maxX << "], y: [" << minY << "," << maxY << "], z: [" << minZ << "," << maxZ << "]}"; return tmp.str(); }
+} boundingBox;
+
 //funkce konkretniho stromu
 void branchLengthTree1(TreeNode *current);
 void branchThicknessTree1(TreeNode *current);
@@ -68,5 +78,7 @@ extern const treeParams treeBuilders[PTREE_COUNT];
 void GenTreeBillboardTexture_parametrize(TreeNode *node, PTreeType treeType, int seed = 0);
 
 void parametrizeNode(TreeNode *node, PTreeType treeType, int level = 0);
+boundingBox getBoundingBox(TreeNode *node);
+boundingBox combineBoundingBoxes(boundingBox bb1, boundingBox bb2);
 
 #endif

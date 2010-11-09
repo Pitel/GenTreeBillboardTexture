@@ -114,3 +114,39 @@ double uniformRandom(double l, double h){
 	if(l >= h) return basicRandom();
 	return (l + (h - l)*basicRandom());
 }
+
+boundingBox combineBoundingBoxes(boundingBox bb1, boundingBox bb2){
+	boundingBox combinedBB;
+
+	combinedBB.maxX = max(bb1.maxX, bb2.maxX);
+	combinedBB.maxY = max(bb1.maxY, bb2.maxY);
+	combinedBB.maxZ = max(bb1.maxZ, bb2.maxZ);
+
+	combinedBB.minX = min(bb1.minX, bb2.minX);
+	combinedBB.minY = min(bb1.minY, bb2.minY);
+	combinedBB.minZ = min(bb1.minZ, bb2.minZ);
+
+	return combinedBB;
+}
+
+boundingBox getBoundingBox(TreeNode *node){
+	boundingBox startBB, endBB, combinedBB;
+	endBB.minX = endBB.maxX = node->param.branchEnd.x;
+	endBB.minY = endBB.maxY = node->param.branchEnd.y;
+	endBB.minZ = endBB.maxZ = node->param.branchEnd.z;
+
+	if(node->parentNode == NULL){ //nejvrchnejsi node, druhe souradnice bounding boxu budou nuly
+		startBB.maxX = startBB.minX = 0;
+		startBB.maxY = startBB.minY = 0;
+		startBB.maxZ = startBB.minZ = 0;
+	}else{
+		startBB.minX = startBB.maxX = node->parentNode->param.branchEnd.x;
+		startBB.minY = startBB.maxY = node->parentNode->param.branchEnd.y;
+		startBB.minZ = startBB.maxZ = node->parentNode->param.branchEnd.z;
+	}
+	combinedBB = combineBoundingBoxes(startBB, endBB);
+	for(unsigned int i=0;i<node->childNodes.size();i++) {
+		combinedBB = combineBoundingBoxes(combinedBB, getBoundingBox(node->childNodes[i]));
+	}
+	return combinedBB;
+}
