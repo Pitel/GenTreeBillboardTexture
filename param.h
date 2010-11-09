@@ -6,8 +6,8 @@
 
 typedef struct {
 	float r; //delka vektoru
-	float theta; //rotace kolem osy Z
-	float phi; //odklon od osy Z (rotace kolem Y, aplikovano po rotaci kolem Z)
+	float theta; //odklon od osy Z (rotace kolem Y, aplikovano po rotaci kolem Z)
+	float phi; //rotace kolem osy Z
 	operator std::string(){  std::stringstream tmp; tmp << "[r=" << r << ",θ=" << theta << ",φ=" << phi << "]"; return tmp.str(); } //osklive to je, ale je to jen pro debug vypisy
 } sphericCoords;
 

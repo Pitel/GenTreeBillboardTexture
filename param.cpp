@@ -9,7 +9,7 @@ const treeParams treeBuilders[PTREE_COUNT] = {
 
 void GenTreeBillboardTexture_parametrize(TreeNode *tree, PTreeType treeType, int seed) { //oparamerizuje dany strom
 	srand(seed); //zinicializujeme rand
-	parametrizeNode(tree, treeType, seed);
+	parametrizeNode(tree, treeType);
 	return;
 }
 
@@ -38,11 +38,11 @@ void branchThicknessTree1(TreeNode *current) {
 
 void branchDirectionTree1(TreeNode *current) {
 	if(current->type == TRUNK) { //kmen, nechame ho vest temer rovne
-		current->param.relativeVector.phi = exponentialRandom(M_PI*(5.0/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem 5°
-		current->param.relativeVector.theta = uniformRandom(0.0, M_2_PI); //rotace - 0-360°
+		current->param.relativeVector.theta = exponentialRandom(M_PI*(3.0/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem 5°
+		current->param.relativeVector.phi = uniformRandom(0.0, M_2_PI); //rotace - 0-360°
 	}else{ //ostatni typy nechame trcet nahodnymi smery
-		current->param.relativeVector.phi = normalRandom(M_PI*(70.0/180.0), M_PI*(15.0/180.0)); //nejaky vetsi odklon, normalni rozlozeni se stredem 70° a odchylkou 15°
-		current->param.relativeVector.theta = uniformRandom(0.0, M_2_PI); //rotace - 0-360°
+		current->param.relativeVector.theta = normalRandom(M_PI*(70.0/180.0), M_PI*(15.0/180.0)); //nejaky vetsi odklon, normalni rozlozeni se stredem 70° a odchylkou 15°
+		current->param.relativeVector.phi = uniformRandom(0.0, M_2_PI); //rotace - 0-360°
 	}
 	//delku vetve spocitame z levelu
 	fillAbsoluteVector(current); //pocita se s tim, ze delka vetve uz je nastavena
@@ -57,14 +57,14 @@ void fillAbsoluteVector(TreeNode *current) {
 	if(current->parentNode != NULL){ //pokud mame rodice, je dany vektor relativni k rodicovskemu, tj je nutno prepocitat
 		//provedeme rotaci podle absolutniho vektoru rodice (pokud nejaky je) - tim si upravime souradny system tak, aby osa Y smerovala stejne, jako dany vektor
 		//nejprve rotace kolem osy Z
-		double tzx = rx*cos(current->parentNode->param.absoluteVector.theta) - ry*sin(current->parentNode->param.absoluteVector.theta);
-		double tzy = rx*sin(current->parentNode->param.absoluteVector.theta) + ry*cos(current->parentNode->param.absoluteVector.theta);
+		double tzx = rx*cos(current->parentNode->param.absoluteVector.phi) - ry*sin(current->parentNode->param.absoluteVector.phi);
+		double tzy = rx*sin(current->parentNode->param.absoluteVector.phi) + ry*cos(current->parentNode->param.absoluteVector.phi);
 		double tzz = rz;
 
 		//potom rotace kolem osy Y
-		double tyx = tzx*sin(current->parentNode->param.absoluteVector.phi) + tzz*cos(current->parentNode->param.absoluteVector.phi);
+		double tyx = tzx*cos(current->parentNode->param.absoluteVector.theta) - tzz*sin(current->parentNode->param.absoluteVector.theta);
 		double tyy = tzy;
-		double tyz = tzx*cos(current->parentNode->param.absoluteVector.phi) - tzz*sin(current->parentNode->param.absoluteVector.phi);
+		double tyz = tzx*sin(current->parentNode->param.absoluteVector.theta) + tzz*cos(current->parentNode->param.absoluteVector.theta);
 
 		//mame vysledne kartezske souradnice relativni ke smeru predchozi vetve
 		//spocitame jeste absolutni vektor
@@ -81,9 +81,9 @@ void fillAbsoluteVector(TreeNode *current) {
 		current->param.absoluteVector.theta = current->param.relativeVector.theta;
 		current->param.absoluteVector.phi = current->param.relativeVector.phi;
 
-		current->param.branchEnd.x = current->parentNode->param.branchEnd.x+rx;
-		current->param.branchEnd.y = current->parentNode->param.branchEnd.y+ry;
-		current->param.branchEnd.z = current->parentNode->param.branchEnd.z+rz;
+		current->param.branchEnd.x = rx;
+		current->param.branchEnd.y = ry;
+		current->param.branchEnd.z = rz;
 	}
 }
 
