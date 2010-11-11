@@ -2,8 +2,7 @@
 *.exe
 demo
 xlogin00.zip
-GenTree.config
-GenTree.creator
-GenTree.creator.user
-GenTree.files
-GenTree.includes
+*.config
+*.creator*
+*.files
+*.includes
