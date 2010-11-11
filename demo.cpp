@@ -2,7 +2,15 @@
 #include "GenTreeBillboardTexture.h"
 
 int main() {
-	GenTreeBillboardTexture(NULL, 0, 0, 23505);
-	printf("Demonstrating!\n");
+	const size_t width = 10;
+	const size_t height = 10;
+	char asciiart[width][height];
+	GenTreeBillboardTexture((char*)asciiart, width, height, 23505);
+	for (size_t x = 0; x < width; x++) {
+		for (size_t y = 0; y < height; y++) {
+			putchar(asciiart[x][y]);
+		}
+		putchar('\n');
+	}
 	return 0;
 }
