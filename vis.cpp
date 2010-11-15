@@ -48,12 +48,12 @@ void drawline(char* canvas, size_t width, size_t x1, size_t y1, size_t x2, size_
 
 void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height) {
 	printf("Visualizing tree...\n");
-	memset(data, ' ', width * height);
+	memset(data, '.', width * height);
 	drawline(data, width, 0, 0, width - 1, height - 1, '#');
-	drawline(data, width, width - 1, 0, 0, height - 1, '*');
-	drawline(data, width, 0, 0, width - 1, 0, '.');
-	drawline(data, width, width - 1, 0, width - 1, height - 1, '.');
-	drawline(data, width, width - 1, height - 1, 0, height - 1, '.');
-	drawline(data, width, 0, height - 1, 0, 0, '.');
+	drawline(data, width, width - 1, 0, 0, height - 1, '#');
+	drawline(data, width, 0, 0, width - 1, 0, '#');
+	drawline(data, width, width - 1, 0, width - 1, height - 1, '#');
+	drawline(data, width, width - 1, height - 1, 0, height - 1, '#');
+	drawline(data, width, 0, height - 1, 0, 0, '#');
 	return;
 }
