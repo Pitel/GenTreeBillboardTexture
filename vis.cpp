@@ -1,6 +1,7 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cstring>
+#include <cmath>
 #include "vis.h"
 
 #define SWAP(a, b) a ^= b; b ^= a; a ^= b;
@@ -9,7 +10,8 @@ void putpixel(char* canvas, size_t width, size_t x, size_t y, char pixel) {
 	*(canvas + x + y * width) = pixel;
 }
 
-void drawline(char* canvas, size_t width, size_t x1, size_t y1, size_t x2, size_t y2, char pixel) {
+void drawline(char* canvas, size_t width, int x1, int y1, int x2, int y2, char pixel) {
+	std::cout << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	bool steep = abs(y1 - y2) > abs(x1 - x2);
 	if (steep) {
 		SWAP(x1, y1);
@@ -24,13 +26,13 @@ void drawline(char* canvas, size_t width, size_t x1, size_t y1, size_t x2, size_
 		step_y = -1;
 	}
 	
-	size_t dx = abs(x2 - x1);
-	size_t dy = abs(y2 - y1);
-	ssize_t P = 2 * dy - dx;
-	size_t P1 = 2 * dy;
-	ssize_t P2 = P1 - 2 * dx;
-	size_t y = y1;
-	for (size_t x = x1; x <= x2; x++) {
+	unsigned int dx = abs(x2 - x1);
+	unsigned int dy = abs(y2 - y1);
+	int P = 2 * dy - dx;
+	unsigned int P1 = 2 * dy;
+	int P2 = P1 - 2 * dx;
+	unsigned int y = y1;
+	for (int x = x1; x <= x2; x++) {
 		if (steep) {
 			putpixel(canvas, width, y, x, pixel);
 		} else {
@@ -39,21 +41,47 @@ void drawline(char* canvas, size_t width, size_t x1, size_t y1, size_t x2, size_
 		if (P >= 0) {
 			P += P2;
 			y += step_y;
-		}
-		else {
+		} else {
 			P += P1;
 		}
 	}
 }
 
-void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height) {
+/*
+vector<float> s2c(float r, float theta, float phi) {
+	std::cout << r;
+	vector<float> xyz;
+	xyz[0] = r * sin(theta) * cos(phi);
+	xyz[1] = r * sin(theta) * sin(phi);
+	xyz[2] = r * cos(phi);
+	return xyz;
+}
+*/
+
+void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, TreeNode* tree) {
 	printf("Visualizing tree...\n");
 	memset(data, '.', width * height);
-	drawline(data, width, 0, 0, width - 1, height - 1, '#');
-	drawline(data, width, width - 1, 0, 0, height - 1, '#');
-	drawline(data, width, 0, 0, width - 1, 0, '#');
-	drawline(data, width, width - 1, 0, width - 1, height - 1, '#');
-	drawline(data, width, width - 1, height - 1, 0, height - 1, '#');
-	drawline(data, width, 0, height - 1, 0, 0, '#');
+	
+	boundingBox bounds = getBoundingBox(tree);
+	//std::cout << "Bounds: " << (std::string)(bounds) << '\n';
+	
+	/* FIXME Scaling is wrong! This will stretch the tree. Make it preserve aspect ratio! */
+	float scaleH = height / (bounds.minZ - bounds.maxZ);
+	if (scaleH < 0) {
+		scaleH *= -1;
+	}
+	//std::cout << scaleH << '\n';
+	float scaleV = width / (bounds.minX - bounds.maxX);
+	if (scaleV < 0) {
+		scaleV *= -1;
+	}
+	//std::cout << scaleV << '\n';
+	
+	drawline(data, width,
+		width / 2,
+		height - 1,
+		tree->param.branchEnd.x * scaleH + width / 2,
+		height - tree->param.branchEnd.z * scaleV,
+		'#');
 	return;
 }
