@@ -3,7 +3,7 @@
 #include <string.h>
 #include "vis.h"
 
-#define SWAP(a,b) a^=b^=a^=b;
+#define SWAP(a, b) a ^= b; b ^= a; a ^= b;
 
 void putpixel(char* canvas, size_t width, size_t x, size_t y, char pixel) {
 	*(canvas + x + y * width) = pixel;
