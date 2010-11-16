@@ -10,7 +10,7 @@ $(PROG): $(patsubst %.cpp,%.o,$(wildcard *.cpp))
 	$(CXX) $^ $(LOADLIBES) $(LDLIBS) -o $@
 
 clean:
-	$(RM) *.o xlogin00.zip $(PROG)
+	$(RM) *.o xlogin00.zip *.xpm $(PROG)
 
 pack:
 	zip -r xlogin00.zip *.cpp *.h Makefile doc README*
