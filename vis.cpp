@@ -63,32 +63,33 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 	queue<TreeNode*> q;
 	q.push(tree);
 	while (!q.empty()) {
+		std::cout << q.size() << '\n';
 		TreeNode* node = q.front();
 		
 		cartesianCoords origin;
 		if (!node->parentNode) {
-			origin.x = width / 2;
-			origin.z = height - 1;
+			origin.x = 0;
+			origin.z = 0;
 		} else {
 			origin = node->parentNode->param.branchEnd;
-			origin.x *= scaleV;
-			origin.z *= scaleH;
+
 		}
 		
 		drawline(data, width,
 			//FIXME abs() shouldn't be necessary, fix calculation!
-			abs(origin.x),
-			abs(origin.z),
+			abs(origin.x * scaleH + width / 2),
+			abs(height - 1 - origin.z * scaleV),
 			abs(node->param.branchEnd.x * scaleH + width / 2),
-			abs(height - node->param.branchEnd.z * scaleV),
+			abs(height - 1 - node->param.branchEnd.z * scaleV),
 			'#');
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
-			std::cout << "Pushing node " << i << '\n';
+			std::cout << "Pushing new node\n";
 			q.push(node->childNodes[i]);
 		}
 		
 		q.pop();
 	}
+	std::cout << "Vis done!\n";
 	return;
 }
