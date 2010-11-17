@@ -52,7 +52,7 @@ void TreeNode::processPrintWithParams()
 	{
 		TreeNode* node = TreeNode::printNodes.front();
 		TreeNode::printNodes.pop();
-		std::cout << printableRules[node->type] << "[" << (std::string)(node->param) << "]" << "(childs: " << node->childNodes.size() << ")  ";
+		std::cout << printableRules[node->type] << "[" << (std::string)(node->param) << "]" << "(childs: " << node->childNodes.size() << ")\n";
 
 		for(unsigned int i=0;i<node->childNodes.size();i++)
 		{
