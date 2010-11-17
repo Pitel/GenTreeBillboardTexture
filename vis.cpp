@@ -66,15 +66,9 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 	//std::cout << "Bounds: " << (std::string)(bounds) << '\n';
 	
 	/* FIXME Scaling is wrong! This will stretch the tree. Make it preserve aspect ratio! */
-	float scaleH = height / (bounds.minZ - bounds.maxZ);
-	if (scaleH < 0) {
-		scaleH *= -1;
-	}
+	float scaleH = height / abs(bounds.minZ - bounds.maxZ);
 	//std::cout << scaleH << '\n';
-	float scaleV = width / (bounds.minX - bounds.maxX);
-	if (scaleV < 0) {
-		scaleV *= -1;
-	}
+	float scaleV = width / abs(bounds.minX - bounds.maxX);
 	//std::cout << scaleV << '\n';
 	
 	drawline(data, width,
