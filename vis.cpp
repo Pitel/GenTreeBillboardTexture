@@ -47,17 +47,6 @@ void drawline(char* canvas, size_t width, int x1, int y1, int x2, int y2, char p
 	}
 }
 
-/*
-vector<float> s2c(float r, float theta, float phi) {
-	std::cout << r;
-	vector<float> xyz;
-	xyz[0] = r * sin(theta) * cos(phi);
-	xyz[1] = r * sin(theta) * sin(phi);
-	xyz[2] = r * cos(phi);
-	return xyz;
-}
-*/
-
 void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, TreeNode* tree) {
 	printf("Visualizing tree...\n");
 	memset(data, '.', width * height);
