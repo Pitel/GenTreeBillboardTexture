@@ -3,7 +3,7 @@ CXX=g++
 CXXFLAGS=-O2 -Wall -Wextra  -pedantic-errors  -pipe -march=native -g
 
 # -pedantic-errors - oddelana kvuli variable length array error
-CXXFLAGS_GUI=-O2 -Wall -Wextra -pipe -march=native -g `pkg-config --cflags --libs gtk+-2.0` 
+CXXFLAGS_GUI=-O2 -Wall -Wextra -pedantic -pipe -march=native -g `pkg-config --cflags --libs gtk+-2.0`
 
 .PHONY: clean pack
 
@@ -15,7 +15,7 @@ CXXFLAGS_GUI=-O2 -Wall -Wextra -pipe -march=native -g `pkg-config --cflags --lib
 
 
 all: demo
-OBJS= GenTreeBillboardTexture.o grammar.o param.o rules.o vis.o
+OBJS=GenTreeBillboardTexture.o grammar.o param.o rules.o vis.o
 
 
 param.o: param.cpp param.h
