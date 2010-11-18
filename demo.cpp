@@ -12,9 +12,10 @@ int main() {
 	xpm.open("tree.xpm");
 	xpm << "/* XPM */\n";
 	xpm << "static char * tree[] = {\n";
-	xpm << '"' << width << ' ' << height << " 2 1\",\n";
+	xpm << '"' << width << ' ' << height << " 3 1\",\n";
 	xpm << "\"# c #000000\",\n";
 	xpm << "\". c #ffffff\",\n";
+	xpm << "\"O c #00ff00\",\n";
 	GenTreeBillboardTexture((char*)asciiart, width, height, 23505);
 	for (size_t y = 0; y < height; y++) {
 		xpm << '"';

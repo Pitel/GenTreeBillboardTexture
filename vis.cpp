@@ -74,12 +74,17 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 			origin = node->parentNode->param.branchEnd;
 		}
 		
+		char pixel = '#';
+		if (node->type == LEAVES) {
+			pixel = 'O';
+		}
+		
 		drawline(data, width,
 			(origin.x + abs(bounds.minX)) * scaleH,
 			height - 1 - origin.z * scaleV,
 			(node->param.branchEnd.x + abs(bounds.minX)) * scaleH,
 			height - 1 - node->param.branchEnd.z * scaleV,
-			'#');
+			pixel);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
 			std::cout << "Pushing new node\n";
