@@ -11,7 +11,11 @@ void putpixel(char* canvas, size_t width, size_t x, size_t y, char pixel) {
 }
 
 void drawline(char* canvas, size_t width, int x1, int y1, int x2, int y2, char pixel) {
-	std::cout << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
+	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
+	if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0) {
+		std::cerr << "Oh, crap! Can't draw to negative coords!\n";	//FIXME
+		return;
+	}
 	bool steep = abs(y1 - y2) > abs(x1 - x2);
 	if (steep) {
 		SWAP(x1, y1);
@@ -52,18 +56,18 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 	memset(data, '.', width * height);
 	
 	boundingBox bounds = getBoundingBox(tree);
-	//std::cout << "Bounds: " << (std::string)(bounds) << '\n';
+	//std::clog << "Bounds: " << (std::string)(bounds) << '\n';
 	
 	/* FIXME Scaling is wrong! This will stretch the tree. Make it preserve aspect ratio! */
 	float scaleV = height / abs(bounds.minZ - bounds.maxZ);
-	//std::cout << scaleV << '\n';
+	//std::clog << scaleV << '\n';
 	float scaleH = width / abs(bounds.minX - bounds.maxX);
-	//std::cout << scaleH << '\n';
+	//std::clog << scaleH << '\n';
 	
 	queue<TreeNode*> q;
 	q.push(tree);
 	while (!q.empty()) {
-		std::cout << q.size() << '\n';
+		std::clog << q.size() << '\n';
 		TreeNode* node = q.front();
 		
 		cartesianCoords origin;
@@ -87,12 +91,12 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 			pixel);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
-			std::cout << "Pushing new node\n";
+			std::clog << "Pushing new node\n";
 			q.push(node->childNodes[i]);
 		}
 		
 		q.pop();
 	}
-	std::cout << "Vis done!\n";
+	std::clog << "Vis done!\n";
 	return;
 }
