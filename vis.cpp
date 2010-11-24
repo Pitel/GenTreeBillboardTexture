@@ -37,10 +37,12 @@ void drawline(char* canvas, size_t width, int x1, int y1, int x2, int y2, char p
 	int P2 = P1 - 2 * dx;
 	unsigned int y = y1;
 	for (int x = x1; x <= x2; x++) {
-		if (steep) {
-			putpixel(canvas, width, y, x, pixel);
-		} else {
-			putpixel(canvas, width, x, y, pixel);
+		for (unsigned short thick = 5; thick > 0; thick--) {	//TODO Tloustku brat z parametru, a kreslit "odprostredka" vetve
+			if (steep) {
+				putpixel(canvas, width, y + thick, x, pixel);
+			} else {
+				putpixel(canvas, width, x , y + thick, pixel);
+			}
 		}
 		if (P >= 0) {
 			P += P2;
