@@ -38,11 +38,11 @@ void branchThicknessTree1(TreeNode *current) {
 
 void branchDirectionTree1(TreeNode *current) {
 	if(current->type == TRUNK) { //kmen, nechame ho vest temer rovne
-		current->param.relativeVector.theta = exponentialRandom(M_PI*(3.0/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem 5°
-		current->param.relativeVector.phi = uniformRandom(0.0, M_2_PI); //rotace - 0-360°
+		current->param.relativeVector.theta = exponentialRandom(M_PI*(2.0/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem 5°
+		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
 	}else{ //ostatni typy nechame trcet nahodnymi smery
 		current->param.relativeVector.theta = normalRandom(M_PI*(70.0/180.0), M_PI*(15.0/180.0)); //nejaky vetsi odklon, normalni rozlozeni se stredem 70° a odchylkou 15°
-		current->param.relativeVector.phi = uniformRandom(0.0, M_2_PI); //rotace - 0-360°
+		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
 	}
 	//delku vetve spocitame z levelu
 	fillAbsoluteVector(current); //pocita se s tim, ze delka vetve uz je nastavena
