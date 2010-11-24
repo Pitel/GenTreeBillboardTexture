@@ -33,7 +33,7 @@ vis.o: vis.cpp vis.h grammar.h
 GenTreeBillboardTexture.o: GenTreeBillboardTexture.cpp GenTreeBillboardTexture.h grammar.h param.h rules.h
 	$(CXX) $(CXXFLAGS) -c GenTreeBillboardTexture.cpp
 
-demo:  $(OBJS)
+demo: demo.cpp $(OBJS)
 	$(CXX) $(OBJS) $(CXXFLAGS) demo.cpp -o demo
 
 gui:  $(OBJS)
