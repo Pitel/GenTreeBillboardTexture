@@ -4,7 +4,7 @@
 #include <fstream>
 using namespace std;
 
-int main() {
+int main(int argc, const char* argv[]) {
 	const size_t width = 256;
 	const size_t height = 512;
 	char asciiart[height][width];
@@ -16,7 +16,14 @@ int main() {
 	xpm << "\"# c #000000\",\n";
 	xpm << "\". c #ffffff\",\n";
 	xpm << "\"O c #00ff00\",\n";
-	GenTreeBillboardTexture((char*)asciiart, width, height, 23505);
+
+	int seed = 23505;
+	if(argc >= 2){
+		stringstream seedss(argv[1]);
+		seedss >> seed;
+		cout << "seed: " << seed << endl;
+	}
+	GenTreeBillboardTexture((char*)asciiart, width, height, seed);
 	for (size_t y = 0; y < height; y++) {
 		xpm << '"';
 		for (size_t x = 0; x < width; x++) {
