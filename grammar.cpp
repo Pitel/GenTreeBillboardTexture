@@ -2,6 +2,9 @@
 #include <queue>
 #include "grammar.h"
 
+#include <iostream>
+#include <fstream>
+
 queue<TreeNode*> TreeNode::printNodes;
 
 TreeNode::TreeNode(treeNodeType type,TreeNode* parent)
@@ -19,6 +22,14 @@ void TreeNode::printTreeWithParams()
 {
 	TreeNode::printNodes.push(this);
 	TreeNode::processPrintWithParams();
+}
+void TreeNode::printTreeGL()
+{
+	ofstream gldat;
+	gldat.open("tree.glc");
+	TreeNode::printNodes.push(this);
+	TreeNode::processPrintGL(&gldat);
+	gldat.close();
 }
 
 
@@ -67,6 +78,35 @@ void TreeNode::processPrintWithParams()
 	  processPrintWithParams();
 	}
 }
+
+void TreeNode::processPrintGL(ofstream *gldat)
+{
+	int size = TreeNode::printNodes.size();
+	for(int i = 0;i < size;i++)
+	{
+		TreeNode* node = TreeNode::printNodes.front();
+		TreeNode::printNodes.pop();
+		*gldat << "glColor3f(1.0f, 1.0f, 1.0f);" << endl;
+		*gldat << "glVertex3f(" << node->param.branchEnd.x << ", " << node->param.branchEnd.y << ", " << node->param.branchEnd.z << ");" << endl;
+		if(node->parentNode != NULL){
+			*gldat << "glVertex3f(" << node->parentNode->param.branchEnd.x << ", " << node->parentNode->param.branchEnd.y << ", " << node->parentNode->param.branchEnd.z << ");" << endl;
+		}else{
+			*gldat << "glVertex3f(0.0f, 0.0f, 0.0f);" << endl;
+}
+
+		for(unsigned int i=0;i<node->childNodes.size();i++)
+		{
+			 TreeNode::printNodes.push(node->childNodes[i]);
+		}
+
+	}
+
+	if(size != 0)
+	{
+	  processPrintGL(gldat);
+	}
+}
+
 
 
 TreeNode* GenTreeBillboardTexture_grammar(string treeType, int depth ,int seed) {

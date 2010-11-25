@@ -3,6 +3,7 @@
 #include<iostream>
 #include "rules.h"
 #include "param.h"
+#include <fstream>
 
 #ifndef GENTREE_GRAMMAR_H
 #define GENTREE_GRAMMAR_H
@@ -33,9 +34,11 @@ class TreeNode
 
         void printTree();
         void printTreeWithParams();
+        void printTreeGL();
         
 		static void processPrint();
 		static void processPrintWithParams();
+		static void processPrintGL(ofstream *gldat);
 };
 
 //
