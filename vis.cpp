@@ -6,14 +6,14 @@
 
 #define SWAP(a, b) a ^= b; b ^= a; a ^= b;
 
-void putpixel(char* canvas, size_t width, size_t x, size_t y, char pixel) {
+void putpixel(char* canvas, size_t width, size_t height, size_t x, size_t y, char pixel) {
 	*(canvas + x + y * width) = pixel;
 }
 
-void drawline(char* canvas, size_t width, int x1, int y1, int x2, int y2, size_t thickness, char pixel) {
+void drawline(char* canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, char pixel) {
 	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
-	if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0) {
-		std::cerr << "Oh, crap! Can't draw to negative coords!\n";	//FIXME
+	if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 || abs(x1) >= width || abs(x2) >= width || abs(y1) >= height || abs(y2) >= height) {
+		std::cerr << "Oh, crap! Can't draw outside canvas!\n";	//FIXME
 		return;
 	}
 	bool steep = abs(y1 - y2) > abs(x1 - x2);
@@ -39,9 +39,9 @@ void drawline(char* canvas, size_t width, int x1, int y1, int x2, int y2, size_t
 	for (int x = x1; x <= x2; x++) {
 		for (size_t t = thickness; t > 0; t--) {
 			if (steep) {
-				putpixel(canvas, width, y - thickness / 2 + t, x, pixel);
+				putpixel(canvas, width, height, y - thickness / 2 + t, x, pixel);
 			} else {
-				putpixel(canvas, width, x , y - thickness / 2 + t, pixel);
+				putpixel(canvas, width, height, x , y - thickness / 2 + t, pixel);
 			}
 		}
 		if (P >= 0) {
@@ -64,7 +64,7 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 	//std::clog << "Tree aspect ratio: " << treeAspect << '\n';
 	float imageAspect = (float) width / (float) height;
 	//std::clog << "Image aspect ratio: " << imageAspect << '\n';
-	float scale = 0;
+	float scale = 1;
 	if (treeAspect < imageAspect) {
 		scale = height / abs(bounds.minZ - bounds.maxZ);
 	} else {
@@ -87,11 +87,11 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 		
 		char pixel = '#';
 		
-		drawline(data, width,
+		drawline(data, width, height,
 			(origin.x + abs(bounds.minX)) * scale,
 			height - 1 - origin.z * scale,
 			(node->param.branchEnd.x + abs(bounds.minX)) * scale,
-			height - 1 - node->param.branchEnd.z * scale,
+			height - node->param.branchEnd.z * scale,
 			node->param.thickness * scale,
 			pixel);
 		
