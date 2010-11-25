@@ -61,7 +61,6 @@ GRules::GRules(int seed)
     rule5.push_back(BRANCH_UP);
     
     vector<int> rule6;
-    // TRUNK -> TRUNK, BRANCH
     rule6.push_back(TRUNK);
     rule6.push_back(4);
     rule6.push_back(TRUNK);
@@ -70,7 +69,6 @@ GRules::GRules(int seed)
     rule6.push_back(BRANCH);
     
     vector<int> rule7;
-    // TRUNK -> TRUNK, BRANCH
     rule7.push_back(BRANCH);
     rule7.push_back(5);
     rule7.push_back(TRUNK);
