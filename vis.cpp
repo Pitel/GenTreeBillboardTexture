@@ -59,16 +59,20 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 	
 	boundingBox bounds = getBoundingBox(tree);
 	//std::clog << "Bounds: " << (std::string)(bounds) << '\n';
+	float treeWidth = abs(bounds.minX - bounds.maxX);
+	float treeHeight = abs(bounds.minZ - bounds.maxZ);
 	
-	float treeAspect = abs(bounds.minX - bounds.maxX) / abs(bounds.minZ - bounds.maxZ);
+	float treeAspect = treeWidth / treeHeight;
 	//std::clog << "Tree aspect ratio: " << treeAspect << '\n';
 	float imageAspect = (float) width / (float) height;
 	//std::clog << "Image aspect ratio: " << imageAspect << '\n';
 	float scale = 1;
+	size_t offset = 0;
 	if (treeAspect < imageAspect) {
-		scale = height / abs(bounds.minZ - bounds.maxZ);
+		scale = height / treeHeight;
+		offset = (width - treeWidth * scale) / 2;
 	} else {
-		scale = width / abs(bounds.minX - bounds.maxX);
+		scale = width / treeWidth;
 	}
 	
 	queue<TreeNode*> q;
@@ -88,9 +92,9 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 		char pixel = '#';
 		
 		drawline(data, width, height,
-			(origin.x + abs(bounds.minX)) * scale,
+			(origin.x + abs(bounds.minX)) * scale + offset,
 			height - 1 - origin.z * scale,
-			(node->param.branchEnd.x + abs(bounds.minX)) * scale,
+			(node->param.branchEnd.x + abs(bounds.minX)) * scale + offset,
 			height - node->param.branchEnd.z * scale,
 			node->param.thickness * scale,
 			pixel);
