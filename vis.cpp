@@ -10,7 +10,7 @@ void putpixel(char* canvas, size_t width, size_t x, size_t y, char pixel) {
 	*(canvas + x + y * width) = pixel;
 }
 
-void drawline(char* canvas, size_t width, int x1, int y1, int x2, int y2, char pixel) {
+void drawline(char* canvas, size_t width, int x1, int y1, int x2, int y2, size_t thickness, char pixel) {
 	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0) {
 		std::cerr << "Oh, crap! Can't draw to negative coords!\n";	//FIXME
@@ -37,11 +37,11 @@ void drawline(char* canvas, size_t width, int x1, int y1, int x2, int y2, char p
 	int P2 = P1 - 2 * dx;
 	unsigned int y = y1;
 	for (int x = x1; x <= x2; x++) {
-		for (unsigned short thick = 5; thick > 0; thick--) {	//TODO Tloustku brat z parametru, a kreslit "odprostredka" vetve
+		for (size_t t = thickness; t > 0; t--) {
 			if (steep) {
-				putpixel(canvas, width, y + thick, x, pixel);
+				putpixel(canvas, width, y - thickness / 2 + t, x, pixel);
 			} else {
-				putpixel(canvas, width, x , y + thick, pixel);
+				putpixel(canvas, width, x , y - thickness / 2 + t, pixel);
 			}
 		}
 		if (P >= 0) {
@@ -90,6 +90,7 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 			height - 1 - origin.z * scaleV,
 			(node->param.branchEnd.x + abs(bounds.minX)) * scaleH,
 			height - 1 - node->param.branchEnd.z * scaleV,
+			5,
 			pixel);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
