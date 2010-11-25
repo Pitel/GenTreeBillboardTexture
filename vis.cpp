@@ -60,11 +60,16 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 	boundingBox bounds = getBoundingBox(tree);
 	//std::clog << "Bounds: " << (std::string)(bounds) << '\n';
 	
-	/* FIXME Scaling is wrong! This will stretch the tree. Make it preserve aspect ratio! */
-	float scaleV = height / abs(bounds.minZ - bounds.maxZ);
-	//std::clog << scaleV << '\n';
-	float scaleH = width / abs(bounds.minX - bounds.maxX);
-	//std::clog << scaleH << '\n';
+	float treeAspect = abs(bounds.minX - bounds.maxX) / abs(bounds.minZ - bounds.maxZ);
+	//std::clog << "Tree aspect ratio: " << treeAspect << '\n';
+	float imageAspect = (float) width / (float) height;
+	//std::clog << "Image aspect ratio: " << imageAspect << '\n';
+	float scale = 0;
+	if (treeAspect < imageAspect) {
+		scale = height / abs(bounds.minZ - bounds.maxZ);
+	} else {
+		scale = width / abs(bounds.minX - bounds.maxX);
+	}
 	
 	queue<TreeNode*> q;
 	q.push(tree);
@@ -86,10 +91,10 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 		}
 		
 		drawline(data, width,
-			(origin.x + abs(bounds.minX)) * scaleH,
-			height - 1 - origin.z * scaleV,
-			(node->param.branchEnd.x + abs(bounds.minX)) * scaleH,
-			height - 1 - node->param.branchEnd.z * scaleV,
+			(origin.x + abs(bounds.minX)) * scale,
+			height - 1 - origin.z * scale,
+			(node->param.branchEnd.x + abs(bounds.minX)) * scale,
+			height - 1 - node->param.branchEnd.z * scale,
 			5,
 			pixel);
 		
