@@ -81,9 +81,6 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 		}
 		
 		char pixel = '#';
-		if (node->type == LEAVES) {
-			pixel = 'O';
-		}
 		
 		drawline(data, width,
 			(origin.x + abs(bounds.minX)) * scaleH,

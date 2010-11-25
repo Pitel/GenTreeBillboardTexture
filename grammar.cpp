@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <queue>
 #include "grammar.h"
 
@@ -76,7 +77,7 @@ TreeNode* GenTreeBillboardTexture_grammar(string treeType, int depth ,int seed) 
    TreeNode* treeStructure = new TreeNode(TRUNK,NULL);
    
    processingNodes.push(treeStructure);
-  
+   srand(seed);
    while(currentDepth!=depth && !processingNodes.empty())
    {
         currentDepth++;
