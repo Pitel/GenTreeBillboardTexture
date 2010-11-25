@@ -41,7 +41,21 @@ void branchDirectionTree1(TreeNode *current) {
 		current->param.relativeVector.theta = exponentialRandom(M_PI*(2.0/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem 5°
 		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
 	}else{ //ostatni typy nechame trcet nahodnymi smery
-		current->param.relativeVector.theta = normalRandom(M_PI*(70.0/180.0), M_PI*(15.0/180.0)); //nejaky vetsi odklon, normalni rozlozeni se stredem 70° a odchylkou 15°
+		switch(current->type){
+			case BRANCH_UP:
+				current->param.relativeVector.theta = normalRandom(M_PI*(35.0/180.0), M_PI*(15.0/180.0)); //nejaky vetsi odklon, normalni rozlozeni se stredem 70° a odchylkou 15°
+				break;
+			case BRANCH:
+				current->param.relativeVector.theta = normalRandom(M_PI*(90.0/180.0), M_PI*(15.0/180.0)); //nejaky vetsi odklon, normalni rozlozeni se stredem 70° a odchylkou 15°
+				break;
+			case BRANCH_DOWN:
+				current->param.relativeVector.theta = normalRandom(M_PI*(130.0/180.0), M_PI*(15.0/180.0)); //nejaky vetsi odklon, normalni rozlozeni se stredem 70° a odchylkou 15°
+				break;
+			default:
+				current->param.relativeVector.theta = normalRandom(M_PI*(70.0/180.0), M_PI*(15.0/180.0)); //nejaky vetsi odklon, normalni rozlozeni se stredem 70° a odchylkou 15°
+				break;
+
+		}
 		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
 	}
 	//delku vetve spocitame z levelu
