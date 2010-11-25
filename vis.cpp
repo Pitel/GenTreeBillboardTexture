@@ -92,7 +92,7 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 			height - 1 - origin.z * scale,
 			node->param.branchEnd.x * scale + width / 2,
 			height - 1 - node->param.branchEnd.z * scale,
-			5,
+			node->param.thickness * scale,
 			pixel);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
