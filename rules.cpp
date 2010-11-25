@@ -3,7 +3,7 @@
 #include "rules.h"
 
 // T - TRUNK , B - BRANCH ....
-const char* printableRules[] = {"T","B","B_U","B_D","L" };
+const char* printableRules[] = {"T","B","B_U","B_D" };
 
 GRules::GRules(int seed)
 {
@@ -14,46 +14,73 @@ GRules::GRules(int seed)
     // Loading default rules
 
     vector<int> rule1;
-    // TRUNK -> BRANCH, BRANCH_UP
+    // TRUNK -> BRANCH_UP, BRANCH, TRUNK, BRANCH_UP
     rule1.push_back(TRUNK);
-    rule1.push_back(2);
+    rule1.push_back(4);
+    rule1.push_back(BRANCH_UP);
     rule1.push_back(BRANCH);
+    rule1.push_back(TRUNK);
     rule1.push_back(BRANCH_UP);
     
     vector<int> rule2;
-    // TRUNK -> BRANCH, BRANCH_UP, BRANCH
+    // TRUNK -> TRUNK, BRANCH
     rule2.push_back(TRUNK);
-    rule2.push_back(3);
+    rule2.push_back(5);
+    rule2.push_back(TRUNK);
     rule2.push_back(BRANCH_UP);
-    rule2.push_back(TRUNK);
     rule2.push_back(BRANCH);
+    rule2.push_back(BRANCH_UP);
+    rule2.push_back(BRANCH_UP);
     
     vector<int> rule3;
-    // BRANCH -> BRANCH, BRANCH_UP, BRANCH
-    rule3.push_back(BRANCH);
+    // BRANCH -> BRANCH, TRUNK, BRANCH
+    rule3.push_back(BRANCH_UP);
     rule3.push_back(3);
     rule3.push_back(BRANCH);
-    rule3.push_back(BRANCH_UP);
+    rule3.push_back(TRUNK);
     rule3.push_back(BRANCH);
     
     vector<int> rule4;
-    // BRANCH -> BRANCH, BRANCH
+    // BRANCH -> TRUNK, BRANCH_UP, BRANCH_UP,BRANCH_UP, BRANCH_UP
     rule4.push_back(BRANCH);
-    rule4.push_back(2);
-    rule4.push_back(BRANCH);
-    rule4.push_back(BRANCH);
+    rule4.push_back(5);
+    rule4.push_back(TRUNK);
+    rule4.push_back(BRANCH_UP);
+    rule4.push_back(BRANCH_UP);
+    rule4.push_back(BRANCH_UP);
+    rule4.push_back(BRANCH_UP);
     
     vector<int> rule5;
-    // BRANCH -> BRANCH_DOWN
+    // BRANCH_UP -> TRUNK, BRANCH_UP, BRANCH_UP,BRANCH, BRANCH_UP
+    rule5.push_back(BRANCH_UP);
+    rule5.push_back(5);
+    rule5.push_back(TRUNK);
+    rule5.push_back(BRANCH_UP);
+    rule5.push_back(BRANCH_UP);
     rule5.push_back(BRANCH);
-    rule5.push_back(1);
-    rule5.push_back(BRANCH_DOWN);
+    rule5.push_back(BRANCH_UP);
     
     vector<int> rule6;
-    // BRANCH -> BRANCH_DOWN
+    // TRUNK -> TRUNK, BRANCH
+    rule6.push_back(TRUNK);
+    rule6.push_back(4);
+    rule6.push_back(TRUNK);
+    rule6.push_back(BRANCH_UP);
+    rule6.push_back(BRANCH_UP);
     rule6.push_back(BRANCH);
-    rule6.push_back(1);
-    rule6.push_back(LEAVES);
+    
+    vector<int> rule7;
+    // TRUNK -> TRUNK, BRANCH
+    rule7.push_back(BRANCH);
+    rule7.push_back(5);
+    rule7.push_back(TRUNK);
+    rule7.push_back(BRANCH_UP);
+    rule7.push_back(BRANCH_UP);
+    rule7.push_back(BRANCH);
+    rule7.push_back(BRANCH_UP);
+    
+    
+    
     
     this->rules.insert(pair<string, vector<int> >("tree1", rule1));
     this->rules.insert(pair<string, vector<int> >("tree1", rule2));
@@ -61,6 +88,7 @@ GRules::GRules(int seed)
     this->rules.insert(pair<string, vector<int> >("tree1", rule4));
     this->rules.insert(pair<string, vector<int> >("tree1", rule5));
     this->rules.insert(pair<string, vector<int> >("tree1", rule6));
+    this->rules.insert(pair<string, vector<int> >("tree1", rule7));
 }
 
 void GRules::AddRule(string name, vector<int> rule)
@@ -74,8 +102,6 @@ int GRules::GetRule(string name, treeNodeType symbol, vector<int> *data)
 {
     pair<multimap<string, vector<int> >::iterator,multimap<string, vector<int> >::iterator> ret;
     multimap<string, vector<int> >::iterator it;
-
-    srand(this->seed);
     
     vector<vector<int> > temp;
 

@@ -12,8 +12,7 @@ enum treeNodeType {
     TRUNK,
     BRANCH,
     BRANCH_UP,
-    BRANCH_DOWN,
-    LEAVES
+    BRANCH_DOWN
 };
 
 extern const char* printableRules[];
