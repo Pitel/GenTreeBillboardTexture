@@ -2,6 +2,7 @@
 *.exe
 demo
 demo_gui
+demo_sdl
 xlogin00.zip
 *.config
 *.creator*
