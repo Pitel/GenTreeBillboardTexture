@@ -88,9 +88,9 @@ void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, 
 		char pixel = '#';
 		
 		drawline(data, width,
-			origin.x * scale + width / 2,
+			(origin.x + abs(bounds.minX)) * scale,
 			height - 1 - origin.z * scale,
-			node->param.branchEnd.x * scale + width / 2,
+			(node->param.branchEnd.x + abs(bounds.minX)) * scale,
 			height - 1 - node->param.branchEnd.z * scale,
 			node->param.thickness * scale,
 			pixel);
