@@ -15,11 +15,14 @@ typedef struct _guidialog
     GtkWidget  *window;
 
     GtkWidget *gui_cancel;
+    GtkWidget *gui_sdldemo;
     GtkWidget *gui_generate;
 
     /* Share informations */
     GtkWidget *gui_width;
     GtkWidget *gui_height;
+    GtkWidget *gui_seed;
+    GtkWidget *gui_depth;
 
 } GuiDialog;
 
@@ -51,10 +54,14 @@ generate_tree ( void )
 {
      const gchar *width_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_width));
      const gchar *height_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_height));
+     const gchar *seed_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_seed));
+     const gchar *depth_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_depth));
 
     //Prevzato z demo.cpp
     const size_t width = atoi(width_str);
 	const size_t height = atoi(height_str);
+    const size_t myseed = atoi(seed_str);
+	const size_t mydepth = atoi(depth_str);
 
 	char asciiart[height][width];
 	//char *asciiart = new char[int(height)];
@@ -65,7 +72,9 @@ generate_tree ( void )
 	xpm << '"' << width << ' ' << height << " 2 1\",\n";
 	xpm << "\"# c #000000\",\n";
 	xpm << "\". c #ffffff\",\n";
-	GenTreeBillboardTexture((char*)asciiart, width, height, 23505);
+
+	GenTreeBillboardTexture((char*)asciiart, width, height, myseed, mydepth);
+
 	for (size_t y = 0; y < height; y++) {
 		xpm << '"';
 		for (size_t x = 0; x < width; x++) {
@@ -78,6 +87,40 @@ generate_tree ( void )
 
 
     cout << "generate_tree to tree.xpm - DONE" << endl;
+}
+
+void
+run_sdldemo ( void )
+{
+    generate_tree();
+
+    const gchar *width_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_width));
+    const gchar *height_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_height));
+
+    const gchar *gui_argv[4];
+    GError *error;
+
+    gui_argv[0] = "demo_sdl";
+    gui_argv[1] = width_str; /* Path to selected directory */
+    gui_argv[2] = height_str;
+    gui_argv[3] = NULL;
+
+    GSpawnFlags flag = G_SPAWN_FILE_AND_ARGV_ZERO;
+    error = NULL;
+    g_spawn_async (NULL,        /* working_directory */
+                    (gchar **) gui_argv,
+                    NULL,        /* envp */
+                    flag,           /* flags */
+                    NULL,        /* child_setup */
+                    NULL,        /* user_data */
+                    NULL,        /* child_pid */
+                    &error);
+
+    if (error != NULL)
+    {
+            g_warning ("Error launching sfshare-gui: %s", error->message);
+            g_error_free (error);
+    }
 }
 
 
@@ -115,13 +158,21 @@ main ( int argc,  char **argv )
     guidialog.gui_generate = GTK_WIDGET( gtk_builder_get_object( builder, "btn_generate" ));
     g_signal_connect (guidialog.gui_generate, "clicked", G_CALLBACK (generate_tree), NULL);
 
+
+    guidialog.gui_sdldemo = GTK_WIDGET( gtk_builder_get_object( builder, "btn_sdldemo" ));
+    g_signal_connect (guidialog.gui_sdldemo, "clicked", G_CALLBACK (run_sdldemo), NULL);
+
     guidialog.gui_width = GTK_WIDGET( gtk_builder_get_object( builder, "width_entry"));
     guidialog.gui_height = GTK_WIDGET( gtk_builder_get_object( builder, "height_entry"));
 
+    guidialog.gui_seed = GTK_WIDGET( gtk_builder_get_object( builder, "seed_entry"));
+    guidialog.gui_depth = GTK_WIDGET( gtk_builder_get_object( builder, "depth_entry"));
 
-
+    /* Setup default values */
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_width), "256");
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_height), "512");
+    gtk_entry_set_text( GTK_ENTRY (guidialog.gui_seed), "23505");
+    gtk_entry_set_text( GTK_ENTRY (guidialog.gui_depth), "40");
 
 
     /* Destroy builder */
@@ -134,3 +185,4 @@ main ( int argc,  char **argv )
 
     return(0);
 }
+

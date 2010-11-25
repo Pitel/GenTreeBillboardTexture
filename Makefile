@@ -26,11 +26,12 @@ vis.o: vis.cpp vis.h grammar.h rules.h param.h
 $(PROG): $(PROG).cpp $(OBJS)
 	$(CXX) $(OBJS) $(CXXFLAGS) $(PROG).cpp -o $@
 
-gui: demo_gui.cpp $(OBJS)
+gui: demo_gui.cpp demo_sdl.cpp $(OBJS)
 	$(CXX) $(OBJS) $(CXXFLAGS_GUI) demo_gui.cpp -o demo_gui
+	$(CXX) $(OBJS) $(CXXFLAGS) `sdl-config --cflags --libs` `pkg-config SDL_image  --cflags  --libs`  demo_sdl.cpp -o demo_sdl
 
 clean:
-	$(RM) *.o xlogin00.zip *.xpm $(PROG) $(PROG)_gui
+	$(RM) *.o xlogin00.zip *.xpm $(PROG) $(PROG)_gui $(PROG)_sdl
 
 pack:
 	zip -r xlogin00.zip *.cpp *.h Makefile doc README*
