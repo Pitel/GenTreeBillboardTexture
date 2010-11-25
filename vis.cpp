@@ -54,7 +54,7 @@ void drawline(char* canvas, size_t width, int x1, int y1, int x2, int y2, size_t
 }
 
 void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, TreeNode* tree) {
-	printf("Visualizing tree...\n");
+	std::clog << "Visualizing tree...\n";
 	memset(data, '.', width * height);
 	
 	boundingBox bounds = getBoundingBox(tree);
