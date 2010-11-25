@@ -93,4 +93,3 @@ int GRules::GetRule(string name, treeNodeType symbol, vector<int> *data)
     else
       return 0;
 }
-
