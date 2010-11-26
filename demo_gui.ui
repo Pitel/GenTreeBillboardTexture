@@ -48,6 +48,9 @@
                 <property name="visible">True</property>
                 <property name="label" translatable="yes">Width:</property>
               </object>
+              <packing>
+                <property name="x_options">GTK_EXPAND | GTK_SHRINK</property>
+              </packing>
             </child>
             <child>
               <object class="GtkLabel" id="label3">
@@ -57,6 +60,7 @@
               <packing>
                 <property name="top_attach">1</property>
                 <property name="bottom_attach">2</property>
+                <property name="x_options">GTK_EXPAND | GTK_SHRINK</property>
               </packing>
             </child>
             <child>
@@ -91,6 +95,7 @@
               <packing>
                 <property name="top_attach">2</property>
                 <property name="bottom_attach">3</property>
+                <property name="x_options">GTK_EXPAND | GTK_SHRINK</property>
               </packing>
             </child>
             <child>
@@ -101,6 +106,7 @@
               <packing>
                 <property name="top_attach">3</property>
                 <property name="bottom_attach">4</property>
+                <property name="x_options">GTK_EXPAND | GTK_SHRINK</property>
               </packing>
             </child>
             <child>
@@ -150,7 +156,7 @@
             <property name="layout_style">end</property>
             <child>
               <object class="GtkButton" id="btn_generate">
-                <property name="label" translatable="yes">Generate</property>
+                <property name="label" translatable="yes">Generate XPM</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -164,7 +170,7 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_sdldemo">
-                <property name="label" translatable="yes">SDL demo</property>
+                <property name="label" translatable="yes">Demo tree.xpm</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
@@ -174,6 +180,20 @@
                 <property name="expand">False</property>
                 <property name="fill">False</property>
                 <property name="position">1</property>
+              </packing>
+            </child>
+            <child>
+              <object class="GtkButton" id="btn_sdldemo_surface">
+                <property name="label" translatable="yes">Demo SDL_surface</property>
+                <property name="visible">True</property>
+                <property name="can_focus">True</property>
+                <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
+              </object>
+              <packing>
+                <property name="expand">False</property>
+                <property name="fill">False</property>
+                <property name="position">2</property>
               </packing>
             </child>
             <child>
@@ -187,7 +207,7 @@
               <packing>
                 <property name="expand">False</property>
                 <property name="fill">False</property>
-                <property name="position">2</property>
+                <property name="position">3</property>
               </packing>
             </child>
           </object>

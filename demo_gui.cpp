@@ -16,6 +16,7 @@ typedef struct _guidialog
 
     GtkWidget *gui_cancel;
     GtkWidget *gui_sdldemo;
+    GtkWidget *gui_sdldemo_surface;
     GtkWidget *gui_generate;
 
     /* Share informations */
@@ -89,23 +90,27 @@ generate_tree ( void )
     cout << "generate_tree to tree.xpm - DONE" << endl;
 }
 
+
 void
 run_sdldemo ( void )
 {
-    generate_tree();
-
     const gchar *width_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_width));
     const gchar *height_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_height));
+    const gchar *seed_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_seed));
+    const gchar *depth_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_depth));
 
-    const gchar *gui_argv[4];
+    const gchar *gui_argv[7];
     GError *error;
 
     gui_argv[0] = "demo_sdl";
-    gui_argv[1] = width_str; /* Path to selected directory */
-    gui_argv[2] = height_str;
-    gui_argv[3] = NULL;
+    gui_argv[1] = "xpm";
+    gui_argv[2] = width_str;
+    gui_argv[3] = height_str;
+    gui_argv[4] = seed_str;
+    gui_argv[5] = depth_str;
+    gui_argv[6] = NULL;
 
-    GSpawnFlags flag = G_SPAWN_FILE_AND_ARGV_ZERO;
+    GSpawnFlags flag = G_SPAWN_CHILD_INHERITS_STDIN;
     error = NULL;
     g_spawn_async (NULL,        /* working_directory */
                     (gchar **) gui_argv,
@@ -123,6 +128,42 @@ run_sdldemo ( void )
     }
 }
 
+void
+run_sdldemo_surface ( void )
+{
+    const gchar *width_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_width));
+    const gchar *height_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_height));
+    const gchar *seed_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_seed));
+    const gchar *depth_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_depth));
+
+    const gchar *gui_argv[7];
+    GError *error;
+
+    gui_argv[0] = "demo_sdl";
+    gui_argv[1] = "sdl";
+    gui_argv[2] = width_str;
+    gui_argv[3] = height_str;
+    gui_argv[4] = seed_str;
+    gui_argv[5] = depth_str;
+    gui_argv[6] = NULL;
+
+    GSpawnFlags flag = G_SPAWN_CHILD_INHERITS_STDIN;
+    error = NULL;
+    g_spawn_async (NULL,        /* working_directory */
+                    (gchar **) gui_argv,
+                    NULL,        /* envp */
+                    flag,           /* flags */
+                    NULL,        /* child_setup */
+                    NULL,        /* user_data */
+                    NULL,        /* child_pid */
+                    &error);
+
+    if (error != NULL)
+    {
+            g_warning ("Error launching sfshare-gui: %s", error->message);
+            g_error_free (error);
+    }
+}
 
 /**
 * Create main window
@@ -161,6 +202,9 @@ main ( int argc,  char **argv )
 
     guidialog.gui_sdldemo = GTK_WIDGET( gtk_builder_get_object( builder, "btn_sdldemo" ));
     g_signal_connect (guidialog.gui_sdldemo, "clicked", G_CALLBACK (run_sdldemo), NULL);
+
+    guidialog.gui_sdldemo_surface = GTK_WIDGET( gtk_builder_get_object( builder, "btn_sdldemo_surface" ));
+    g_signal_connect (guidialog.gui_sdldemo_surface, "clicked", G_CALLBACK (run_sdldemo_surface), NULL);
 
     guidialog.gui_width = GTK_WIDGET( gtk_builder_get_object( builder, "width_entry"));
     guidialog.gui_height = GTK_WIDGET( gtk_builder_get_object( builder, "height_entry"));
