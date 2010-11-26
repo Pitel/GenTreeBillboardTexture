@@ -24,6 +24,8 @@ typedef struct d{
 	sphericCoords absoluteVector; //smer vetve, vzhledem ke kmeni (presneji k ose Y)
 	cartesianCoords branchEnd; //souradnice konce vetve
 	float thickness;
+	float leafs; //nakolik je vetev zalistena - <0, 1>
+	int childLeafs; //kolik listu grafu se vyskytuje dohromady ve vsech detech uzlu
 	operator std::string(){ std::stringstream tmp; tmp << "{l: " << level << ", rV: " << (std::string)relativeVector << ", aV: " << (std::string)absoluteVector << ", bE: " << (std::string)branchEnd << "}"; return tmp.str(); }
 } paramInfo;
 
@@ -52,8 +54,8 @@ void fillAbsoluteVector(TreeNode *current);
 enum PTreeType {PTREE_1, PTREE_COUNT}; //PTREE_COUNT znaci pocet typu stromu, tedy cislovat postupne a PTREE_COUNT nechat posledni
 
 typedef struct {
-	void (*branchLengthFunc)(TreeNode *);
-	void (*branchThicknessFunc)(TreeNode *);
+	void (*branchLengthFunc)(TreeNode *, int);
+	void (*branchThicknessFunc)(TreeNode *, int);
 	void (*branchDirectionFunc)(TreeNode *);
 } treeParams;
 
@@ -68,8 +70,8 @@ typedef struct {
 } boundingBox;
 
 //funkce konkretniho stromu
-void branchLengthTree1(TreeNode *current);
-void branchThicknessTree1(TreeNode *current);
+void branchLengthTree1(TreeNode *current, int maxlevel);
+void branchThicknessTree1(TreeNode *current, int maxlevel);
 void branchDirectionTree1(TreeNode *current);
 
 //asociace funkci pro parametrizaci ke konkretnimu typu stromu (dle poradi v PTreeType)
@@ -77,8 +79,10 @@ extern const treeParams treeBuilders[PTREE_COUNT];
 
 void GenTreeBillboardTexture_parametrize(TreeNode *node, PTreeType treeType, int seed = 0);
 
-void parametrizeNode(TreeNode *node, PTreeType treeType, int level = 0);
+void parametrizeNode(TreeNode *node, PTreeType treeType, int level, int maxlevel);
 boundingBox getBoundingBox(TreeNode *node);
 boundingBox combineBoundingBoxes(boundingBox bb1, boundingBox bb2);
 
+int maxLevel(TreeNode *node);
+int calcChildLeafs(TreeNode *node);
 #endif

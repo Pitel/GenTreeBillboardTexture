@@ -9,30 +9,39 @@ const treeParams treeBuilders[PTREE_COUNT] = {
 
 void GenTreeBillboardTexture_parametrize(TreeNode *tree, PTreeType treeType, int seed) { //oparamerizuje dany strom
 	srand(seed); //zinicializujeme rand
-	parametrizeNode(tree, treeType);
+	int maxlvl = maxLevel(tree);
+	calcChildLeafs(tree); //nechame spocitat pocty listu v kazde vetvi
+	parametrizeNode(tree, treeType, 1, maxlvl);
 	return;
 }
 
-void parametrizeNode(TreeNode *node, PTreeType treeType, int level) {
+void parametrizeNode(TreeNode *node, PTreeType treeType, int level, int maxlevel) {
 	//nejprve parametrizace daneho uzlu
 	node->param.level = level;
+
 	//zavolame prislusne funkce parametrizujici v danem typu stromu
-	treeBuilders[treeType].branchLengthFunc(node);
-	treeBuilders[treeType].branchThicknessFunc(node);
+	treeBuilders[treeType].branchLengthFunc(node, maxlevel);
+	treeBuilders[treeType].branchThicknessFunc(node, maxlevel);
 	treeBuilders[treeType].branchDirectionFunc(node);
 
 	//pote nechame projit vsechny potomky
 	for(unsigned int i=0;i<node->childNodes.size();i++) {
-		parametrizeNode(node->childNodes[i], treeType, level+1);
+		parametrizeNode(node->childNodes[i], treeType, level+1, maxlevel);
+	}
+	if(node->childNodes.size() == 0){
+		node->param.leafs = 0.5; //koncova vetev, dame ji nejake listy
+	}else{
+		node->param.leafs = 0.0;
 	}
 }
 
-void branchLengthTree1(TreeNode *current) {
+void branchLengthTree1(TreeNode *current, int maxlevel) {
 	//delku vetve spocitame z levelu
-	current->param.relativeVector.r = 1.0/(current->param.level+1.0);
+	current->param.relativeVector.r = uniformRandom(0.7, 1.3)/(current->param.level+2.0);
 }
-void branchThicknessTree1(TreeNode *current) {
+void branchThicknessTree1(TreeNode *current, int maxlevel) {
 	//tloustku vetve spocitame z levelu
+	/*
 	if(current->parentNode == NULL){
 		current->param.thickness = 1/8.0; //zakladni tloustka kmene
 	}else if(current->parentNode->type == TRUNK && current->type != TRUNK){ //vetev trcici z kmene, bude tensi
@@ -42,7 +51,9 @@ void branchThicknessTree1(TreeNode *current) {
 	}else{
 		current->param.thickness = current->parentNode->param.thickness*0.7;
 	}
+	*/
 	//current->param.thickness = (1.0/(current->param.level+1.0))/7.0; //v pomeru k delce je vetev 7x uzsi (pri zachovani vypoctu)
+	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0025;
 }
 
 void branchDirectionTree1(TreeNode *current) {
@@ -74,14 +85,18 @@ void branchDirectionTree1(TreeNode *current) {
 		}
 		//delku vetve spocitame z levelu
 		fillAbsoluteVector(current); //pocita se s tim, ze delka vetve uz je nastavena
+
 		if(current->param.absoluteVector.theta >= M_PI*(90.0/180.0) && current->param.absoluteVector.theta <= M_PI*(270.0/180.0)){ //veteve vede smerem dolu, nechame pregenerovat
-			//pokud nechceme vetve dolu, odkomentovat nasledujici radek
-			//regenerate = true;
+			if(uniformRandom(0.0, 1.0) >= 0.4){ //se 60% pravdepodobnosti nechame takovou vetev pregenerovat
+				//pokud nechceme vetve dolu, odkomentovat nasledujici radek, pokud ano, zakomentovat
+				regenerate = true;
+			}
 		}
 	}while(regenerate == true && attempts < maxattempts);
 }
 
 void fillAbsoluteVector(TreeNode *current) {
+	//TODO: pouzit maticove operace, tj. asi glm
 	//nejdriv si prevedeme relativni na kartezske
 /*
 double ax = 0.0, ay = 0.0, az = 1.0;
@@ -282,4 +297,25 @@ boundingBox getBoundingBox(TreeNode *node){
 		combinedBB = combineBoundingBoxes(combinedBB, getBoundingBox(node->childNodes[i]));
 	}
 	return combinedBB;
+}
+
+int maxLevel(TreeNode *node){
+	int maxlvl = 1;
+	for(unsigned int i=0;i<node->childNodes.size();i++) {
+		maxlvl = max(maxlvl, maxLevel(node->childNodes[i])+1);
+	}
+	return maxlvl;
+}
+
+int calcChildLeafs(TreeNode *node){
+	int childLeafs = 0;
+	for(unsigned int i=0;i<node->childNodes.size();i++) {
+		childLeafs += calcChildLeafs(node->childNodes[i]); //vratime soucet ve vsech potomcich
+	}
+	node->param.childLeafs = childLeafs;
+	if(node->childNodes.size() == 0){ //sami jsme listem, vratime 1
+		return 1;
+	}else{
+		return childLeafs;
+	}
 }
