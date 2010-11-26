@@ -12,7 +12,7 @@ void putpixel(char* canvas, size_t width, size_t height, size_t x, size_t y, cha
 
 void drawline(char* canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, char pixel) {
 	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
-	if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 || abs(x1) >= width || abs(x2) >= width || abs(y1) >= height || abs(y2) >= height) {
+	if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 || (size_t) abs(x1) >= width || (size_t) abs(x2) >= width || (size_t) abs(y1) >= height || (size_t) abs(y2) >= height) {
 		std::cerr << "Oh, crap! Can't draw outside canvas!\n";	//FIXME
 		return;
 	}
