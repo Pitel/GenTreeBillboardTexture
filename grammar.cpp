@@ -26,7 +26,16 @@ void TreeNode::printTreeWithParams()
 }
 void TreeNode::printTreeGL()
 {
-	ofstream gldat;
+	ofstream gldat, glinitdat;
+	glinitdat.open("tree_init.glc");
+	boundingBox bounds = getBoundingBox(this);
+	glinitdat << "sxmin = " << bounds.minX << ";" << endl;
+	glinitdat << "sxmax = " << bounds.maxX << ";" << endl;
+	glinitdat << "symin = " << bounds.minY << ";" << endl;
+	glinitdat << "symax = " << bounds.maxY << ";" << endl;
+	glinitdat << "szmin = " << bounds.minZ << ";" << endl;
+	glinitdat << "szmax = " << bounds.maxZ << ";" << endl;
+	glinitdat.close();
 	gldat.open("tree.glc");
 	TreeNode::printNodes.push(this);
 	TreeNode::processPrintGL(&gldat);
