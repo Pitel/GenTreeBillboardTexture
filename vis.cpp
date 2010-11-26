@@ -6,16 +6,28 @@
 
 #define SWAP(a, b) a ^= b; b ^= a; a ^= b;
 
+int clamp(int val, int min, int max) {
+	if (val < min) {
+		return min;
+	} else if (val > max) {
+		return max;
+	}
+	return val;
+}
+
 void putpixel(char* canvas, size_t width, size_t height, size_t x, size_t y, char pixel) {
+	if (x >= width || y >= height) {
+		return;
+	}
 	*(canvas + x + y * width) = pixel;
 }
 
 void drawline(char* canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, char pixel) {
+	x1 = clamp(x1, 0, width - 1);
+	y1 = clamp(y1, 0, height - 1);
+	x2 = clamp(x2, 0, width - 1);
+	y2 = clamp(y2, 0, height - 1);
 	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
-	if (x1 < 0 || y1 < 0 || x2 < 0 || y2 < 0 || (size_t) abs(x1) >= width || (size_t) abs(x2) >= width || (size_t) abs(y1) >= height || (size_t) abs(y2) >= height) {
-		std::cerr << "Oh, crap! Can't draw outside canvas!\n";	//FIXME
-		return;
-	}
 	bool steep = abs(y1 - y2) > abs(x1 - x2);
 	if (steep) {
 		SWAP(x1, y1);
