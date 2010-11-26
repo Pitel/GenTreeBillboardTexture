@@ -23,11 +23,16 @@ void putpixel(char* canvas, size_t width, size_t height, size_t x, size_t y, cha
 }
 
 void drawline(char* canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, char pixel) {
+	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
+	
 	x1 = clamp(x1, 0, width - 1);
 	y1 = clamp(y1, 0, height - 1);
 	x2 = clamp(x2, 0, width - 1);
 	y2 = clamp(y2, 0, height - 1);
-	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
+	if (thickness < 1) {
+		thickness = 1;
+	}
+	
 	bool steep = abs(y1 - y2) > abs(x1 - x2);
 	if (steep) {
 		SWAP(x1, y1);
