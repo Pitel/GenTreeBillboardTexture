@@ -4,6 +4,7 @@ CXXFLAGS=-O2 -Wall -Wextra  -pedantic-errors  -pipe -march=native -g
 
 # -pedantic-errors - oddelana kvuli variable length array error
 CXXFLAGS_GUI=-O2 -Wall -Wextra -pedantic -pipe -march=native -g `pkg-config --cflags --libs gtk+-2.0`
+CXXFLAGS_SDL=-O2 -Wall -Wextra -pedantic -pipe -march=native -g `sdl-config --cflags --libs` `pkg-config SDL_image  --cflags  --libs`
 
 OBJS=GenTreeBillboardTexture.o grammar.o param.o rules.o vis.o
 
@@ -28,7 +29,7 @@ $(PROG): $(PROG).cpp $(OBJS)
 
 gui: demo_gui.cpp demo_sdl.cpp $(OBJS)
 	$(CXX) $(OBJS) $(CXXFLAGS_GUI) demo_gui.cpp -o demo_gui
-	$(CXX) $(OBJS) $(CXXFLAGS) `sdl-config --cflags --libs` `pkg-config SDL_image  --cflags  --libs`  demo_sdl.cpp -o demo_sdl
+	$(CXX) $(OBJS) $(CXXFLAGS_SDL) demo_sdl.cpp -o demo_sdl
 
 clean:
 	$(RM) *.o xlogin00.zip *.xpm $(PROG) $(PROG)_gui $(PROG)_sdl
