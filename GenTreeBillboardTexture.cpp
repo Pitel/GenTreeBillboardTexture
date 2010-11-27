@@ -6,7 +6,7 @@ void GenTreeBillboardTexture(char *data, size_t width, size_t height, unsigned i
 	tree->printTree();
 	
 	GenTreeBillboardTexture_parametrize(tree, PTREE_1, seed);
-	tree->printTreeWithParams();
+	//tree->printTreeWithParams();
 	tree->printTreeGL();
 	
 	GenTreeBillboardTexture_visualize(data, width, height, tree);
