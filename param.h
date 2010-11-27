@@ -3,6 +3,8 @@
 
 #include <cstring>
 #include <sstream>
+#include <queue>
+#include <cmath>
 
 typedef struct {
 	float r; //delka vektoru
@@ -11,11 +13,18 @@ typedef struct {
 	operator std::string(){  std::stringstream tmp; tmp << "[r=" << r << ",θ=" << theta << ",φ=" << phi << "]"; return tmp.str(); } //osklive to je, ale je to jen pro debug vypisy
 } sphericCoords;
 
-typedef struct {
+typedef struct cartesianCoords {
 	float x;
 	float y;
 	float z;
 	operator std::string(){ std::stringstream tmp; tmp << "[" << x << "," << y << "," << z << "]"; return tmp.str(); }
+	cartesianCoords(){ x=0.0f; y=0.0f; z=0.0f; }
+	float distanceFrom(cartesianCoords target){
+		double xd = this->x-target.x;
+		double yd = this->y-target.y;
+		double zd = this->z-target.z;
+		return sqrt(xd*xd + yd*yd + zd*zd);
+	}
 } cartesianCoords;
 
 typedef struct d{
@@ -56,7 +65,7 @@ enum PTreeType {PTREE_1, PTREE_COUNT}; //PTREE_COUNT znaci pocet typu stromu, te
 typedef struct {
 	void (*branchLengthFunc)(TreeNode *, int);
 	void (*branchThicknessFunc)(TreeNode *, int);
-	void (*branchDirectionFunc)(TreeNode *);
+	void (*branchDirectionFunc)(TreeNode *, cartesianCoords);
 } treeParams;
 
 typedef struct {
@@ -72,14 +81,15 @@ typedef struct {
 //funkce konkretniho stromu
 void branchLengthTree1(TreeNode *current, int maxlevel);
 void branchThicknessTree1(TreeNode *current, int maxlevel);
-void branchDirectionTree1(TreeNode *current);
+void branchDirectionTree1(TreeNode *current, cartesianCoords treetopCenter);
 
 //asociace funkci pro parametrizaci ke konkretnimu typu stromu (dle poradi v PTreeType)
 extern const treeParams treeBuilders[PTREE_COUNT];
 
 void GenTreeBillboardTexture_parametrize(TreeNode *node, PTreeType treeType, int seed = 0);
 
-void parametrizeNode(TreeNode *node, PTreeType treeType, int level, int maxlevel);
+void parametrizeNodes(queue<TreeNode*> *processNodes, PTreeType treeType, int maxlevel, cartesianCoords treetopCenter, int treetopBranchCount);
+void parametrizeNode(TreeNode *node, PTreeType treeType, int maxlevel, cartesianCoords treetopCenter);
 boundingBox getBoundingBox(TreeNode *node);
 boundingBox combineBoundingBoxes(boundingBox bb1, boundingBox bb2);
 

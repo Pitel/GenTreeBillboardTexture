@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "param.h"
 #include <cmath>
+#include <queue>
 
 const treeParams treeBuilders[PTREE_COUNT] = {
    /* PTREE_1 */ {branchLengthTree1, branchThicknessTree1, branchDirectionTree1}
@@ -11,23 +12,64 @@ void GenTreeBillboardTexture_parametrize(TreeNode *tree, PTreeType treeType, int
 	srand(seed); //zinicializujeme rand
 	int maxlvl = maxLevel(tree);
 	calcChildLeafs(tree); //nechame spocitat pocty listu v kazde vetvi
-	parametrizeNode(tree, treeType, 1, maxlvl);
+	queue<TreeNode *> processNodes;
+	processNodes.push(tree);
+	tree->param.level = 1;
+	cartesianCoords treetopCenter;
+	parametrizeNodes(&processNodes, treeType, maxlvl, treetopCenter, 0);
 	return;
 }
 
-void parametrizeNode(TreeNode *node, PTreeType treeType, int level, int maxlevel) {
-	//nejprve parametrizace daneho uzlu
-	node->param.level = level;
+void parametrizeNodes(queue<TreeNode*> *processNodes, PTreeType treeType, int maxlevel, cartesianCoords treetopCenter, int treetopBranchCount) {
+	int size = processNodes->size();
+	cout << "old: " << (string)treetopCenter << endl;
+	cartesianCoords newTreetopCenter = treetopCenter;
+	newTreetopCenter.x *= treetopBranchCount;
+	newTreetopCenter.y *= treetopBranchCount;
+	newTreetopCenter.z *= treetopBranchCount;
+	for(int i = 0;i < size;i++) {
+		TreeNode* node = processNodes->front();
+		processNodes->pop();
 
+		//nechame oparatemtrizovat
+		parametrizeNode(node, treeType, maxlevel, treetopCenter);
+
+		//nejake vypocty co se koruny tyce
+		treetopBranchCount++; //navysime pocet vetvi v korune
+		if(node->parentNode != NULL){
+			newTreetopCenter.x += (node->parentNode->param.branchEnd.x+node->param.branchEnd.x)/2.0;
+			newTreetopCenter.y += (node->parentNode->param.branchEnd.y+node->param.branchEnd.y)/2.0;
+			newTreetopCenter.z += (node->parentNode->param.branchEnd.z+node->param.branchEnd.z)/2.0;
+		}else{
+			newTreetopCenter.x += node->param.branchEnd.x/2.0;
+			newTreetopCenter.y += node->param.branchEnd.y/2.0;
+			newTreetopCenter.z += node->param.branchEnd.z/2.0;
+		}
+
+		//pridame ke zpracovani vsechny potomky
+		for(unsigned int j=0;j<node->childNodes.size();j++) {
+			node->childNodes[j]->param.level = node->param.level+1;
+			processNodes->push(node->childNodes[j]);
+		}
+	}
+
+	newTreetopCenter.x /= treetopBranchCount;
+	newTreetopCenter.y /= treetopBranchCount;
+	newTreetopCenter.z /= treetopBranchCount;
+
+	cout << "new: " << (string)newTreetopCenter << endl;
+	if(processNodes->size() != 0) {
+		parametrizeNodes(processNodes, treeType, maxlevel, newTreetopCenter, treetopBranchCount);
+	}
+}
+void parametrizeNode(TreeNode *node, PTreeType treeType, int maxlevel, cartesianCoords treetopCenter){
+	//parametrizace daneho uzlu
 	//zavolame prislusne funkce parametrizujici v danem typu stromu
 	treeBuilders[treeType].branchLengthFunc(node, maxlevel);
 	treeBuilders[treeType].branchThicknessFunc(node, maxlevel);
-	treeBuilders[treeType].branchDirectionFunc(node);
+	treeBuilders[treeType].branchDirectionFunc(node, treetopCenter);
 
 	//pote nechame projit vsechny potomky
-	for(unsigned int i=0;i<node->childNodes.size();i++) {
-		parametrizeNode(node->childNodes[i], treeType, level+1, maxlevel);
-	}
 	if(node->childNodes.size() == 0){
 		node->param.leafs = 0.5; //koncova vetev, dame ji nejake listy
 	}else{
@@ -56,7 +98,7 @@ void branchThicknessTree1(TreeNode *current, int maxlevel) {
 	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0025;
 }
 
-void branchDirectionTree1(TreeNode *current) {
+void branchDirectionTree1(TreeNode *current, cartesianCoords treetopCenter) {
 	bool regenerate = false;
 	int attempts = 0;
 	int maxattempts = 5;
@@ -83,147 +125,59 @@ void branchDirectionTree1(TreeNode *current) {
 			}
 			current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
 		}
-		//delku vetve spocitame z levelu
+		
+		//TODO: odstranit test
+		//test
+		//current->param.relativeVector.theta = 0.1;
+		//current->param.relativeVector.phi = 0.4;
+		//test - konec
+		
 		fillAbsoluteVector(current); //pocita se s tim, ze delka vetve uz je nastavena
 
 		if(current->param.absoluteVector.theta >= M_PI*(90.0/180.0) && current->param.absoluteVector.theta <= M_PI*(270.0/180.0)){ //veteve vede smerem dolu, nechame pregenerovat
-			if(uniformRandom(0.0, 1.0) >= 0.4){ //se 60% pravdepodobnosti nechame takovou vetev pregenerovat
+			if(uniformRandom(0.0, 1.0) >= 0.3){ //se 70% pravdepodobnosti nechame takovou vetev pregenerovat
 				//pokud nechceme vetve dolu, odkomentovat nasledujici radek, pokud ano, zakomentovat
 				regenerate = true;
+			}
+		}
+		if(current->parentNode != NULL){ //pokud to neni rodicovsky prvek, zkontrolujeme, jestli nemiri smerem do koruny
+			if(current->param.branchEnd.distanceFrom(treetopCenter) < current->parentNode->param.branchEnd.distanceFrom(treetopCenter)){ //pokud je vzdalenost konce vetve od stredu koruny mensi nez vzdalenost zacatku vetve od stredu koruny, pak vetev miri dovnitr koruny
+				if(uniformRandom(0.0, 1.0) >= 0.3){ //se 70% pravdepodobnosti nechame takovou vetev pregenerovat
+					regenerate = true;
+				}
 			}
 		}
 	}while(regenerate == true && attempts < maxattempts);
 }
 
 void fillAbsoluteVector(TreeNode *current) {
-	//TODO: pouzit maticove operace, tj. asi glm
 	//nejdriv si prevedeme relativni na kartezske
-/*
-double ax = 0.0, ay = 0.0, az = 1.0;
-double r = 1.0;
-double phi = 1.2;
-double theta = 1.0;
-double bx = r*sin(theta)*cos(phi);
-double by = r*sin(theta)*sin(phi);
-double bz = r*cos(theta);
-
-double cx = ax*cos(theta) + az*sin(theta);
-double cy = ay;
-double cz = -ax*sin(theta) + az*cos(theta);
-
-double dx = cx*cos(phi) - cy*sin(phi);
-double dy = cx*sin(phi) + cy*cos(phi);
-double dz = cz;
-cout << "[" << ax << ", " << ay << ", " << az << "]";
-cout << "[" << bx << ", " << by << ", " << bz << "]";
-cout << "[" << cx << ", " << cy << ", " << cz << "]";
-cout << "[" << dx << ", " << dy << ", " << dz << "]";
-exit(1);
-*/
 
 	double rx = current->param.relativeVector.r*sin(current->param.relativeVector.theta)*cos(current->param.relativeVector.phi);
 	double ry = current->param.relativeVector.r*sin(current->param.relativeVector.theta)*sin(current->param.relativeVector.phi);
 	double rz = current->param.relativeVector.r*cos(current->param.relativeVector.theta);
 
 	if(current->parentNode != NULL){ //pokud mame rodice, je dany vektor relativni k rodicovskemu, tj je nutno prepocitat
-		//provedeme rotaci podle absolutniho vektoru rodice (pokud nejaky je) - tim si upravime souradny system tak, aby osa Y smerovala stejne, jako dany vektor
-/*
-		//nejprve rotace kolem osy Y
-		double tyx = rx*cos(current->parentNode->param.absoluteVector.theta) + rz*sin(current->parentNode->param.absoluteVector.theta);
-		double tyy = ry;
-		double tyz = -rx*sin(current->parentNode->param.absoluteVector.theta) + rz*cos(current->parentNode->param.absoluteVector.theta);
+		//provedeme rotaci podle absolutniho vektoru rodice (pokud nejaky je) - tim si upravime souradny system tak, aby osa Z smerovala stejne, jako dany vektor
+		//1. rotace kolem Y dle rodice
+		double r2x = rx*cos(current->parentNode->param.absoluteVector.theta) + rz*sin(current->parentNode->param.absoluteVector.theta);
+		double r2y = ry;
+		double r2z = -rx*sin(current->parentNode->param.absoluteVector.theta) + rz*cos(current->parentNode->param.absoluteVector.theta);
 
-		//potom rotace kolem osy Z
-		double tzx = tyx*cos(current->parentNode->param.absoluteVector.phi) - tyy*sin(current->parentNode->param.absoluteVector.phi);
-		double tzy = tyx*sin(current->parentNode->param.absoluteVector.phi) + tyy*cos(current->parentNode->param.absoluteVector.phi);
-		double tzz = tyz;
-
-		double finx = tzx;
-		double finy = tzy;
-		double finz = tzz;
-
-		//mame vysledne kartezske souradnice relativni ke smeru predchozi vetve
-		//spocitame jeste absolutni vektor
-
-		current->param.absoluteVector.r = sqrt(finx*finx+finy*finy+finz*finz);
-		current->param.absoluteVector.theta = acos(finz/sqrt(finx*finx+finy*finy+finz*finz));
-		current->param.absoluteVector.phi = atan2(finy, finx);
-*/
-//TODO: toto neni dobre, chce to otocit podle otocenych os
-/*
-		current->param.absoluteVector.r = current->param.relativeVector.r;
-		current->param.absoluteVector.phi = current->parentNode->param.absoluteVector.phi+current->param.relativeVector.phi;
-		current->param.absoluteVector.theta = current->parentNode->param.absoluteVector.theta+current->param.relativeVector.theta;
-
-		//trosku to znormalizujeme, at nemame zbytecne uhly -4PI napr.
-		if(current->param.absoluteVector.phi >= M_PI*2.0){
-			current->param.absoluteVector.phi = fmod(current->param.absoluteVector.phi, float(M_PI*2.0));
-		}else if(current->param.absoluteVector.phi <= 0.0){
-			current->param.absoluteVector.phi = fmod(current->param.absoluteVector.phi, float(M_PI*2.0))+M_PI*2.0;
-		}
-		if(current->param.absoluteVector.theta >= M_PI*2.0){
-			current->param.absoluteVector.theta = fmod(current->param.absoluteVector.theta, float(M_PI*2.0));
-		}else if(current->param.absoluteVector.theta <= 0.0){
-			current->param.absoluteVector.theta = fmod(current->param.absoluteVector.theta, float(M_PI*2.0))+M_PI*2.0;
-		}
-		rx = current->param.absoluteVector.r*sin(current->param.absoluteVector.theta)*cos(current->param.absoluteVector.phi);
-		ry = current->param.absoluteVector.r*sin(current->param.absoluteVector.theta)*sin(current->param.absoluteVector.phi);
-		rz = current->param.absoluteVector.r*cos(current->param.absoluteVector.theta);
-
-		current->param.branchEnd.x = current->parentNode->param.branchEnd.x+rx;
-		current->param.branchEnd.y = current->parentNode->param.branchEnd.y+ry;
-		current->param.branchEnd.z = current->parentNode->param.branchEnd.z+rz;
-*/
-		//TODO: porad to patrne neni uplne spravne, zkontrolovat prevod zpet na sfericke
-		//vychozi souradnice
-		double r0x = 0.0;
-		double r0y = 0.0;
-		double r0z = current->param.relativeVector.r;
-		//1. rotace kolem Y rodice, ktery je otoceny o Z
-		//1. a) rotace kolem aktualni Y
-		double r1x = r0x*cos(current->param.relativeVector.theta) + r0z*sin(current->param.relativeVector.theta);
-		double r1y = r0y;
-		double r1z = -r0x*sin(current->param.relativeVector.theta) + r0z*cos(current->param.relativeVector.theta);
-
-		//1. b)rotace kolem osy Z rodice
-		//double r2x = r1x*cos(current->parentNode->param.relativeVector.phi) - r1y*sin(current->parentNode->param.relativeVector.phi);
-		//double r2y = r1x*sin(current->parentNode->param.relativeVector.phi) + r1y*cos(current->parentNode->param.relativeVector.phi);
-		//double r2z = r1z;
-
-		//2. rotace kolem rodice
-		//2. a) rotace kolem Z dle rodice, inverzni, tedy anuluje 1. b)
-		//2. b) rotace kolem Y rodice, inverzni
-		double r2bx = r1x*cos(-current->parentNode->param.relativeVector.theta) + r1z*sin(-current->parentNode->param.relativeVector.theta);
-		double r2by = r1y;
-		double r2bz = -r1x*sin(-current->parentNode->param.relativeVector.theta) + r1z*cos(-current->parentNode->param.relativeVector.theta);
-
-		//2. c) rotace kolem Z
-		double r2cx = r2bx*cos(current->param.relativeVector.phi) - r2by*sin(current->param.relativeVector.phi);
-		double r2cy = r2bx*sin(current->param.relativeVector.phi) + r2by*cos(current->param.relativeVector.phi);
-		double r2cz = r2bz;
-
-		//2. d) rotace kolem Y rodice, inverzni
-		double r2dx = r2cx*cos(current->parentNode->param.relativeVector.theta) + r2cz*sin(current->parentNode->param.relativeVector.theta);
-		double r2dy = r2cy;
-		double r2dz = -r2cx*sin(current->parentNode->param.relativeVector.theta) + r2cz*cos(current->parentNode->param.relativeVector.theta);
-
-		//2. c) rotace kolem Z rodice
-		double r2ex = r2dx*cos(current->parentNode->param.relativeVector.phi) - r2dy*sin(current->parentNode->param.relativeVector.phi);
-		double r2ey = r2dx*sin(current->parentNode->param.relativeVector.phi) + r2dy*cos(current->parentNode->param.relativeVector.phi);
-		double r2ez = r2dz;
+		//2. rotace kolem Z dle rodice
+		double r3x = r2x*cos(current->parentNode->param.absoluteVector.phi) - r2y*sin(current->parentNode->param.absoluteVector.phi);
+		double r3y = r2x*sin(current->parentNode->param.absoluteVector.phi) + r2y*cos(current->parentNode->param.absoluteVector.phi);
+		double r3z = r2z;
 
 		//3. prevod na sfericke souradnice
-		double finx = r2ex;
-		double finy = r2ey;
-		double finz = r2ez;
-		current->param.absoluteVector.r = sqrt(finx*finx+finy*finy+finz*finz);
-		current->param.absoluteVector.theta = acos(finz/sqrt(finx*finx+finy*finy+finz*finz));
-		current->param.absoluteVector.phi = atan2(finy, finx);
+		current->param.absoluteVector.r = sqrt(r3x*r3x+r3y*r3y+r3z*r3z);
+		current->param.absoluteVector.theta = acos(r3z/sqrt(r3x*r3x+r3y*r3y+r3z*r3z));
+		current->param.absoluteVector.phi = atan2(r3y, r3x);
 
 		//dosazeni koncovych souradnic
-		current->param.branchEnd.x = current->parentNode->param.branchEnd.x+finx;
-		current->param.branchEnd.y = current->parentNode->param.branchEnd.y+finy;
-		current->param.branchEnd.z = current->parentNode->param.branchEnd.z+finz;
+		current->param.branchEnd.x = current->parentNode->param.branchEnd.x+r3x;
+		current->param.branchEnd.y = current->parentNode->param.branchEnd.y+r3y;
+		current->param.branchEnd.z = current->parentNode->param.branchEnd.z+r3z;
 	}else{ //jinak je uvidni smer [1,0,0], takze je vypocet vyrazne jednodussi
 		current->param.absoluteVector.r = current->param.relativeVector.r;
 		current->param.absoluteVector.theta = current->param.relativeVector.theta;
