@@ -25,6 +25,10 @@ float rx = 0.0f, ry = -90.0f, pz = 3.0f;
 float sxmin = 0.0, symin = 0.0, szmin = 0.0;
 float sxmax = 0.0, symax = 0.0, szmax = 0.0;
 
+int depth = 40;
+int seed = 23505;
+bool isHoldKey = false;
+SDLKey holdKey = SDLK_ESCAPE;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////
 // Shaders
@@ -40,12 +44,30 @@ float sxmax = 0.0, symax = 0.0, szmax = 0.0;
 TreeNode *mytree;
 queue<TreeNode*> printNodes;
 
+void newTree(int depth, int seed){
+	mytree = GenTreeBillboardTexture_grammar("tree1", depth, seed);  // args: name, iteration, seed
+	GenTreeBillboardTexture_parametrize(mytree, PTREE_1, seed);
+}
+
 void onInit()
 {
 }
 
 void onWindowRedraw()
 {
+	if(isHoldKey == true){
+		switch(holdKey) {
+			case SDLK_ESCAPE : quit(); break;
+			case SDLK_1 : depth = depth+1; newTree(depth, seed); break;
+			case SDLK_2 : depth = max(0, depth-1); newTree(depth, seed); break;
+			case SDLK_3 : depth = max(1, depth*2); newTree(depth, seed); break;
+			case SDLK_4 : depth = depth/2; newTree(depth, seed); break;
+			case SDLK_5 : seed = rand(); newTree(depth, seed); break;
+						  //        case SDLK_3 : mode = 2; redraw(); break;
+						  //        case SDLK_4 : mode = 3; redraw(); break;
+			default : break;//nothing-doing defaut to shut up warning
+		}
+	}
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glEnable(GL_DEPTH_TEST);
@@ -120,16 +142,15 @@ void onWindowResized(int w, int h)
 
 void onKeyDown(SDLKey key, Uint16 /*mod*/)
 {
-    switch(key) {
-        case SDLK_ESCAPE : quit(); break;
-//        case SDLK_3 : mode = 2; redraw(); break;
-//        case SDLK_4 : mode = 3; redraw(); break;
-        default : break;//nothing-doing defaut to shut up warning
-    }
+	holdKey = key;
+	isHoldKey = true;
+	onWindowRedraw();
 }
 
-void onKeyUp(SDLKey /*key*/, Uint16 /*mod*/)
+void onKeyUp(SDLKey key, Uint16 /*mod*/)
 {
+	isHoldKey = false;
+	onWindowRedraw();
 }
 
 void onMouseMove(unsigned /*x*/, unsigned /*y*/, int xrel, int yrel, Uint8 buttons)
@@ -168,8 +189,6 @@ void onMouseUp(Uint8 /*button*/, unsigned /*x*/, unsigned /*y*/)
 
 int main(int argc, char *argv[])
 {
-	int depth = 40;
-	int seed = 23505;
 
 	if(argc >= 2){
 		stringstream seedss(argv[1]);
@@ -182,9 +201,7 @@ int main(int argc, char *argv[])
 		depths >> depth;
 	}
 
-	mytree = GenTreeBillboardTexture_grammar("tree1", depth, seed);  // args: name, iteration, seed
-
-	GenTreeBillboardTexture_parametrize(mytree, PTREE_1, seed);
+	newTree(depth, seed);
 
 	try {
 		// Init SDL - only video subsystem will be used
@@ -195,7 +212,7 @@ int main(int argc, char *argv[])
 
         init(800, 600, 24, 24, 0);
 
-        mainLoop();
+        mainLoop(100);
 
     } catch(exception & ex) {
         cout << "ERROR : " << ex.what() << endl;
