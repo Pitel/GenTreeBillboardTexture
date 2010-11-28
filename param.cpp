@@ -77,7 +77,7 @@ void parametrizeNode(TreeNode *node, PTreeType treeType, int maxlevel, cartesian
 
 void branchLengthTree1(TreeNode *current, int maxlevel) {
 	//delku vetve spocitame z levelu
-	current->param.relativeVector.r = uniformRandom(0.7, 1.3)/(current->param.level+2.0);
+	current->param.relativeVector.r = 0.04*uniformRandom(0.7, 1.3)*(1.0+maxlevel)/current->param.level;
 }
 void branchThicknessTree1(TreeNode *current, int maxlevel) {
 	//tloustku vetve spocitame z levelu
