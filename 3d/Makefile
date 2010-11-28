@@ -22,7 +22,8 @@ CXXFLAGS=$(CFLAGS)
 
 3D=$(PROG)
 
-DEPS=pgr.o GLee.o ../grammar.o ../param.o ../rules.o
+DEPS=pgr.o GLee.o
+DFILES=../grammar.o ../param.o ../rules.o ../vis.o
 
 .PHONY: all clean
 
@@ -41,7 +42,7 @@ clean:
 #%.o: %.cpp
 #	$(CXX) -c -o $@ $^ $(CFLAGS)
 
-$(PROG): $(PROG).cpp
+$(PROG): $(PROG).cpp $(DFILES)
 	$(CXX) -o $@ $^ $(CFLAGS) $(LIBS) $(DEPS)
 
 ##################################################
