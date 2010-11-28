@@ -34,11 +34,9 @@ class TreeNode
 
         void printTree();
         void printTreeWithParams();
-        void printTreeGL();
         
 		static void processPrint();
 		static void processPrintWithParams();
-		static void processPrintGL(ofstream *gldat);
 };
 
 //

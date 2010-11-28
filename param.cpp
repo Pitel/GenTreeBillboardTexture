@@ -22,7 +22,6 @@ void GenTreeBillboardTexture_parametrize(TreeNode *tree, PTreeType treeType, int
 
 void parametrizeNodes(queue<TreeNode*> *processNodes, PTreeType treeType, int maxlevel, cartesianCoords treetopCenter, int treetopBranchCount) {
 	int size = processNodes->size();
-	cout << "old: " << (string)treetopCenter << endl;
 	cartesianCoords newTreetopCenter = treetopCenter;
 	newTreetopCenter.x *= treetopBranchCount;
 	newTreetopCenter.y *= treetopBranchCount;
@@ -57,7 +56,6 @@ void parametrizeNodes(queue<TreeNode*> *processNodes, PTreeType treeType, int ma
 	newTreetopCenter.y /= treetopBranchCount;
 	newTreetopCenter.z /= treetopBranchCount;
 
-	cout << "new: " << (string)newTreetopCenter << endl;
 	if(processNodes->size() != 0) {
 		parametrizeNodes(processNodes, treeType, maxlevel, newTreetopCenter, treetopBranchCount);
 	}
