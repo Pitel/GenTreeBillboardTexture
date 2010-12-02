@@ -9,7 +9,7 @@
 #include "GenTreeBillboardTexture.h"
 
 #define SDL_SUBSYSTEMS SDL_INIT_VIDEO
-#define WIN_FLAGS SDL_HWSURFACE|SDL_RESIZABLE
+#define WIN_FLAGS SDL_HWSURFACE |SDL_RESIZABLE
 #define WIN_BPP 0
 
 
@@ -20,6 +20,8 @@ unsigned int depth = 40;
 
 bool use_sdlsurface = false;
 
+SDL_Color tree;
+SDL_Color leaf;
 
 SDL_Surface *window;
 SDL_Surface *tree_texture;  // Vygenerovany strom
@@ -47,9 +49,10 @@ bool Init()
 
 	SDL_WM_SetCaption("GenTreeBillboardTexture - SDL", NULL);
 
+	SDL_FillRect(window, NULL, SDL_MapRGB(window->format, 255, 0, 255));
 
     //Pouzije se SDL_surface
-        
+
         tree_texture = SDL_CreateRGBSurface(
                 SDL_SWSURFACE,
                 width, height, 32,
@@ -65,9 +68,9 @@ bool Init()
                 0x000000FF
 #endif
                 );
-                
-		GenTreeBillboardTexture(tree_texture, width, height, seed, depth);
-   
+
+		GenTreeBillboardTexture(tree_texture, width, height, seed, depth, tree, leaf);
+
 	return true;
 }
 
@@ -151,7 +154,6 @@ int main(int argc, char *argv[])
 
     if(argc == 5)
     {
-
         width = atoi(argv[1]);
         height = atoi(argv[2]);
         seed = atoi(argv[3]);
