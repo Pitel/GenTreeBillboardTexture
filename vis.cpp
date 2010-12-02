@@ -25,8 +25,7 @@ void putpixel(SDL_Surface* canvas, size_t width, size_t height, size_t x, size_t
 }
 */
 
-void putpixel(SDL_Surface *surface, int x, int y, Uint8 r, Uint8 g, Uint8 b)
-{
+void putpixel(SDL_Surface *surface, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
 	// Presahuje rozmery surface, zapis do neplatne pameti
 	if(x >= surface->w || y >= surface->h)
 		return;
@@ -117,7 +116,6 @@ void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, 
 
 void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t height, TreeNode* tree) {
 	std::clog << "Visualizing tree...\n";
-	memset(data, '.', width * height);
 	
 	boundingBox bounds = getBoundingBox(tree);
 	//std::clog << "Bounds: " << (std::string)(bounds) << '\n';
@@ -137,6 +135,7 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 		scale = width / treeWidth;
 	}
 	
+	putpixel(data, 10, 10, 255, 0, 0);
 	/*
 	queue<TreeNode*> q;
 	q.push(tree);
