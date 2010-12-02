@@ -158,7 +158,8 @@ int main(int argc, char *argv[])
         height = atoi(argv[2]);
         seed = atoi(argv[3]);
         depth = atoi(argv[4]);
-
+/*
+        std::cout << std::endl << "**** demo_sdl ****" << std::endl;
         std::cout << "ARGV: "<< argv[1] << std::endl;
         std::cout << "ARGV: "<< argv[2] << std::endl;
         std::cout << "ARGV: "<< argv[3] << std::endl;
@@ -168,7 +169,7 @@ int main(int argc, char *argv[])
         std::cout << "ARGV: "<< argv[7] << std::endl;
         std::cout << "ARGV: "<< argv[8] << std::endl;
         std::cout << "ARGV: "<< argv[9] << std::endl;
-        std::cout << "ARGV: "<< argv[10] << std::endl;
+        std::cout << "ARGV: "<< argv[10] << std::endl;*/
 
         trunk.r = atoi(argv[5]);
         trunk.g = atoi(argv[6]);

@@ -71,7 +71,7 @@ color_select (GtkWidget *widget, gpointer data)
       if (colorseldlg == NULL)
         colorseldlg = gtk_color_selection_dialog_new ("Select color");
 
-        cout << "SELEEECT" << endl;
+     //   cout << "SELEEECT" << endl;
       /* Get the ColorSelection widget */
       colorsel = GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (colorseldlg)->colorsel);
 
@@ -87,14 +87,12 @@ color_select (GtkWidget *widget, gpointer data)
         gtk_color_selection_get_current_color (colorsel, tmp);
       /*  cout << (tmp->red) << endl;
         cout << (tmp->green) << endl;
-        cout << (tmp->blue) << endl;*/
+        cout << (tmp->blue) << endl;
 
         cout << IntToChar(tmp->red >> 8) << endl;
         cout << IntToChar(tmp->green >> 8) << endl;
-        cout << IntToChar(tmp->blue >> 8) << endl;
+        cout << IntToChar(tmp->blue >> 8) << endl;*/
       }
-     // else
-   //     gtk_widget_modify_bg (drawingarea, GTK_STATE_NORMAL, &color);
 
       gtk_widget_hide (colorseldlg);
 }
@@ -107,9 +105,16 @@ run_sdldemo_surface ( void )
     const gchar *seed_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_seed));
     const gchar *depth_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_depth));
 
+    std::string t_r = IntToChar(trunk_color.red >> 8);
+    std::string t_g = IntToChar(trunk_color.green >> 8);
+    std::string t_b = IntToChar(trunk_color.blue >> 8);
+    std::string l_r = IntToChar(leaf_color.red >> 8);
+    std::string l_g = IntToChar(leaf_color.green >> 8);
+    std::string l_b = IntToChar(leaf_color.blue >> 8);
+
     const gchar *gui_argv[12];
     GError *error;
-    /*
+/*
  cout << "RUN" << endl;
     cout << IntToChar(trunk_color.red) << endl;
         cout << IntToChar(trunk_color.green) << endl;
@@ -117,19 +122,20 @@ run_sdldemo_surface ( void )
 
     cout << IntToChar(leaf_color.red) << endl;
         cout << IntToChar(leaf_color.green) << endl;
-        cout << IntToChar(leaf_color.blue) << endl;*/
+        cout << IntToChar(leaf_color.blue) << endl;
 
+*/
     gui_argv[0] = "demo_sdl";
     gui_argv[1] = width_str;
     gui_argv[2] = height_str;
     gui_argv[3] = seed_str;
     gui_argv[4] = depth_str;
-    gui_argv[5] = IntToChar(trunk_color.red >> 8).c_str();
-    gui_argv[6] = IntToChar(trunk_color.green >> 8).c_str();
-    gui_argv[7] = IntToChar(trunk_color.blue >> 8).c_str();
-    gui_argv[8] = IntToChar(leaf_color.red >> 8).c_str();
-    gui_argv[9] = IntToChar(leaf_color.green >> 8).c_str();
-    gui_argv[10] = IntToChar(leaf_color.blue >> 8).c_str();
+    gui_argv[5] = t_r.c_str();
+    gui_argv[6] = t_g.c_str();
+    gui_argv[7] = t_b.c_str();
+    gui_argv[8] = l_r.c_str();
+    gui_argv[9] = l_g.c_str();
+    gui_argv[10] = l_b.c_str();
     gui_argv[11] = NULL;
 
 
