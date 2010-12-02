@@ -25,12 +25,13 @@ void putpixel(SDL_Surface* canvas, size_t width, size_t height, size_t x, size_t
 }
 */
 
-void putpixel(SDL_Surface *surface, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
+void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c) {
 	// Presahuje rozmery surface, zapis do neplatne pameti
-	if(x >= surface->w || y >= surface->h)
+	if (x >= abs(surface->w) || y >= abs(surface->h)) {
 		return;
+	}
 	
-	Uint32 color = SDL_MapRGB(surface->format, r, g, b);
+	Uint32 color = SDL_MapRGB(surface->format, c.r, c.g, c.b);
 	
 	switch(surface->format->BytesPerPixel) {
 		case 1:/* Assuming 8-bpp */
@@ -51,9 +52,9 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
 			{
 			Uint8 *bufp;
 			bufp = (Uint8 *)surface->pixels + y*surface->pitch + x*surface->format->BytesPerPixel;
-			*(bufp+surface->format->Rshift/8) = r;
-			*(bufp+surface->format->Gshift/8) = g;
-			*(bufp+surface->format->Bshift/8) = b;
+			*(bufp+surface->format->Rshift/8) = c.r;
+			*(bufp+surface->format->Gshift/8) = c.g;
+			*(bufp+surface->format->Bshift/8) = c.b;
 			}
 			break;
 		case 4:/* Probably 32-bpp */
@@ -66,7 +67,7 @@ void putpixel(SDL_Surface *surface, int x, int y, Uint8 r, Uint8 g, Uint8 b) {
 	}
 }
 
-void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, char pixel) {
+void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color color) {
 	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	
 	x1 = clamp(x1, 0, width - 1);
@@ -100,9 +101,9 @@ void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, 
 	for (int x = x1; x <= x2; x++) {
 		for (size_t t = thickness; t > 0; t--) {
 			if (steep) {
-				putpixel(canvas, width, height, y - thickness / 2 + t, x, pixel);
+				putpixel(canvas, y - thickness / 2 + t, x, color);
 			} else {
-				putpixel(canvas, width, height, x , y - thickness / 2 + t, pixel);
+				putpixel(canvas, x , y - thickness / 2 + t, color);
 			}
 		}
 		if (P >= 0) {
@@ -135,8 +136,10 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 		scale = width / treeWidth;
 	}
 	
-	putpixel(data, 10, 10, 255, 0, 0);
-	/*
+	SDL_Color color;
+	color.r = 255;
+	color.g = 255;
+	color.b = 255;
 	queue<TreeNode*> q;
 	q.push(tree);
 	while (!q.empty()) {
@@ -151,15 +154,13 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 			origin = node->parentNode->param.branchEnd;
 		}
 		
-		char pixel = '#';
-		
 		drawline(data, width, height,
 			(origin.x + abs(bounds.minX)) * scale + offset,
 			height - 1 - origin.z * scale,
 			(node->param.branchEnd.x + abs(bounds.minX)) * scale + offset,
 			height - node->param.branchEnd.z * scale,
 			node->param.thickness * scale,
-			pixel);
+			color);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
 			std::clog << "Pushing new node\n";
@@ -168,7 +169,7 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 		
 		q.pop();
 	}
-	*/
+	
 	std::clog << "Vis done!\n";
 	return;
 }
