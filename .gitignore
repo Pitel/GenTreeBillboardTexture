@@ -10,3 +10,7 @@ xlogin00.zip
 *.includes
 *.xpm
 *.glc
+doc/*.aux
+doc/*.pdf
+doc/*.log
+doc/*.out
