@@ -1,0 +1,50 @@
+\usepackage[czech]{babel}
+\usepackage[utf8]{inputenc}
+\usepackage{times}
+\usepackage{url}
+\usepackage[textwidth=15.2cm,textheight=23cm]{geometry}
+\usepackage{xcolor}
+
+\usepackage{graphicx}
+
+%\usepackage{fancyvrb}
+%\DefineVerbatimEnvironment{verbatim}{Verbatim}{}
+
+\usepackage[bf]{caption}
+
+\usepackage[hyperindex,
+  plainpages=false,
+  pdftex,
+  colorlinks,
+  pdfborder={0 0 0},
+  pdfpagelabels]{hyperref}
+
+\pdfcompresslevel=9
+
+\newcommand{\myincludegraphics}[4]{
+  \begin{figure}[!h]
+  \centering
+  \includegraphics[#1]{#2}
+  \caption{#3.} \label{#4}
+  \end{figure}
+}
+
+% titulní stránka a obsah
+\newcommand{\titlepageandcontents}{
+  \input{titlepage.tex}
+
+  \pagestyle{plain}
+  \pagenumbering{roman}
+  \setcounter{page}{1}
+  %\tableofcontents
+
+  \newpage
+  \pagestyle{plain}
+  \pagenumbering{arabic}
+  \setcounter{page}{1}
+}
+
+\def\uv#1{\iflanguage{english}{``#1''}%
+                              {\quotedblbase #1\textquotedblleft}}%
+
+% vim:set ft=tex expandtab enc=utf8:
