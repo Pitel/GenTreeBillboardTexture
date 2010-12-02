@@ -5,7 +5,6 @@
 #include <fstream>
 
 #include <SDL.h>
-#include <SDL_image.h>
 
 #include "GenTreeBillboardTexture.h"
 
@@ -24,57 +23,6 @@ bool use_sdlsurface = false;
 
 SDL_Surface *window;
 SDL_Surface *tree_texture;  // Vygenerovany strom
-
-
-void generate_xpm()
-{
-	char asciiart[height][width];
-	//char *asciiart = new char[int(height)];
-	ofstream xpm;
-	xpm.open("tree.xpm");
-	xpm << "/* XPM */\n";
-	xpm << "static char * tree[] = {\n";
-	xpm << '"' << width << ' ' << height << " 2 1\",\n";
-	xpm << "\"# c #000000\",\n";
-	xpm << "\". c #ffffff\",\n";
-
-	GenTreeBillboardTexture((char*)asciiart, width, height, seed, depth);
-
-	for (size_t y = 0; y < height; y++) {
-		xpm << '"';
-		for (size_t x = 0; x < width; x++) {
-			xpm << asciiart[y][x];
-		}
-		xpm << "\",\n";
-	}
-	xpm << '}';
-	xpm.close();
-}
-
-SDL_Surface *LoadImage(const char *filename, bool alpha = false);
-SDL_Surface *LoadImage(const char *filename, bool alpha)
-{
-	SDL_Surface *tmp;
-	SDL_Surface *ret;
-
-	if((tmp = IMG_Load(filename)) == NULL)
-	{
-		fprintf(stderr, "%s\n", SDL_GetError());
-		return NULL;
-	}
-
-	if((ret = (alpha) ? SDL_DisplayFormatAlpha(tmp)
-			: SDL_DisplayFormat(tmp)) == NULL)
-	{
-		fprintf(stderr, "%s\n", SDL_GetError());
-		SDL_FreeSurface(tmp);
-		return NULL;
-	}
-
-	SDL_FreeSurface(tmp);
-
-	return ret;
-}
 
 
 bool Init()
@@ -100,16 +48,7 @@ bool Init()
 	SDL_WM_SetCaption("GenTreeBillboardTexture - SDL", NULL);
 
 
-    if(!use_sdlsurface)
-    {
-        //Pouzije se pro sdl surface nacteni z obrazku...
-        generate_xpm();
-        if((tree_texture = LoadImage("tree.xpm")) == NULL)
-            return false;
-    }
-    else
-    {
-        //Pouzije se SDL_surface
+    //Pouzije se SDL_surface
         
         tree_texture = SDL_CreateRGBSurface(
                 SDL_SWSURFACE,
@@ -128,9 +67,7 @@ bool Init()
                 );
                 
 		GenTreeBillboardTexture(tree_texture, width, height, seed, depth);
-             //   SDL_FillRect(window, NULL, SDL_MapRGBA(window->format, 0, 0, 0, 100));
-    }
-
+   
 	return true;
 }
 
@@ -212,15 +149,13 @@ int main(int argc, char *argv[])
 
    //std::cout << "ARGV: "<< argv[0] << std::endl;
 
-    if(argc == 6)
+    if(argc == 5)
     {
-        if(!strcmp(argv[1],"sdl"))
-           use_sdlsurface = true;
 
-        width = atoi(argv[2]);
-        height = atoi(argv[3]);
-        seed = atoi(argv[4]);
-        depth = atoi(argv[5]);
+        width = atoi(argv[1]);
+        height = atoi(argv[2]);
+        seed = atoi(argv[3]);
+        depth = atoi(argv[4]);
     }
 
 

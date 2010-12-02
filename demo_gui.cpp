@@ -74,7 +74,7 @@ generate_tree ( void )
 	xpm << "\"# c #000000\",\n";
 	xpm << "\". c #ffffff\",\n";
 
-	GenTreeBillboardTexture((char*)asciiart, width, height, myseed, mydepth);
+	//GenTreeBillboardTexture((char*)asciiart, width, height, myseed, mydepth);
 
 	for (size_t y = 0; y < height; y++) {
 		xpm << '"';
@@ -136,16 +136,15 @@ run_sdldemo_surface ( void )
     const gchar *seed_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_seed));
     const gchar *depth_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_depth));
 
-    const gchar *gui_argv[7];
+    const gchar *gui_argv[6];
     GError *error;
 
     gui_argv[0] = "demo_sdl";
-    gui_argv[1] = "sdl";
-    gui_argv[2] = width_str;
-    gui_argv[3] = height_str;
-    gui_argv[4] = seed_str;
-    gui_argv[5] = depth_str;
-    gui_argv[6] = NULL;
+    gui_argv[1] = width_str;
+    gui_argv[2] = height_str;
+    gui_argv[3] = seed_str;
+    gui_argv[4] = depth_str;
+    gui_argv[5] = NULL;
 
     GSpawnFlags flag = G_SPAWN_CHILD_INHERITS_STDIN;
     error = NULL;
