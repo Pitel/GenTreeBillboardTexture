@@ -70,7 +70,7 @@ void drawline(char* canvas, size_t width, size_t height, int x1, int y1, int x2,
 	}
 }
 
-void GenTreeBillboardTexture_visualize(char* data, size_t width, size_t height, TreeNode* tree) {
+void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t height, TreeNode* tree) {
 	std::clog << "Visualizing tree...\n";
 	memset(data, '.', width * height);
 	

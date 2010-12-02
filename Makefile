@@ -1,6 +1,6 @@
 PROG=demo
 CXX=g++
-CXXFLAGS=-O2 -Wall -Wextra  -pedantic-errors  -pipe -march=native -g
+CXXFLAGS=-O2 -Wall -Wextra  -pedantic-errors  -pipe -march=native -g `sdl-config --cflags --libs` 
 
 # -pedantic-errors - oddelana kvuli variable length array error
 CXXFLAGS_GUI=-O2 -Wall -Wextra -pedantic -pipe -march=native -g `pkg-config --cflags --libs gtk+-2.0`
@@ -30,6 +30,7 @@ $(PROG): $(PROG).cpp $(OBJS)
 	$(CXX) $(OBJS) $(CXXFLAGS) $(PROG).cpp -o $@
 
 gui: demo_gui.cpp demo_sdl.cpp $(OBJS)
+	echo ">>>>>>>>>>>>>>>>>>>> gui"
 	$(CXX) $(OBJS) $(CXXFLAGS_GUI) demo_gui.cpp -o demo_gui
 	$(CXX) $(OBJS) $(CXXFLAGS_SDL) demo_sdl.cpp -o demo_sdl
 

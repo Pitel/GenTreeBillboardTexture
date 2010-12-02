@@ -110,6 +110,25 @@ bool Init()
     else
     {
         //Pouzije se SDL_surface
+        
+        tree_texture = SDL_CreateRGBSurface(
+                SDL_SWSURFACE,
+                width, height, 32,
+#if SDL_BYTEORDER == SDL_LIL_ENDIAN
+                0x000000FF,
+                0x0000FF00,
+                0x00FF0000,
+                0xFF000000
+#else
+                0xFF000000,
+                0x00FF0000,
+                0x0000FF00,
+                0x000000FF
+#endif
+                );
+                
+		GenTreeBillboardTexture(tree_texture, width, height, seed, depth);
+             //   SDL_FillRect(window, NULL, SDL_MapRGBA(window->format, 0, 0, 0, 100));
     }
 
 	return true;
