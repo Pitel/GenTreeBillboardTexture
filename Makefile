@@ -1,10 +1,8 @@
 PROG=demo
 CXX=g++
-CXXFLAGS=-O2 -Wall -Wextra  -pedantic-errors  -pipe -march=native -g `sdl-config --cflags --libs` 
-
-# -pedantic-errors - oddelana kvuli variable length array error
-CXXFLAGS_GUI=-O2 -Wall -Wextra -pedantic -pipe -march=native -g `pkg-config --cflags --libs gtk+-2.0` `sdl-config --cflags --libs`
-CXXFLAGS_SDL=-O2 -Wall -Wextra -pedantic -pipe -march=native -g `sdl-config --cflags --libs` `pkg-config SDL_image  --cflags  --libs`
+CXXFLAGS=-O2 -Wall -Wextra  -pedantic-errors  -pipe -march=native -g
+SDL=`sdl-config --cflags --libs`
+GTK=`pkg-config --cflags --libs gtk+-2.0`
 
 LATEX=pdfcslatex
 
@@ -15,8 +13,8 @@ OBJS=GenTreeBillboardTexture.o grammar.o param.o rules.o vis.o
 all: $(PROG)
 
 # Obecne pravidlo
-%.o: %.c
-	$(CXX) $(CXXFLAGS) -c $<
+%.o: %.cpp
+	$(CXX) $(CXXFLAGS) $(SDL) -c $<
 
 #Zavislosti (g++ -MM *.cpp)
 GenTreeBillboardTexture.o: GenTreeBillboardTexture.cpp GenTreeBillboardTexture.h param.h grammar.h rules.h vis.h
@@ -26,12 +24,9 @@ rules.o: rules.cpp rules.h
 vis.o: vis.cpp vis.h grammar.h rules.h param.h
 
 #Slinkovani
-$(PROG): $(PROG).cpp $(OBJS)
-	$(CXX) $(OBJS) $(CXXFLAGS) $(PROG).cpp -o $@
-
-gui: demo_gui.cpp demo_sdl.cpp $(OBJS)
-	$(CXX) $(OBJS) $(CXXFLAGS_GUI) demo_gui.cpp -o demo_gui
-	$(CXX) $(OBJS) $(CXXFLAGS_SDL) demo_sdl.cpp -o demo_sdl
+$(PROG): $(PROG)_gui.cpp $(PROG)_sdl.cpp $(OBJS)
+	$(CXX) $(OBJS) $(CXXFLAGS) $(GTK) $(SDL) $(PROG)_gui.cpp -o $(PROG)_gui
+	$(CXX) $(OBJS) $(CXXFLAGS) $(SDL) $(PROG)_sdl.cpp -o $(PROG)_sdl
 
 doc:
 	cd doc; $(LATEX) pgr.tex
