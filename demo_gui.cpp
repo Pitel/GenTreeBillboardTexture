@@ -92,6 +92,10 @@ color_select (GtkWidget *widget, gpointer data)
         cout << IntToChar(tmp->red >> 8) << endl;
         cout << IntToChar(tmp->green >> 8) << endl;
         cout << IntToChar(tmp->blue >> 8) << endl;*/
+
+
+        gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_trunk), GTK_STATE_NORMAL, &trunk_color);
+        gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_leaf), GTK_STATE_NORMAL, &leaf_color);
       }
 
       gtk_widget_hide (colorseldlg);
@@ -181,6 +185,7 @@ main ( int argc,  char **argv )
         return -1;
     }
 
+
     /* Obtain widgets that we need */
     guidialog.window = GTK_WIDGET ( gtk_builder_get_object( builder, "demo_gui" ));
     g_signal_connect (guidialog.window, "destroy", gtk_main_quit, NULL);
@@ -211,6 +216,12 @@ main ( int argc,  char **argv )
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_height), "512");
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_seed), "23505");
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_depth), "40");
+
+    gdk_color_parse ("brown", &trunk_color);
+    gdk_color_parse ("green", &leaf_color);
+
+    gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_trunk), GTK_STATE_NORMAL, &trunk_color);
+    gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_leaf), GTK_STATE_NORMAL, &leaf_color);
 
 
     /* Destroy builder */

@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <interface>
   <requires lib="gtk+" version="2.20"/>
   <!-- interface-naming-policy project-wide -->
@@ -13,7 +13,6 @@
     <child>
       <object class="GtkVBox" id="vbox1">
         <property name="visible">True</property>
-        <property name="orientation">vertical</property>
         <property name="spacing">4</property>
         <child>
           <object class="GtkLabel" id="label1">
@@ -68,7 +67,7 @@
               <object class="GtkEntry" id="width_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
+                <property name="invisible_char">●</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -79,7 +78,7 @@
               <object class="GtkEntry" id="height_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
+                <property name="invisible_char">●</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -114,7 +113,7 @@
               <object class="GtkEntry" id="seed_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
+                <property name="invisible_char">●</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -127,7 +126,7 @@
               <object class="GtkEntry" id="depth_entry">
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
-                <property name="invisible_char">&#x25CF;</property>
+                <property name="invisible_char">●</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -159,10 +158,11 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_trunk">
-                <property name="label" translatable="yes">Select trunk color</property>
+                <property name="label" translatable="yes">Select trunk's color</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
@@ -173,10 +173,11 @@
             </child>
             <child>
               <object class="GtkButton" id="btn_leaf">
-                <property name="label" translatable="yes">Select leaf color</property>
+                <property name="label" translatable="yes">Select leaf's color</property>
                 <property name="visible">True</property>
                 <property name="can_focus">True</property>
                 <property name="receives_default">True</property>
+                <property name="use_action_appearance">False</property>
               </object>
               <packing>
                 <property name="left_attach">1</property>
