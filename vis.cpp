@@ -68,7 +68,7 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color) {
 }
 
 void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color wood, SDL_Color leaf, size_t leafinterval) {
-	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
+	//std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	
 	x1 = clamp(x1, 0, width - 1);
 	y1 = clamp(y1, 0, height - 1);
@@ -125,7 +125,7 @@ void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, 
 }
 
 void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t height, TreeNode* tree, SDL_Color wood, SDL_Color leafs) {
-	std::clog << "Visualizing tree...\n";
+	//std::clog << "Visualizing tree...\n";
 	
 	boundingBox bounds = getBoundingBox(tree);
 	//std::clog << "Bounds: " << (std::string)(bounds) << '\n';
@@ -148,7 +148,7 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 	queue<TreeNode*> q;
 	q.push(tree);
 	while (!q.empty()) {
-		std::clog << q.size() << '\n';
+		//std::clog << q.size() << '\n';
 		TreeNode* node = q.front();
 		
 		cartesianCoords origin;
@@ -170,13 +170,13 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 			10);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
-			std::clog << "Pushing new node\n";
+			//std::clog << "Pushing new node\n";
 			q.push(node->childNodes[i]);
 		}
 		
 		q.pop();
 	}
 	
-	std::clog << "Vis done!\n";
+	//std::clog << "Vis done!\n";
 	return;
 }
