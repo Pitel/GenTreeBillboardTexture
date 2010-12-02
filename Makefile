@@ -6,9 +6,11 @@ CXXFLAGS=-O2 -Wall -Wextra  -pedantic-errors  -pipe -march=native -g
 CXXFLAGS_GUI=-O2 -Wall -Wextra -pedantic -pipe -march=native -g `pkg-config --cflags --libs gtk+-2.0`
 CXXFLAGS_SDL=-O2 -Wall -Wextra -pedantic -pipe -march=native -g `sdl-config --cflags --libs` `pkg-config SDL_image  --cflags  --libs`
 
+LATEX=pdfcslatex
+
 OBJS=GenTreeBillboardTexture.o grammar.o param.o rules.o vis.o
 
-.PHONY: clean pack
+.PHONY: clean pack doc
 
 all: $(PROG)
 
@@ -30,6 +32,9 @@ $(PROG): $(PROG).cpp $(OBJS)
 gui: demo_gui.cpp demo_sdl.cpp $(OBJS)
 	$(CXX) $(OBJS) $(CXXFLAGS_GUI) demo_gui.cpp -o demo_gui
 	$(CXX) $(OBJS) $(CXXFLAGS_SDL) demo_sdl.cpp -o demo_sdl
+
+doc:
+	cd doc; $(LATEX) pgr.tex
 
 clean:
 	$(RM) *.o xlogin00.zip *.xpm $(PROG) $(PROG)_gui $(PROG)_sdl
