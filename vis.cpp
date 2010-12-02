@@ -59,7 +59,15 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c) {
 	}
 }
 
-void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color color) {
+void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color) {
+	putpixel(canvas, x, y, color);
+	putpixel(canvas, x + 1, y, color);
+	putpixel(canvas, x - 1, y, color);
+	putpixel(canvas, x, y + 1, color);
+	putpixel(canvas, x, y - 1, color);
+}
+
+void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color wood, SDL_Color leaf, size_t leafinterval) {
 	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	
 	x1 = clamp(x1, 0, width - 1);
@@ -93,11 +101,20 @@ void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, 
 	for (int x = x1; x <= x2; x++) {
 		for (size_t t = thickness; t > 0; t--) {
 			if (steep) {
-				putpixel(canvas, y - thickness / 2 + t, x, color);
+				putpixel(canvas, y - thickness / 2 + t, x, wood);
 			} else {
-				putpixel(canvas, x , y - thickness / 2 + t, color);
+				putpixel(canvas, x , y - thickness / 2 + t, wood);
 			}
 		}
+		
+		size_t leafx = x + (basicRandom() + 1) * thickness - thickness;
+		size_t leafy = y + (basicRandom() + 1) * thickness - thickness;
+		if (steep) {
+			drawleaf(canvas, leafy, leafx, leaf);
+		} else {
+			drawleaf(canvas, leafx, leafy, leaf);
+		}
+		
 		if (P >= 0) {
 			P += P2;
 			y += step_y;
@@ -148,7 +165,9 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 			(node->param.branchEnd.x + abs(bounds.minX)) * scale + offset,
 			height - node->param.branchEnd.z * scale,
 			node->param.thickness * scale,
-			wood);
+			wood,
+			leafs,
+			10);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
 			std::clog << "Pushing new node\n";
