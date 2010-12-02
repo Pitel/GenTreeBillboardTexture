@@ -30,8 +30,7 @@ $(PROG): $(PROG).cpp $(OBJS)
 	$(CXX) $(OBJS) $(CXXFLAGS) $(PROG).cpp -o $@
 
 gui: demo_gui.cpp demo_sdl.cpp $(OBJS)
-	echo ">>>>>>>>>>>>>>>>>>>> gui"
-	$(CXX) $(OBJS) $(CXXFLAGS_GUI) demo_gui.cpp -o demo_gui
+#	$(CXX) $(OBJS) $(CXXFLAGS_GUI) demo_gui.cpp -o demo_gui
 	$(CXX) $(OBJS) $(CXXFLAGS_SDL) demo_sdl.cpp -o demo_sdl
 
 doc:

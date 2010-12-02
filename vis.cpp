@@ -15,14 +15,59 @@ int clamp(int val, int min, int max) {
 	return val;
 }
 
-void putpixel(char* canvas, size_t width, size_t height, size_t x, size_t y, char pixel) {
+/*
+void putpixel(SDL_Surface* canvas, size_t width, size_t height, size_t x, size_t y, char pixel) {
 	if (x >= width || y >= height) {
 		return;
 	}
 	*(canvas + x + y * width) = pixel;
+	
+}
+*/
+
+void putpixel(SDL_Surface *surface, int x, int y, Uint8 r, Uint8 g, Uint8 b)
+{
+	// Presahuje rozmery surface, zapis do neplatne pameti
+	if(x >= surface->w || y >= surface->h)
+		return;
+	
+	Uint32 color = SDL_MapRGB(surface->format, r, g, b);
+	
+	switch(surface->format->BytesPerPixel) {
+		case 1:/* Assuming 8-bpp */
+			{
+			Uint8 *bufp;
+			bufp = (Uint8 *)surface->pixels + y*surface->pitch + x;
+			*bufp = color;
+			}
+			break;
+		case 2:/* Probably 15-bpp or 16-bpp */
+			{
+			Uint16 *bufp;
+			bufp = (Uint16 *)surface->pixels + y*surface->pitch/2 + x;
+			*bufp = color;
+			}
+			break;
+		case 3:/* Slow 24-bpp mode, usually not used */
+			{
+			Uint8 *bufp;
+			bufp = (Uint8 *)surface->pixels + y*surface->pitch + x*surface->format->BytesPerPixel;
+			*(bufp+surface->format->Rshift/8) = r;
+			*(bufp+surface->format->Gshift/8) = g;
+			*(bufp+surface->format->Bshift/8) = b;
+			}
+			break;
+		case 4:/* Probably 32-bpp */
+			{
+			Uint32 *bufp;
+			bufp = (Uint32 *)surface->pixels + y*surface->pitch/4 + x;
+			*bufp = color;
+			}
+			break;
+	}
 }
 
-void drawline(char* canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, char pixel) {
+void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, char pixel) {
 	std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	
 	x1 = clamp(x1, 0, width - 1);
@@ -92,6 +137,7 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 		scale = width / treeWidth;
 	}
 	
+	/*
 	queue<TreeNode*> q;
 	q.push(tree);
 	while (!q.empty()) {
@@ -123,6 +169,7 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 		
 		q.pop();
 	}
+	*/
 	std::clog << "Vis done!\n";
 	return;
 }
