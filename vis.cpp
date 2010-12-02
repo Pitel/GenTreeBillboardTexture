@@ -105,7 +105,7 @@ void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, 
 	}
 }
 
-void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t height, TreeNode* tree) {
+void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t height, TreeNode* tree, SDL_Color wood, SDL_Color leafs) {
 	std::clog << "Visualizing tree...\n";
 	
 	boundingBox bounds = getBoundingBox(tree);
@@ -126,10 +126,6 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 		scale = width / treeWidth;
 	}
 	
-	SDL_Color color;
-	color.r = 255;
-	color.g = 255;
-	color.b = 255;
 	queue<TreeNode*> q;
 	q.push(tree);
 	while (!q.empty()) {
@@ -150,7 +146,7 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 			(node->param.branchEnd.x + abs(bounds.minX)) * scale + offset,
 			height - node->param.branchEnd.z * scale,
 			node->param.thickness * scale,
-			color);
+			wood);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
 			std::clog << "Pushing new node\n";
