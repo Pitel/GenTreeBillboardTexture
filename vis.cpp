@@ -15,16 +15,6 @@ int clamp(int val, int min, int max) {
 	return val;
 }
 
-/*
-void putpixel(SDL_Surface* canvas, size_t width, size_t height, size_t x, size_t y, char pixel) {
-	if (x >= width || y >= height) {
-		return;
-	}
-	*(canvas + x + y * width) = pixel;
-	
-}
-*/
-
 void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c) {
 	// Presahuje rozmery surface, zapis do neplatne pameti
 	if (x >= abs(surface->w) || y >= abs(surface->h)) {
