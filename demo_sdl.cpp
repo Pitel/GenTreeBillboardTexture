@@ -20,8 +20,8 @@ unsigned int depth = 40;
 
 bool use_sdlsurface = false;
 
-SDL_Color tree;
-SDL_Color leaf;
+SDL_Color trunk = {150,75,0,0};
+SDL_Color leaf = {0,255,0,0};
 
 SDL_Surface *window;
 SDL_Surface *tree_texture;  // Vygenerovany strom
@@ -69,7 +69,7 @@ bool Init()
 #endif
                 );
 
-		GenTreeBillboardTexture(tree_texture, width, height, seed, depth, tree, leaf);
+		GenTreeBillboardTexture(tree_texture, width, height, seed, depth, trunk, leaf);
 
 	return true;
 }
@@ -152,12 +152,18 @@ int main(int argc, char *argv[])
 
    //std::cout << "ARGV: "<< argv[0] << std::endl;
 
-    if(argc == 5)
+    if(argc == 8)
     {
         width = atoi(argv[1]);
         height = atoi(argv[2]);
         seed = atoi(argv[3]);
-        depth = atoi(argv[4]);
+
+
+        trunk.r = atoi(argv[6]);
+        trunk.g = atoi(argv[7]);
+        trunk.b = atoi(argv[8]);
+
+
     }
 
 
