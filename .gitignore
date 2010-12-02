@@ -1,6 +1,5 @@
 *.[ao]
 *.exe
-demo
 demo_gui
 demo_sdl
 xlogin00.zip
@@ -8,7 +7,6 @@ xlogin00.zip
 *.creator*
 *.files
 *.includes
-*.xpm
 *.glc
 doc/*.aux
 doc/*.pdf
