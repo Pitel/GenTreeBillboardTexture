@@ -148,21 +148,35 @@ bool ProcessEvent()
 int main(int argc, char *argv[])
 {
 
-   //std::cout << "ARGC: "<< argc << std::endl;
+  // std::cout << "ARGC: "<< argc << std::endl;
 
    //std::cout << "ARGV: "<< argv[0] << std::endl;
 
-    if(argc == 8)
+    if(argc == 11)
     {
         width = atoi(argv[1]);
         height = atoi(argv[2]);
         seed = atoi(argv[3]);
+        depth = atoi(argv[4]);
 
+        std::cout << "ARGV: "<< argv[1] << std::endl;
+        std::cout << "ARGV: "<< argv[2] << std::endl;
+        std::cout << "ARGV: "<< argv[3] << std::endl;
+        std::cout << "ARGV: "<< argv[4] << std::endl;
+        std::cout << "ARGV: "<< argv[5] << std::endl;
+        std::cout << "ARGV: "<< argv[6] << std::endl;
+        std::cout << "ARGV: "<< argv[7] << std::endl;
+        std::cout << "ARGV: "<< argv[8] << std::endl;
+        std::cout << "ARGV: "<< argv[9] << std::endl;
+        std::cout << "ARGV: "<< argv[10] << std::endl;
 
-        trunk.r = atoi(argv[6]);
-        trunk.g = atoi(argv[7]);
-        trunk.b = atoi(argv[8]);
+        trunk.r = atoi(argv[5]);
+        trunk.g = atoi(argv[6]);
+        trunk.b = atoi(argv[7]);
 
+        leaf.r = atoi(argv[8]);
+        leaf.g = atoi(argv[9]);
+        leaf.b = atoi(argv[10]);
 
     }
 

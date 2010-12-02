@@ -2,11 +2,12 @@
 #include <glib.h>
 #include <cstring>
 #include <cstdio>
-#include <cstdlib>
+#include <string>
 
 #include "GenTreeBillboardTexture.h"
 #include <iostream>
 #include <fstream>
+#include <sstream>
 
 
 /** Dialog widgets */
@@ -22,6 +23,8 @@ typedef struct _guidialog
     GtkWidget *gui_height;
     GtkWidget *gui_seed;
     GtkWidget *gui_depth;
+    GtkWidget *gui_trunk;
+    GtkWidget *gui_leaf;
 
 } GuiDialog;
 
@@ -32,8 +35,8 @@ GuiDialog guidialog;
 GtkWidget *colorseldlg = NULL;
 GtkWidget *drawingarea = NULL;
 GdkColor color;
-
-
+GdkColor trunk_color = {0, 150,75,0};
+GdkColor leaf_color = {0,0,255,0};
 
 /*
 void
@@ -50,6 +53,52 @@ gui_dialog_destroy ()
 */
 
 
+std::string IntToChar(int i)
+{
+    std::stringstream ss;
+    ss << i;
+    return ss.str();
+}
+
+void
+color_select (GtkWidget *widget, gpointer data)
+{
+  gint response;
+  GtkColorSelection *colorsel;
+
+  GdkColor *tmp = (GdkColor *)data;
+       /* Create color selection dialog */
+      if (colorseldlg == NULL)
+        colorseldlg = gtk_color_selection_dialog_new ("Select color");
+
+        cout << "SELEEECT" << endl;
+      /* Get the ColorSelection widget */
+      colorsel = GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (colorseldlg)->colorsel);
+
+      gtk_color_selection_set_previous_color (colorsel, tmp);
+      gtk_color_selection_set_current_color (colorsel, tmp);
+      gtk_color_selection_set_has_palette (colorsel, TRUE);
+
+      /* Show the dialog */
+      response = gtk_dialog_run (GTK_DIALOG (colorseldlg));
+
+      if (response == GTK_RESPONSE_OK)
+      {
+        gtk_color_selection_get_current_color (colorsel, tmp);
+      /*  cout << (tmp->red) << endl;
+        cout << (tmp->green) << endl;
+        cout << (tmp->blue) << endl;*/
+
+        cout << IntToChar(tmp->red >> 8) << endl;
+        cout << IntToChar(tmp->green >> 8) << endl;
+        cout << IntToChar(tmp->blue >> 8) << endl;
+      }
+     // else
+   //     gtk_widget_modify_bg (drawingarea, GTK_STATE_NORMAL, &color);
+
+      gtk_widget_hide (colorseldlg);
+}
+
 void
 run_sdldemo_surface ( void )
 {
@@ -58,15 +107,31 @@ run_sdldemo_surface ( void )
     const gchar *seed_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_seed));
     const gchar *depth_str = gtk_entry_get_text ( GTK_ENTRY (guidialog.gui_depth));
 
-    const gchar *gui_argv[6];
+    const gchar *gui_argv[12];
     GError *error;
+    /*
+ cout << "RUN" << endl;
+    cout << IntToChar(trunk_color.red) << endl;
+        cout << IntToChar(trunk_color.green) << endl;
+        cout << IntToChar(trunk_color.blue) << endl;
+
+    cout << IntToChar(leaf_color.red) << endl;
+        cout << IntToChar(leaf_color.green) << endl;
+        cout << IntToChar(leaf_color.blue) << endl;*/
 
     gui_argv[0] = "demo_sdl";
     gui_argv[1] = width_str;
     gui_argv[2] = height_str;
     gui_argv[3] = seed_str;
     gui_argv[4] = depth_str;
-    gui_argv[5] = NULL;
+    gui_argv[5] = IntToChar(trunk_color.red >> 8).c_str();
+    gui_argv[6] = IntToChar(trunk_color.green >> 8).c_str();
+    gui_argv[7] = IntToChar(trunk_color.blue >> 8).c_str();
+    gui_argv[8] = IntToChar(leaf_color.red >> 8).c_str();
+    gui_argv[9] = IntToChar(leaf_color.green >> 8).c_str();
+    gui_argv[10] = IntToChar(leaf_color.blue >> 8).c_str();
+    gui_argv[11] = NULL;
+
 
     GSpawnFlags flag = G_SPAWN_CHILD_INHERITS_STDIN;
     error = NULL;
@@ -126,6 +191,14 @@ main ( int argc,  char **argv )
 
     guidialog.gui_seed = GTK_WIDGET( gtk_builder_get_object( builder, "seed_entry"));
     guidialog.gui_depth = GTK_WIDGET( gtk_builder_get_object( builder, "depth_entry"));
+
+
+    guidialog.gui_trunk = GTK_WIDGET( gtk_builder_get_object( builder, "btn_trunk"));
+    g_signal_connect (guidialog.gui_trunk, "clicked", G_CALLBACK (color_select), (gpointer) &trunk_color);
+
+
+    guidialog.gui_leaf = GTK_WIDGET( gtk_builder_get_object( builder, "btn_leaf"));
+    g_signal_connect (guidialog.gui_leaf, "clicked", G_CALLBACK (color_select), (gpointer) &leaf_color);
 
     /* Setup default values */
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_width), "256");
