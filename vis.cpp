@@ -20,7 +20,9 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c) {
 	if (x >= abs(surface->w) || y >= abs(surface->h)) {
 		return;
 	}
-	
+	c.r = clamp(normalRandom(c.r, c.r / 10), 0, 255);
+	c.g = clamp(normalRandom(c.g, c.g / 10), 0, 255);
+	c.b = clamp(normalRandom(c.b, c.b / 10), 0, 255);
 	Uint32 color = SDL_MapRGB(surface->format, c.r, c.g, c.b);
 	
 	switch(surface->format->BytesPerPixel) {

@@ -3,6 +3,7 @@
 
 #include <SDL.h>
 #include "grammar.h"
+#include "param.h"
 
 void GenTreeBillboardTexture_visualize(SDL_Surface* data, size_t width, size_t height, TreeNode* tree, SDL_Color wood, SDL_Color leafs);
 
