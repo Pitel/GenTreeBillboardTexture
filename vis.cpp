@@ -20,9 +20,11 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c) {
 	if (x >= abs(surface->w) || y >= abs(surface->h)) {
 		return;
 	}
-	c.r = clamp(normalRandom(c.r, c.r / 10), 0, 255);
-	c.g = clamp(normalRandom(c.g, c.g / 10), 0, 255);
-	c.b = clamp(normalRandom(c.b, c.b / 10), 0, 255);
+	const unsigned short noise = 128;
+	const double random = (basicRandom() * noise) - noise / 2;
+	c.r = clamp(c.r + random, 0, 255);
+	c.g = clamp(c.g + random, 0, 255);
+	c.b = clamp(c.b + random, 0, 255);
 	Uint32 color = SDL_MapRGB(surface->format, c.r, c.g, c.b);
 	
 	switch(surface->format->BytesPerPixel) {
@@ -78,7 +80,7 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 		thickness = 1;
 	}
 	
-	bool steep = abs(y1 - y2) > abs(x1 - x2);
+	const bool steep = abs(y1 - y2) > abs(x1 - x2);
 	if (steep) {
 		SWAP(x1, y1);
 		SWAP(x2, y2);
@@ -92,11 +94,11 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 		step_y = -1;
 	}
 	
-	unsigned int dx = abs(x2 - x1);
-	unsigned int dy = abs(y2 - y1);
+	const unsigned int dx = abs(x2 - x1);
+	const unsigned int dy = abs(y2 - y1);
 	int P = 2 * dy - dx;
-	unsigned int P1 = 2 * dy;
-	int P2 = P1 - 2 * dx;
+	const unsigned int P1 = 2 * dy;
+	const int P2 = P1 - 2 * dx;
 	unsigned int y = y1;
 	for (int x = x1; x <= x2; x++) {
 		for (size_t t = thickness; t > 0; t--) {
@@ -129,12 +131,12 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 	
 	boundingBox bounds = getBoundingBox(tree);
 	//std::clog << "Bounds: " << (std::string)(bounds) << '\n';
-	float treeWidth = abs(bounds.minX - bounds.maxX);
-	float treeHeight = abs(bounds.minZ - bounds.maxZ);
+	const float treeWidth = abs(bounds.minX - bounds.maxX);
+	const float treeHeight = abs(bounds.minZ - bounds.maxZ);
 	
-	float treeAspect = treeWidth / treeHeight;
+	const float treeAspect = treeWidth / treeHeight;
 	//std::clog << "Tree aspect ratio: " << treeAspect << '\n';
-	float imageAspect = (float) width / (float) height;
+	const float imageAspect = (float) width / (float) height;
 	//std::clog << "Image aspect ratio: " << imageAspect << '\n';
 	float scale = 1;
 	size_t offset = 0;
