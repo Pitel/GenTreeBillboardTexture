@@ -62,7 +62,7 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c) {
 }
 
 void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color) {
-	const size_t size = ceil((canvas->w + canvas->h) / 2 / 100);
+	const size_t size = (canvas->w + canvas->h) / 2 / 100;
 	//std::clog << size << '\n';
 	
 	x -= size / 2;
