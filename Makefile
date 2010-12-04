@@ -8,7 +8,7 @@ LATEX=pdfcslatex
 
 OBJS=GenTreeBillboardTexture.o grammar.o param.o rules.o vis.o
 
-.PHONY: clean pack doc
+.PHONY: clean doc
 
 all: $(PROG)
 
@@ -35,5 +35,5 @@ clean:
 	$(RM) *.o xlogin00.zip *.xpm $(PROG) $(PROG)_gui $(PROG)_sdl
 	cd doc; $(RM) *.out *.log *.aux *.pdf
 
-pack:
-	zip -r xlogin00.zip *.cpp *.h Makefile doc README*
+pack: doc
+	zip -r xlogin00.zip *.cpp *.h *.ui Makefile doc/*.pdf README*
