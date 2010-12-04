@@ -93,7 +93,7 @@ void branchThicknessTree1(TreeNode *current, int maxlevel) {
 	}
 	*/
 	//current->param.thickness = (1.0/(current->param.level+1.0))/7.0; //v pomeru k delce je vetev 7x uzsi (pri zachovani vypoctu)
-	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0025;
+	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0015;
 }
 
 void branchDirectionTree1(TreeNode *current, cartesianCoords treetopCenter) {
