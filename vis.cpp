@@ -5,6 +5,7 @@
 #include "vis.h"
 
 #define SWAP(a, b) a ^= b; b ^= a; a ^= b;
+#define LEAFSIZE(canvas) (canvas->w + canvas->h) / 2 / 100
 
 int clamp(int val, int min, int max) {
 	if (val < min) {
@@ -62,7 +63,7 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c) {
 }
 
 void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color) {
-	const size_t size = (canvas->w + canvas->h) / 2 / 100;
+	const size_t size = LEAFSIZE(canvas);
 	//std::clog << size << '\n';
 	
 	x -= size / 2;
@@ -76,8 +77,9 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color) {
 	}
 }
 
-void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color wood, SDL_Color leaf, float leafs) {
+void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color wood, SDL_Color leaf, size_t leafinterval) {
 	//std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
+	//std::clog << leafinterval << '\n';
 	
 	x1 = clamp(x1, 0, width - 1);
 	y1 = clamp(y1, 0, height - 1);
@@ -85,6 +87,9 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 	y2 = clamp(y2, 0, height - 1);
 	if (thickness < 1) {
 		thickness = 1;
+	}
+	if (leafinterval == 0) {
+		leafinterval = max(canvas->w, canvas->h);
 	}
 	
 	const bool steep = abs(y1 - y2) > abs(x1 - x2);
@@ -127,12 +132,13 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 	
 	y = y1;
 	for (int x = x1; x <= x2; x++) {	//Listy
-		if (basicRandom() <= leafs) {
-			size_t leafy = y + basicRandom() * thickness - thickness / 2;
+		if (x % leafinterval == 0) {
+			size_t yoffset = basicRandom() * thickness - thickness / 2;
+			size_t xoffset = basicRandom() * dx - dx / 2;
 			if (steep) {
-				drawleaf(canvas, leafy, x, leaf);
+				drawleaf(canvas, y + yoffset, x + xoffset, leaf);
 			} else {
-				drawleaf(canvas, x, leafy, leaf);
+				drawleaf(canvas, x + xoffset, y + yoffset, leaf);
 			}
 		}
 		
@@ -180,6 +186,7 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 			origin = node->parentNode->param.branchEnd;
 		}
 		
+		//std::clog << node->param.leafs << ' ' << scale << '\n';
 		drawbranch(data, width, height,
 			(origin.x + abs(bounds.minX)) * scale + offset,
 			height - 1 - origin.z * scale,
@@ -188,7 +195,7 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 			node->param.thickness * scale,
 			wood,
 			leafs,
-			node->param.leafs);
+			LEAFSIZE(data) * (1 / node->param.leafs));
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
 			//std::clog << "Pushing new node\n";
