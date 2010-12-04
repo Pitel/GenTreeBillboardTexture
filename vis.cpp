@@ -69,9 +69,9 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color) {
 	y -= size / 2;
 	
 	for (size_t i = 0; i <= size / 2; i++) {
-		for (size_t j = i * 2 + 1; j > 0; j--) {
-			putpixel(canvas, x + j - 1 + size / 2 - i, y + i, color);
-			putpixel(canvas, x + j - 1 + size / 2 - i, y + size - i, color);
+		for (size_t j = i * 2; j > 0; j--) {
+			putpixel(canvas, x + j + size / 2 - i, y + i, color);
+			putpixel(canvas, x + j + size / 2 - i, y + size - i, color);
 		}
 	}
 }
