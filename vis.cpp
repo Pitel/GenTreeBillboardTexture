@@ -69,7 +69,7 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color) {
 	putpixel(canvas, x, y - 1, color);
 }
 
-void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color wood, SDL_Color leaf, size_t leafinterval) {
+void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color wood, SDL_Color leaf, float leafs) {
 	//std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	
 	x1 = clamp(x1, 0, width - 1);
@@ -100,7 +100,8 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 	const unsigned int P1 = 2 * dy;
 	const int P2 = P1 - 2 * dx;
 	unsigned int y = y1;
-	for (int x = x1; x <= x2; x++) {
+	
+	for (int x = x1; x <= x2; x++) {	//Vetev
 		for (size_t t = thickness; t > 0; t--) {
 			if (steep) {
 				putpixel(canvas, y - thickness / 2 + t, x, wood);
@@ -109,12 +110,23 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 			}
 		}
 		
-		size_t leafx = x + (basicRandom() + 1) * thickness - thickness;
-		size_t leafy = y + (basicRandom() + 1) * thickness - thickness;
-		if (steep) {
-			drawleaf(canvas, leafy, leafx, leaf);
+		if (P >= 0) {
+			P += P2;
+			y += step_y;
 		} else {
-			drawleaf(canvas, leafx, leafy, leaf);
+			P += P1;
+		}
+	}
+	
+	y = y1;
+	for (int x = x1; x <= x2; x++) {	//Listy
+		if (basicRandom() <= leafs) {
+			size_t leafy = y + basicRandom() * thickness - thickness / 2;
+			if (steep) {
+				drawleaf(canvas, leafy, x, leaf);
+			} else {
+				drawleaf(canvas, x, leafy, leaf);
+			}
 		}
 		
 		if (P >= 0) {
@@ -169,7 +181,7 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 			node->param.thickness * scale,
 			wood,
 			leafs,
-			10);
+			node->param.leafs);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
 			//std::clog << "Pushing new node\n";
