@@ -61,12 +61,19 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c) {
 	}
 }
 
-void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color) {
-	putpixel(canvas, x, y, color);
-	putpixel(canvas, x + 1, y, color);
-	putpixel(canvas, x - 1, y, color);
-	putpixel(canvas, x, y + 1, color);
-	putpixel(canvas, x, y - 1, color);
+void drawleaf(SDL_Surface *canvas, size_t midx, size_t midy, SDL_Color color) {
+	const size_t size = ceil((canvas->w + canvas->h) / 2 / 100);
+	//std::clog << size << '\n';
+	
+	size_t x = midx - size / 2;
+	size_t y = midy - size / 2;
+	
+	for (size_t i = 0; i <= size / 2; i++) {
+		for (size_t j = i * 2 + 1; j > 0; j--) {
+			putpixel(canvas, x + j - 1 + size / 2 - i, y + i, color);
+			putpixel(canvas, x + j - 1 + size / 2 - i, y + size - i, color);
+		}
+	}
 }
 
 void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color wood, SDL_Color leaf, float leafs) {
