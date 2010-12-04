@@ -67,7 +67,7 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color) {
 	putpixel(canvas, x, y - 1, color);
 }
 
-void drawline(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color wood, SDL_Color leaf, size_t leafinterval) {
+void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, size_t thickness, SDL_Color wood, SDL_Color leaf, size_t leafinterval) {
 	//std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	
 	x1 = clamp(x1, 0, width - 1);
@@ -159,7 +159,7 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 			origin = node->parentNode->param.branchEnd;
 		}
 		
-		drawline(data, width, height,
+		drawbranch(data, width, height,
 			(origin.x + abs(bounds.minX)) * scale + offset,
 			height - 1 - origin.z * scale,
 			(node->param.branchEnd.x + abs(bounds.minX)) * scale + offset,
