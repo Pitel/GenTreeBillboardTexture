@@ -184,11 +184,11 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 			koef += sqrt((thickness-abs(thickness-(t*2.0)))/(thickness)); //hodnota na jednom kraji pixelu
 			koef += sqrt((thickness-abs(thickness-(t*2.0-1.0)))/(thickness)); //hodnota na druhem kraji pixelu
 			koef /= 3.0; //prumer
-			float alpha = 255*float(thickness_orig)/thickness;
-			//wood.r *= koef;
-			//wood.g *= koef;
-			//wood.b *= koef;
-			alpha *= koef;
+			wood.r *= koef;
+			wood.g *= koef;
+			wood.b *= koef;
+			float alpha = 255*sqrt(sqrt(koef));
+			alpha *= float(thickness_orig)/thickness;
 			if (steep) {
 				putpixel(canvas, y - thickness / 2 + t, x, wood, alpha);
 			} else {
@@ -223,7 +223,7 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 			size_t yoffset = yrand * thickness - thickness / 2;
 			size_t xoffset = xrand * dx - dx / 2;
 			float koef = xrand;
-			koef = 1.0+koef-0.5;
+			koef = 1.0+koef*1.7-0.5;
 			leaf.r = clamp(leaf.r*koef, 0, 255);
 			leaf.g = clamp(leaf.g*koef, 0, 255);
 			leaf.b = clamp(leaf.b*koef, 0, 255);
