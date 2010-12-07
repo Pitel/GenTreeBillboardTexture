@@ -26,7 +26,30 @@ SDL_Color leaf = {0,255,0,0};
 SDL_Surface *window;
 SDL_Surface *tree_texture;  // Vygenerovany strom
 
+void InitTexture(){
+	if(tree_texture != NULL){
+		free(tree_texture);
+	}
+    //Pouzije se SDL_surface
 
+        tree_texture = SDL_CreateRGBSurface(
+                SDL_SWSURFACE,
+                width, height, 32,
+#if SDL_BYTEORDER == SDL_LIL_ENDIAN
+                0x000000FF,
+                0x0000FF00,
+                0x00FF0000,
+                0xFF000000
+#else
+                0xFF000000,
+                0x00FF0000,
+                0x0000FF00,
+                0x000000FF
+#endif
+                );
+
+		GenTreeBillboardTexture(tree_texture, width, height, seed, depth, trunk, leaf);
+}
 bool Init()
 {
 	// Inicializace SDL
@@ -49,27 +72,9 @@ bool Init()
 
 	SDL_WM_SetCaption("GenTreeBillboardTexture - SDL", NULL);
 
-	SDL_FillRect(window, NULL, SDL_MapRGB(window->format, 255, 0, 255));
+	SDL_FillRect(window, NULL, SDL_MapRGB(window->format, 0, 0, 0));
 
-    //Pouzije se SDL_surface
-
-        tree_texture = SDL_CreateRGBSurface(
-                SDL_SWSURFACE,
-                width, height, 32,
-#if SDL_BYTEORDER == SDL_LIL_ENDIAN
-                0x000000FF,
-                0x0000FF00,
-                0x00FF0000,
-                0xFF000000
-#else
-                0xFF000000,
-                0x00FF0000,
-                0x0000FF00,
-                0x000000FF
-#endif
-                );
-
-		GenTreeBillboardTexture(tree_texture, width, height, seed, depth, trunk, leaf);
+	InitTexture();
 
 	return true;
 }
@@ -121,6 +126,9 @@ bool ProcessEvent()
 			case SDL_VIDEORESIZE:
 				window = SDL_SetVideoMode(event.resize.w,
 					event.resize.h, WIN_BPP, WIN_FLAGS);
+				width = event.resize.w;
+				height = event.resize.h;
+				InitTexture();
 
 				if(window == NULL)
 				{
