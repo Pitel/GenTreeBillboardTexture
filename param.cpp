@@ -69,7 +69,7 @@ void parametrizeNode(TreeNode *node, PTreeType treeType, int maxlevel, cartesian
 
 	//pote nechame projit vsechny potomky
 	if(node->childNodes.size() == 0){
-		node->param.leafs = 0.5; //koncova vetev, dame ji nejake listy
+		node->param.leafs = 0.8; //koncova vetev, dame ji nejake listy
 	}else{
 		node->param.leafs = 0.0;
 	}
