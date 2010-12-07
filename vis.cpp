@@ -5,9 +5,17 @@
 #include "vis.h"
 
 #define SWAP(a, b) a ^= b; b ^= a; a ^= b;
-#define LEAFSIZE(canvas) (canvas->w + canvas->h) / 2 / 60
+#define LEAFSIZE(canvas) (canvas->w + canvas->h) / 2.0 / 60.0
 
 int clamp(int val, int min, int max) {
+	if (val < min) {
+		return min;
+	} else if (val > max) {
+		return max;
+	}
+	return val;
+}
+float fclamp(float val, float min, float max) {
 	if (val < min) {
 		return min;
 	} else if (val > max) {
@@ -71,6 +79,7 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, int alpha=2
 	//pouzivame napevno 32bitovou barevnou hloubku
 	Uint32 *bufp;
 	bufp = (Uint32 *)surface->pixels + y*surface->pitch/4 + x;
+	//spocitame novou barvu pomoci apha scitani barev (zdrojova barva ma vzdy nulovou pruhlednost, tj. u ni alphu ignorujeme)
 	Uint8 orig_r;
 	Uint8 orig_g;
 	Uint8 orig_b;
@@ -83,31 +92,57 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, int alpha=2
 	*bufp = color;
 }
 
-void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color) {
-	const size_t size = LEAFSIZE(canvas);
+void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float scale) {
+	//const float size_ex = LEAFSIZE(canvas);
+	//int size = LEAFSIZE(canvas);
 	//std::clog << size << '\n';
+	const float size_ex = 0.02*scale;
+	int size = size_ex;
+	
+	if(size < 1){
+		size = 1;
+	}
 	
 	x -= size / 2;
 	y -= size / 2;
 	
 	float alpha;
-	size_t tx, ty;
-	for (size_t i = 0; i <= size / 2; i++) {
-		for (size_t j = i * 2; j > 0; j--) {
-			tx = x + j + size / 2 - i;
-			alpha = 1.0-(abs(int(tx-(x+size/2)))/float(size)*2.0);
-			alpha *= 1.0-(abs(float(i)-size/2)/float(size)*2.0); //cim vice ke kraji, tim pruhlednejsi
-			putpixel(canvas, tx, y + i, color, alpha*255);
-			putpixel(canvas, tx, y + size - i, color, alpha*255);
+	float alpha1, alpha2;
+	float tx, ty;
+	for(int i=0; i<= size/2+1; i++){ //list je ctverec, u stredu zcela nepruhledny, cim vice od stredu, tim pruhlednejsi
+		for (int j = 0; j <= size/2+1; j++) {
+			tx = j;
+			ty = i;
+			alpha1 = fclamp((1.0-((abs(float(tx)))/float(size_ex)*2.0)), 0.0, 1.0)*2.0;
+			alpha1 += fclamp((1.0-((abs(float(tx-0.5)))/float(size_ex)*2.0)), 0.0, 1.0);
+			alpha1 += fclamp((1.0-((abs(float(tx+0.5)))/float(size_ex)*2.0)), 0.0, 1.0);
+			alpha1 /= 4.0;
+			alpha2 = fclamp((1.0-((abs(float(ty)))/float(size_ex)*2.0)), 0.0, 1.0)*2.0;
+			alpha2 += fclamp((1.0-((abs(float(ty+0.5)))/float(size_ex)*2.0)), 0.0, 1.0);
+			alpha2 += fclamp((1.0-((abs(float(ty-0.5)))/float(size_ex)*2.0)), 0.0, 1.0);
+			alpha2 /= 4.0;
+			alpha = alpha1*alpha2;
+
+			if(alpha > 0.0){ //jenom pokud ma smysl kreslit
+				putpixel(canvas, x+tx, y+ty, color, alpha*255);
+				if(tx != 0){ //pouze, pokud jsem tento pixel jiz nekreslili (na stredu listu se tato hodnota prekryva)
+					putpixel(canvas, x-tx, y+ty, color, alpha*255);
+				}
+				if(ty != 0){
+					putpixel(canvas, x+tx, y-ty, color, alpha*255);
+				}
+				if(tx != 0 && ty != 0){
+					putpixel(canvas, x-tx, y-ty, color, alpha*255);
+				}
+			}
 		}
 	}
 }
 
-void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, float thickness, SDL_Color wood, SDL_Color leaf, size_t leafinterval) {
+void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, float thickness, SDL_Color wood, SDL_Color leaf, float leafinterval, float scale) {
 	//std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	//std::clog << leafinterval << '\n';
 	
-	x1 = clamp(x1, 0, width - 1);
 	y1 = clamp(y1, 0, height - 1);
 	x2 = clamp(x2, 0, width - 1);
 	y2 = clamp(y2, 0, height - 1);
@@ -115,9 +150,10 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 	if (thickness < 1) {
 		thickness = 1;
 	}
-	if (leafinterval == 0) {
+	if (leafinterval == 0 || leafinterval > max(canvas->w, canvas->h)) {
 		leafinterval = max(canvas->w, canvas->h);
 	}
+	size_t leafinterval_cut = leafinterval;
 	
 	const bool steep = abs(y1 - y2) > abs(x1 - x2);
 	if (steep) {
@@ -148,14 +184,15 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 			koef += sqrt((thickness-abs(thickness-(t*2.0)))/(thickness)); //hodnota na jednom kraji pixelu
 			koef += sqrt((thickness-abs(thickness-(t*2.0-1.0)))/(thickness)); //hodnota na druhem kraji pixelu
 			koef /= 3.0; //prumer
-			koef *= float(thickness_orig)/thickness;
-			wood.r *= koef;
-			wood.g *= koef;
-			wood.b *= koef;
+			float alpha = 255*float(thickness_orig)/thickness;
+			//wood.r *= koef;
+			//wood.g *= koef;
+			//wood.b *= koef;
+			alpha *= koef;
 			if (steep) {
-				putpixel(canvas, y - thickness / 2 + t, x, wood);
+				putpixel(canvas, y - thickness / 2 + t, x, wood, alpha);
 			} else {
-				putpixel(canvas, x , y - thickness / 2 + t, wood);
+				putpixel(canvas, x , y - thickness / 2 + t, wood, alpha);
 			}
 		}
 		
@@ -169,8 +206,17 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 	
 	y = y1;
 	SDL_Color leaf_orig = leaf;
+	bool isleaf = false;
 	for (int x = x1; x <= x2; x++) {	//Listy
-		if (x % leafinterval == 0) {
+		isleaf = false;
+		if(leafinterval_cut != 0 && (x % leafinterval_cut) == 0){
+			isleaf = true;
+		}else if(leafinterval_cut == 0 && leafinterval >= 0.0){ //pokud je to po zaokrouhleni nula, ale jinak ne, chceme list s pravdepodobnosti odpovidajici leafintervalu 
+			if(basicRandom() >= leafinterval){
+				isleaf = true;
+			}
+		}
+		if (isleaf == true) {
 			leaf = leaf_orig;
 			float yrand = basicRandom();
 			float xrand = basicRandom();
@@ -181,11 +227,17 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 			leaf.r = clamp(leaf.r*koef, 0, 255);
 			leaf.g = clamp(leaf.g*koef, 0, 255);
 			leaf.b = clamp(leaf.b*koef, 0, 255);
+			size_t tx, ty;
 			if (steep) {
-				drawleaf(canvas, y + yoffset, x + xoffset, leaf);
+				tx = y + yoffset;
+				ty = x + xoffset;
 			} else {
-				drawleaf(canvas, x + xoffset, y + yoffset, leaf);
+				tx = x + xoffset;
+				ty = y + yoffset;
 			}
+			tx = clamp(tx, 0, canvas->w);
+			ty = clamp(ty, 0, canvas->h);
+			drawleaf(canvas, tx, ty, leaf, scale);
 		}
 		
 		if (P >= 0) {
@@ -241,7 +293,8 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 			node->param.thickness * scale,
 			wood,
 			leafs,
-			LEAFSIZE(data) * (1 / node->param.leafs));
+			LEAFSIZE(data) * (1 / node->param.leafs),
+			scale);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
 			//std::clog << "Pushing new node\n";

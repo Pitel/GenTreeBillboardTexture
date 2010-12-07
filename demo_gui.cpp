@@ -35,8 +35,8 @@ GuiDialog guidialog;
 GtkWidget *colorseldlg = NULL;
 GtkWidget *drawingarea = NULL;
 GdkColor color;
-GdkColor trunk_color = {0, 150,75,0};
-GdkColor leaf_color = {0,42,255,28};
+GdkColor trunk_color = {0, 90*255,60*255,30*255};
+GdkColor leaf_color = {0,30*255,150*255,30*255};
 
 /*
 void
@@ -217,8 +217,8 @@ main ( int argc,  char **argv )
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_seed), "23505");
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_depth), "100");
 
-    gdk_color_parse ("brown", &trunk_color);
-    gdk_color_parse ("green", &leaf_color);
+    //gdk_color_parse ("brown", &trunk_color);
+    //gdk_color_parse ("green", &leaf_color);
 
     gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_trunk), GTK_STATE_NORMAL, &trunk_color);
     gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_leaf), GTK_STATE_NORMAL, &leaf_color);
