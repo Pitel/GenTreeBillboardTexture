@@ -13,17 +13,19 @@ GRules::GRules(int seed)
 
     // Loading default rules
 
+    //
+    //  type : JABLON
+    //
+
     vector<int> rule1;
-    // TRUNK -> BRANCH_UP, BRANCH, TRUNK, BRANCH_UP
     rule1.push_back(TRUNK);
     rule1.push_back(4);
-    rule1.push_back(BRANCH_UP);
     rule1.push_back(BRANCH);
+    rule1.push_back(BRANCH_UP);
     rule1.push_back(TRUNK);
     rule1.push_back(BRANCH_UP);
     
     vector<int> rule2;
-    // TRUNK -> TRUNK, BRANCH
     rule2.push_back(TRUNK);
     rule2.push_back(5);
     rule2.push_back(TRUNK);
@@ -33,7 +35,6 @@ GRules::GRules(int seed)
     rule2.push_back(BRANCH_UP);
     
     vector<int> rule3;
-    // BRANCH -> BRANCH, TRUNK, BRANCH
     rule3.push_back(BRANCH_UP);
     rule3.push_back(3);
     rule3.push_back(BRANCH);
@@ -41,7 +42,6 @@ GRules::GRules(int seed)
     rule3.push_back(BRANCH);
     
     vector<int> rule4;
-    // BRANCH -> TRUNK, BRANCH_UP, BRANCH_UP,BRANCH_UP, BRANCH_UP
     rule4.push_back(BRANCH);
     rule4.push_back(5);
     rule4.push_back(TRUNK);
@@ -51,7 +51,6 @@ GRules::GRules(int seed)
     rule4.push_back(BRANCH_UP);
     
     vector<int> rule5;
-    // BRANCH_UP -> TRUNK, BRANCH_UP, BRANCH_UP,BRANCH, BRANCH_UP
     rule5.push_back(BRANCH_UP);
     rule5.push_back(5);
     rule5.push_back(TRUNK);
@@ -77,16 +76,41 @@ GRules::GRules(int seed)
     rule7.push_back(BRANCH);
     rule7.push_back(BRANCH_UP);
     
+    //
+    //  type : SMRK
+    //
+    
+    vector<int> rule8;
+    rule8.push_back(TRUNK);
+    rule8.push_back(6);
+    rule8.push_back(BRANCH_UP);
+    rule8.push_back(BRANCH_UP);
+    rule8.push_back(BRANCH_UP);
+    rule8.push_back(BRANCH_UP);
+    rule8.push_back(BRANCH_UP);
+    rule8.push_back(TRUNK);
+    
+    vector<int> rule9;
+    rule9.push_back(BRANCH_UP);
+    rule9.push_back(5);
+    rule9.push_back(BRANCH_UP);
+    rule9.push_back(BRANCH_UP);
+    rule9.push_back(BRANCH_UP);
+    rule9.push_back(BRANCH_UP);
+    rule9.push_back(TRUNK);
     
     
     
-    this->rules.insert(pair<string, vector<int> >("tree1", rule1));
-    this->rules.insert(pair<string, vector<int> >("tree1", rule2));
-    this->rules.insert(pair<string, vector<int> >("tree1", rule3));
-    this->rules.insert(pair<string, vector<int> >("tree1", rule4));
-    this->rules.insert(pair<string, vector<int> >("tree1", rule5));
-    this->rules.insert(pair<string, vector<int> >("tree1", rule6));
-    this->rules.insert(pair<string, vector<int> >("tree1", rule7));
+    this->rules.insert(pair<string, vector<int> >("jablon", rule1));
+    this->rules.insert(pair<string, vector<int> >("jablon", rule2));
+    this->rules.insert(pair<string, vector<int> >("jablon", rule3));
+    this->rules.insert(pair<string, vector<int> >("jablon", rule4));
+    this->rules.insert(pair<string, vector<int> >("jablon", rule5));
+    this->rules.insert(pair<string, vector<int> >("jablon", rule6));
+    this->rules.insert(pair<string, vector<int> >("jablon", rule7));
+    
+    this->rules.insert(pair<string, vector<int> >("smrk", rule8));
+    this->rules.insert(pair<string, vector<int> >("smrk", rule9));
 }
 
 void GRules::AddRule(string name, vector<int> rule)

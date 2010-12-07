@@ -15,8 +15,9 @@
 
 unsigned int width = 256;
 unsigned int height = 512;
-unsigned int seed = 23505;
-unsigned int depth = 40;
+unsigned int seed = 2353;
+unsigned int depth = 150;
+string treeType = "jablon";
 
 bool use_sdlsurface = false;
 
@@ -48,7 +49,7 @@ void InitTexture(){
 #endif
                 );
 
-		GenTreeBillboardTexture(tree_texture, width, height, seed, depth, trunk, leaf);
+		GenTreeBillboardTexture(tree_texture, width, height, seed, depth, treeType, trunk, leaf);
 }
 bool Init()
 {
@@ -161,13 +162,14 @@ int main(int argc, char *argv[])
 
    //std::cout << "ARGV: "<< argv[0] << std::endl;
 
-    if(argc == 11)
+    if(argc == 12)
     {
         width = atoi(argv[1]);
         height = atoi(argv[2]);
         seed = atoi(argv[3]);
         depth = atoi(argv[4]);
-/*
+        treeType = argv[5];
+/*      
         std::cout << std::endl << "**** demo_sdl ****" << std::endl;
         std::cout << "ARGV: "<< argv[1] << std::endl;
         std::cout << "ARGV: "<< argv[2] << std::endl;
@@ -180,13 +182,13 @@ int main(int argc, char *argv[])
         std::cout << "ARGV: "<< argv[9] << std::endl;
         std::cout << "ARGV: "<< argv[10] << std::endl;*/
 
-        trunk.r = atoi(argv[5]);
-        trunk.g = atoi(argv[6]);
-        trunk.b = atoi(argv[7]);
+        trunk.r = atoi(argv[6]);
+        trunk.g = atoi(argv[7]);
+        trunk.b = atoi(argv[8]);
 
-        leaf.r = atoi(argv[8]);
-        leaf.g = atoi(argv[9]);
-        leaf.b = atoi(argv[10]);
+        leaf.r = atoi(argv[9]);
+        leaf.g = atoi(argv[10]);
+        leaf.b = atoi(argv[11]);
 
     }
 
