@@ -36,7 +36,7 @@ GtkWidget *colorseldlg = NULL;
 GtkWidget *drawingarea = NULL;
 GdkColor color;
 GdkColor trunk_color = {0, 150,75,0};
-GdkColor leaf_color = {0,0,255,0};
+GdkColor leaf_color = {0,42,255,28};
 
 /*
 void
@@ -212,10 +212,10 @@ main ( int argc,  char **argv )
     g_signal_connect (guidialog.gui_leaf, "clicked", G_CALLBACK (color_select), (gpointer) &leaf_color);
 
     /* Setup default values */
-    gtk_entry_set_text( GTK_ENTRY (guidialog.gui_width), "256");
-    gtk_entry_set_text( GTK_ENTRY (guidialog.gui_height), "512");
+    gtk_entry_set_text( GTK_ENTRY (guidialog.gui_width), "600");
+    gtk_entry_set_text( GTK_ENTRY (guidialog.gui_height), "800");
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_seed), "23505");
-    gtk_entry_set_text( GTK_ENTRY (guidialog.gui_depth), "40");
+    gtk_entry_set_text( GTK_ENTRY (guidialog.gui_depth), "100");
 
     gdk_color_parse ("brown", &trunk_color);
     gdk_color_parse ("green", &leaf_color);

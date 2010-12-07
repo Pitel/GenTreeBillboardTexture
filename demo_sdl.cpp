@@ -9,8 +9,8 @@
 #include "GenTreeBillboardTexture.h"
 
 #define SDL_SUBSYSTEMS SDL_INIT_VIDEO
-#define WIN_FLAGS SDL_HWSURFACE |SDL_RESIZABLE
-#define WIN_BPP 0
+#define WIN_FLAGS SDL_SWSURFACE |SDL_RESIZABLE
+#define WIN_BPP 32
 
 
 unsigned int width = 256;
@@ -90,6 +90,7 @@ void Draw()
 	rect.x = (window->w >> 1) - (tree_texture->w >> 1);
 	rect.y = (window->h >> 1) - (tree_texture->h >> 1);
 
+	SDL_FillRect(window, NULL, SDL_MapRGB(window->format, 0, 0, 0));
 	SDL_BlitSurface(tree_texture, NULL, window, &rect);
 	SDL_UpdateRect(window, rect.x, rect.y, rect.w, rect.h);
 }
