@@ -3,7 +3,7 @@
 #include "rules.h"
 
 // T - TRUNK , B - BRANCH ....
-const char* printableRules[] = {"T","B","B_U","B_D" };
+const char* printableRules[] = {"T","B","B_U","B_D", "T_NB" };
 
 GRules::GRules(int seed)
 {
@@ -78,8 +78,6 @@ GRules::GRules(int seed)
     rule7.push_back(BRANCH_UP);
     
     
-    
-    
     this->rules.insert(pair<string, vector<int> >("tree1", rule1));
     this->rules.insert(pair<string, vector<int> >("tree1", rule2));
     this->rules.insert(pair<string, vector<int> >("tree1", rule3));
@@ -87,6 +85,58 @@ GRules::GRules(int seed)
     this->rules.insert(pair<string, vector<int> >("tree1", rule5));
     this->rules.insert(pair<string, vector<int> >("tree1", rule6));
     this->rules.insert(pair<string, vector<int> >("tree1", rule7));
+
+	//smrk
+    vector<int> rule_p1;
+    rule_p1.push_back(TRUNK);
+    rule_p1.push_back(6);
+    rule_p1.push_back(TRUNK_BRANCHLESS);
+    rule_p1.push_back(BRANCH);
+    rule_p1.push_back(BRANCH);
+    rule_p1.push_back(BRANCH);
+    rule_p1.push_back(BRANCH);
+    rule_p1.push_back(BRANCH);
+
+    vector<int> rule_p2;
+    rule_p2.push_back(TRUNK_BRANCHLESS);
+    rule_p2.push_back(1);
+    rule_p2.push_back(TRUNK);
+
+    vector<int> rule_p3;
+    rule_p3.push_back(TRUNK);
+    rule_p3.push_back(9);
+    rule_p3.push_back(TRUNK_BRANCHLESS);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+
+    vector<int> rule_p4;
+    rule_p4.push_back(BRANCH);
+    rule_p4.push_back(4);
+    rule_p4.push_back(BRANCH);
+    rule_p4.push_back(BRANCH_DOWN);
+    rule_p4.push_back(BRANCH_DOWN);
+    rule_p4.push_back(BRANCH_DOWN);
+
+    vector<int> rule_p5;
+    rule_p5.push_back(BRANCH);
+    rule_p5.push_back(5);
+    rule_p5.push_back(BRANCH);
+    rule_p5.push_back(BRANCH_DOWN);
+    rule_p5.push_back(BRANCH_DOWN);
+    rule_p5.push_back(BRANCH_DOWN);
+    rule_p5.push_back(BRANCH_DOWN);
+
+    this->rules.insert(pair<string, vector<int> >("picea", rule_p1));
+    this->rules.insert(pair<string, vector<int> >("picea", rule_p2));
+    this->rules.insert(pair<string, vector<int> >("picea", rule_p3));
+    this->rules.insert(pair<string, vector<int> >("picea", rule_p4));
+    this->rules.insert(pair<string, vector<int> >("picea", rule_p5));
 }
 
 void GRules::AddRule(string name, vector<int> rule)
