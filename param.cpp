@@ -5,7 +5,8 @@
 #include <queue>
 
 const treeParams treeBuilders[PTREE_COUNT] = {
-   /* PTREE_1 */ {branchLengthTree1, branchThicknessTree1, branchDirectionTree1}
+   /* PTREE_APPLE */ {branchLengthTree1, branchThicknessTree1, branchDirectionTree1},
+   /* PTREE_PICEA */ {branchLengthPicea, branchThicknessPicea, branchDirectionPicea}
 };
 
 void GenTreeBillboardTexture_parametrize(TreeNode *tree, PTreeType treeType, int seed) { //oparamerizuje dany strom
@@ -80,20 +81,7 @@ void branchLengthTree1(TreeNode *current, int maxlevel) {
 	current->param.relativeVector.r = 0.04*uniformRandom(0.7, 1.3)*(1.0+maxlevel)/current->param.level;
 }
 void branchThicknessTree1(TreeNode *current, int maxlevel) {
-	//tloustku vetve spocitame z levelu
-	/*
-	if(current->parentNode == NULL){
-		current->param.thickness = 1/8.0; //zakladni tloustka kmene
-	}else if(current->parentNode->type == TRUNK && current->type != TRUNK){ //vetev trcici z kmene, bude tensi
-		current->param.thickness = current->parentNode->param.thickness*0.6;
-	}else if(current->type == TRUNK){ //kmen, nebudeme tolik ztencovat
-		current->param.thickness = current->parentNode->param.thickness*0.85;
-	}else{
-		current->param.thickness = current->parentNode->param.thickness*0.7;
-	}
-	*/
-	//current->param.thickness = (1.0/(current->param.level+1.0))/7.0; //v pomeru k delce je vetev 7x uzsi (pri zachovani vypoctu)
-	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0015;
+	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0015; //tloustka vetve odpovida poctu vetvi, ktere z teto rostou (musi sedet plocha prurezu)
 }
 
 void branchDirectionTree1(TreeNode *current, cartesianCoords treetopCenter) {
@@ -103,7 +91,7 @@ void branchDirectionTree1(TreeNode *current, cartesianCoords treetopCenter) {
 	do{
 		attempts++; //pocet pokusu vygenerovani parametru
 		if(current->type == TRUNK) { //kmen, nechame ho vest temer rovne
-			current->param.relativeVector.theta = exponentialRandom(M_PI*(2.0/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem 5°
+			current->param.relativeVector.theta = exponentialRandom(M_PI*(2.0/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem viz druhy parametr
 			current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
 		}else{ //ostatni typy nechame trcet nahodnymi smery
 			switch(current->type){
@@ -124,12 +112,6 @@ void branchDirectionTree1(TreeNode *current, cartesianCoords treetopCenter) {
 			current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
 		}
 		
-		//TODO: odstranit test
-		//test
-		//current->param.relativeVector.theta = 0.1;
-		//current->param.relativeVector.phi = 0.4;
-		//test - konec
-		
 		fillAbsoluteVector(current); //pocita se s tim, ze delka vetve uz je nastavena
 
 		if(current->param.absoluteVector.theta >= M_PI*(90.0/180.0) && current->param.absoluteVector.theta <= M_PI*(270.0/180.0)){ //veteve vede smerem dolu, nechame pregenerovat
@@ -146,6 +128,50 @@ void branchDirectionTree1(TreeNode *current, cartesianCoords treetopCenter) {
 			}
 		}
 	}while(regenerate == true && attempts < maxattempts);
+}
+
+//smrk
+void branchLengthPicea(TreeNode *current, int maxlevel) {
+	//delka zavisi na levelu a typu
+	float coef;
+	coef = (1.0+maxlevel)/current->param.level;
+	coef = log10(1.0+100*coef)/2.0; //zavislost pomeru delky vetve na aktualnim levelu
+	switch(current->type){
+		case TRUNK:
+		case TRUNK_BRANCHLESS:
+			if(current->parentNode == NULL){ //prvni kmen
+				coef *= 5.0;
+			}
+			current->param.relativeVector.r = 0.02+0.06*uniformRandom(0.7, 1.3)*coef;
+			break;
+		case BRANCH:
+			current->param.relativeVector.r = 0.02+0.02*uniformRandom(0.7, 1.3)*coef;
+			break;
+		default:
+			current->param.relativeVector.r = 0.14*uniformRandom(0.7, 1.3)*coef;
+			break;
+	}
+}
+void branchThicknessPicea(TreeNode *current, int maxlevel) {
+	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0015; //tloustka vetve odpovida poctu vetvi, ktere z teto rostou (musi sedet plocha prurezu)
+}
+
+void branchDirectionPicea(TreeNode *current, cartesianCoords treetopCenter) {
+	if(current->type == TRUNK || current->type == TRUNK_BRANCHLESS) { //kmen, nechame ho vest temer rovne
+		current->param.relativeVector.theta = exponentialRandom(M_PI*(0.5/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem viz druhy parametr
+		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
+	}else if(current->type == BRANCH && current->parentNode != NULL && current->parentNode->type == TRUNK){ //vetev z kmene, nechame ji vest vicemene vodorovne nahodnym smerem z kmene
+		current->param.relativeVector.theta = normalRandom(M_PI*(100.0/180.0), M_PI*(5.0/180.0));
+		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
+	}else if(current->type == BRANCH){ //pokracovani zakladni vetve, nechame ji rust mirne do vyse
+		current->param.relativeVector.theta = uniformRandom(M_PI*(1.0/180.0), M_PI*(2.0/180.0)); //nejaky maly odklon
+		current->param.relativeVector.phi = normalRandom(M_PI, M_PI*(10.0/180.0)); //rotace kolem 180°
+	}else{ //vetev smerujici k zemi
+		current->param.relativeVector.theta = normalRandom(M_PI*(90.0/180.0), M_PI*(15.0/180.0)); //odklon kolem 90°
+		current->param.relativeVector.phi = normalRandom(M_PI*(0.0/180.0), M_PI*(15.0/180.0)); //rotace kolem 90°
+	}
+
+	fillAbsoluteVector(current); //pocita se s tim, ze delka vetve uz je nastavena
 }
 
 void fillAbsoluteVector(TreeNode *current) {

@@ -7,6 +7,7 @@
 
 queue<TreeNode*> TreeNode::printNodes;
 
+
 TreeNode::TreeNode(treeNodeType type,TreeNode* parent)
 {
       this->type = type;
@@ -70,7 +71,7 @@ void TreeNode::processPrintWithParams()
 	}
 }
 
-TreeNode* GenTreeBillboardTexture_grammar(string treeType, int depth ,int seed) {
+TreeNode* GenTreeBillboardTexture_grammar(PTreeType treeType, int depth ,int seed) {
 
    int currentDepth = 0;
    queue<TreeNode*> processingNodes;

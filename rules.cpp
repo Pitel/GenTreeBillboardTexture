@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "rules.h"
+#include "param.h"
 
 // T - TRUNK , B - BRANCH ....
-const char* printableRules[] = {"T","B","B_U","B_D" };
+const char* printableRules[] = {"T","B","B_U","B_D", "T_NB" };
 
 GRules::GRules(int seed)
 {
@@ -76,54 +77,82 @@ GRules::GRules(int seed)
     rule7.push_back(BRANCH);
     rule7.push_back(BRANCH_UP);
     
-    //
-    //  type : SMRK
-    //
     
-    vector<int> rule8;
-    rule8.push_back(TRUNK);
-    rule8.push_back(6);
-    rule8.push_back(BRANCH_UP);
-    rule8.push_back(BRANCH_UP);
-    rule8.push_back(BRANCH_UP);
-    rule8.push_back(BRANCH_UP);
-    rule8.push_back(BRANCH_UP);
-    rule8.push_back(TRUNK);
-    
-    vector<int> rule9;
-    rule9.push_back(BRANCH_UP);
-    rule9.push_back(5);
-    rule9.push_back(BRANCH_UP);
-    rule9.push_back(BRANCH_UP);
-    rule9.push_back(BRANCH_UP);
-    rule9.push_back(BRANCH_UP);
-    rule9.push_back(TRUNK);
-    
-    
-    
-    this->rules.insert(pair<string, vector<int> >("jablon", rule1));
-    this->rules.insert(pair<string, vector<int> >("jablon", rule2));
-    this->rules.insert(pair<string, vector<int> >("jablon", rule3));
-    this->rules.insert(pair<string, vector<int> >("jablon", rule4));
-    this->rules.insert(pair<string, vector<int> >("jablon", rule5));
-    this->rules.insert(pair<string, vector<int> >("jablon", rule6));
-    this->rules.insert(pair<string, vector<int> >("jablon", rule7));
-    
-    this->rules.insert(pair<string, vector<int> >("smrk", rule8));
-    this->rules.insert(pair<string, vector<int> >("smrk", rule9));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_APPLE, rule1));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_APPLE, rule2));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_APPLE, rule3));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_APPLE, rule4));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_APPLE, rule5));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_APPLE, rule6));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_APPLE, rule7));
+
+	  //
+	  //   type : SMRK
+	  //
+	  
+    vector<int> rule_p1;
+    rule_p1.push_back(TRUNK);
+    rule_p1.push_back(6);
+    rule_p1.push_back(TRUNK_BRANCHLESS);
+    rule_p1.push_back(BRANCH);
+    rule_p1.push_back(BRANCH);
+    rule_p1.push_back(BRANCH);
+    rule_p1.push_back(BRANCH);
+    rule_p1.push_back(BRANCH);
+
+    vector<int> rule_p2;
+    rule_p2.push_back(TRUNK_BRANCHLESS);
+    rule_p2.push_back(1);
+    rule_p2.push_back(TRUNK);
+
+    vector<int> rule_p3;
+    rule_p3.push_back(TRUNK);
+    rule_p3.push_back(9);
+    rule_p3.push_back(TRUNK_BRANCHLESS);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+    rule_p3.push_back(BRANCH);
+
+    vector<int> rule_p4;
+    rule_p4.push_back(BRANCH);
+    rule_p4.push_back(4);
+    rule_p4.push_back(BRANCH);
+    rule_p4.push_back(BRANCH_UP);
+    rule_p4.push_back(BRANCH_UP);
+    rule_p4.push_back(BRANCH_UP);
+
+    vector<int> rule_p5;
+    rule_p5.push_back(BRANCH);
+    rule_p5.push_back(5);
+    rule_p5.push_back(BRANCH);
+    rule_p5.push_back(BRANCH_UP);
+    rule_p5.push_back(BRANCH_UP);
+    rule_p5.push_back(BRANCH_UP);
+    rule_p5.push_back(BRANCH_UP);
+
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PICEA, rule_p1));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PICEA, rule_p2));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PICEA, rule_p3));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PICEA, rule_p4));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PICEA, rule_p5));
 }
 
-void GRules::AddRule(string name, vector<int> rule)
+void GRules::AddRule(PTreeType name, vector<int> rule)
 {
-     // Modularity support
+     // Modularity support  - future?
      
-     this->rules.insert(pair<string, vector<int> >(name, rule));
+     this->rules.insert(pair<PTreeType, vector<int> >(name, rule));
 }
 
-int GRules::GetRule(string name, treeNodeType symbol, vector<int> *data)
+int GRules::GetRule(PTreeType name, treeNodeType symbol, vector<int> *data)
 {
-    pair<multimap<string, vector<int> >::iterator,multimap<string, vector<int> >::iterator> ret;
-    multimap<string, vector<int> >::iterator it;
+    pair<multimap<PTreeType, vector<int> >::iterator,multimap<PTreeType, vector<int> >::iterator> ret;
+    multimap<PTreeType, vector<int> >::iterator it;
     
     vector<vector<int> > temp;
 
