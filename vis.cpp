@@ -50,10 +50,12 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, int alpha=2
 	Uint8 orig_b;
 	Uint8 orig_a;
 	SDL_GetRGBA(*bufp, surface->format, &orig_r, &orig_g, &orig_b, &orig_a);
-	Uint8 new_r = c.r*alpha/255.0+orig_r*(orig_a/255.0)*(1.0-alpha/255.0);
-	Uint8 new_g = c.g*alpha/255.0+orig_g*(orig_a/255.0)*(1.0-alpha/255.0);
-	Uint8 new_b = c.b*alpha/255.0+orig_b*(orig_a/255.0)*(1.0-alpha/255.0);
-	Uint8 new_a = (alpha/255.0+(orig_a/255.0)*(1.0-alpha/255.0))*255.0;
+	float a_o = orig_a/255.0;
+	float a_n = alpha/255.0;
+	Uint8 new_r = c.r*a_n+orig_r*a_o*(1.0-a_n);
+	Uint8 new_g = c.g*a_n+orig_g*a_o*(1.0-a_n);
+	Uint8 new_b = c.b*a_n+orig_b*a_o*(1.0-a_n);
+	Uint8 new_a = (a_n+a_o*(1.0-a_n))*255.0;
 
 	Uint32 color = SDL_MapRGBA(surface->format, new_r, new_g, new_b, new_a);
 	*bufp = color;
