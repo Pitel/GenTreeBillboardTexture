@@ -4,7 +4,7 @@
 #include "param.h"
 
 // T - TRUNK , B - BRANCH ....
-const char* printableRules[] = {"T","B","B_U","B_D", "T_NB", "T_D" };
+const char* printableRules[] = {"T","B","B_U","B_D", "T_NB" };
 
 GRules::GRules(int seed)
 {
@@ -159,7 +159,7 @@ GRules::GRules(int seed)
     rule_pa1.push_back(BRANCH_UP);
     rule_pa1.push_back(BRANCH_UP);
     rule_pa1.push_back(BRANCH_UP);
-    rule_pa1.push_back(TRUNK_DOWN);
+    rule_pa1.push_back(TRUNK_BRANCHLESS);
    
     vector<int> rule_pa2;
     rule_pa2.push_back(BRANCH_UP);
@@ -183,9 +183,9 @@ GRules::GRules(int seed)
     rule_pa3.push_back(BRANCH_UP);
     
     vector<int> rule_pa4;
-    rule_pa4.push_back(TRUNK_DOWN);
+    rule_pa4.push_back(TRUNK_BRANCHLESS);
     rule_pa4.push_back(1);
-    rule_pa4.push_back(TRUNK_DOWN);
+    rule_pa4.push_back(TRUNK_BRANCHLESS);
     
     
     this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PALMA, rule_pa1));
