@@ -4,7 +4,7 @@
 #include "param.h"
 
 // T - TRUNK , B - BRANCH ....
-const char* printableRules[] = {"T","B","B_U","B_D", "T_NB" };
+const char* printableRules[] = {"T","B","B_U","B_D", "T_NB", "T_D" };
 
 GRules::GRules(int seed)
 {
@@ -122,24 +122,76 @@ GRules::GRules(int seed)
     rule_p4.push_back(BRANCH);
     rule_p4.push_back(4);
     rule_p4.push_back(BRANCH);
-    rule_p4.push_back(BRANCH_UP);
-    rule_p4.push_back(BRANCH_UP);
-    rule_p4.push_back(BRANCH_UP);
+    rule_p4.push_back(BRANCH_DOWN);
+    rule_p4.push_back(BRANCH_DOWN);
+    rule_p4.push_back(BRANCH_DOWN);
 
     vector<int> rule_p5;
     rule_p5.push_back(BRANCH);
     rule_p5.push_back(5);
     rule_p5.push_back(BRANCH);
-    rule_p5.push_back(BRANCH_UP);
-    rule_p5.push_back(BRANCH_UP);
-    rule_p5.push_back(BRANCH_UP);
-    rule_p5.push_back(BRANCH_UP);
+    rule_p5.push_back(BRANCH_DOWN);
+    rule_p5.push_back(BRANCH_DOWN);
+    rule_p5.push_back(BRANCH_DOWN);
+    rule_p5.push_back(BRANCH_DOWN);
 
     this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PICEA, rule_p1));
     this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PICEA, rule_p2));
     this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PICEA, rule_p3));
     this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PICEA, rule_p4));
     this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PICEA, rule_p5));
+    
+    //
+    //  type : PALMA
+    //
+    
+    vector<int> rule_pa1;
+    rule_pa1.push_back(TRUNK);
+    rule_pa1.push_back(12);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(BRANCH_UP);
+    rule_pa1.push_back(TRUNK_DOWN);
+   
+    vector<int> rule_pa2;
+    rule_pa2.push_back(BRANCH_UP);
+    rule_pa2.push_back(1);
+    rule_pa2.push_back(BRANCH_DOWN);
+    rule_pa2.push_back(BRANCH_DOWN);
+    rule_pa2.push_back(BRANCH_DOWN);
+    rule_pa2.push_back(BRANCH_DOWN);
+    rule_pa2.push_back(BRANCH_UP);
+    
+    vector<int> rule_pa3;
+    rule_pa3.push_back(BRANCH_UP);
+    rule_pa3.push_back(8);
+    rule_pa3.push_back(BRANCH_DOWN);
+    rule_pa3.push_back(BRANCH_DOWN);
+    rule_pa3.push_back(BRANCH_DOWN);
+    rule_pa3.push_back(BRANCH_DOWN);
+    rule_pa3.push_back(BRANCH_DOWN);
+    rule_pa3.push_back(BRANCH_DOWN);
+    rule_pa3.push_back(BRANCH_DOWN);
+    rule_pa3.push_back(BRANCH_UP);
+    
+    vector<int> rule_pa4;
+    rule_pa4.push_back(TRUNK_DOWN);
+    rule_pa4.push_back(1);
+    rule_pa4.push_back(TRUNK_DOWN);
+    
+    
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PALMA, rule_pa1));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PALMA, rule_pa2));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PALMA, rule_pa3));
+    this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PALMA, rule_pa4));
 }
 
 void GRules::AddRule(PTreeType name, vector<int> rule)

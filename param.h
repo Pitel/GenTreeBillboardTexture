@@ -77,13 +77,21 @@ typedef struct {
 } boundingBox;
 
 //funkce konkretniho stromu
+
+// jablon
 void branchLengthTree1(TreeNode *current, int maxlevel);
 void branchThicknessTree1(TreeNode *current, int maxlevel);
 void branchDirectionTree1(TreeNode *current, cartesianCoords treetopCenter);
 
+// smrk
 void branchLengthPicea(TreeNode *current, int maxlevel);
 void branchThicknessPicea(TreeNode *current, int maxlevel);
 void branchDirectionPicea(TreeNode *current, cartesianCoords treetopCenter);
+
+// palma
+void branchLengthPalma(TreeNode *current, int maxlevel);
+void branchThicknessPalma(TreeNode *current, int maxlevel);
+void branchDirectionPalma(TreeNode *current, cartesianCoords treetopCenter);
 
 //asociace funkci pro parametrizaci ke konkretnimu typu stromu (dle poradi v PTreeType)
 extern const treeParams treeBuilders[PTREE_COUNT];
