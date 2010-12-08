@@ -45,8 +45,8 @@ TreeNode *mytree;
 queue<TreeNode*> printNodes;
 
 void newTree(int depth, int seed){
-	mytree = GenTreeBillboardTexture_grammar("tree1", depth, seed);  // args: name, iteration, seed
-	GenTreeBillboardTexture_parametrize(mytree, PTREE_1, seed);
+	mytree = GenTreeBillboardTexture_grammar(PTREE_PALMA, depth, seed);  // args: name, iteration, seed
+	GenTreeBillboardTexture_parametrize(mytree, PTREE_PALMA, seed);
 }
 
 void onInit()
