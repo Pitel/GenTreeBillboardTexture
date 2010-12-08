@@ -14,6 +14,10 @@ Usage
 		SDL_Color leafs			//Color of leafs
 	);
 
+Dependencies
+------------
+* [SDL](http://www.libsdl.org)
+
 Authors
 -------
 * Bc. Jan Kaláb <xkalab00@stud.fit.vutbr.cz>
