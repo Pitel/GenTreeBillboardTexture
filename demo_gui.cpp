@@ -136,7 +136,7 @@ run_sdldemo_surface ( void )
         cout << IntToChar(leaf_color.blue) << endl;
 
 */
-    gui_argv[0] = "demo_sdl";
+    gui_argv[0] = "demo";
     gui_argv[1] = width_str;
     gui_argv[2] = height_str;
     gui_argv[3] = seed_str;
