@@ -8,6 +8,7 @@ xlogin00.zip
 *.files
 *.includes
 *.glc
+.swp
 doc/*.aux
 doc/*.pdf
 doc/*.log
