@@ -5,7 +5,6 @@
 #include "vis.h"
 
 #define SWAP(a, b) a ^= b; b ^= a; a ^= b;
-#define LEAFSIZE(canvas) (canvas->w + canvas->h) / 2.0 / 60.0
 
 int clamp(int val, int min, int max) {
 	if (val < min) {
@@ -92,11 +91,10 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, int alpha=2
 	*bufp = color;
 }
 
-void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float scale) {
+void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float size_ex) {
 	//const float size_ex = LEAFSIZE(canvas);
 	//int size = LEAFSIZE(canvas);
 	//std::clog << size << '\n';
-	const float size_ex = 0.02*scale;
 	int size = size_ex;
 	
 	if(size < 1){
@@ -139,7 +137,7 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float sc
 	}
 }
 
-void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thickness, SDL_Color wood, SDL_Color leaf, float leafinterval, float scale) {
+void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thickness, SDL_Color wood, SDL_Color leaf, float leafinterval, float leafsize) {
 	//std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	//std::clog << leafinterval << '\n';
 	
@@ -239,7 +237,7 @@ void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thick
 			}
 			tx = clamp(tx, 0, canvas->w);
 			ty = clamp(ty, 0, canvas->h);
-			drawleaf(canvas, tx, ty, leaf, scale);
+			drawleaf(canvas, tx, ty, leaf, leafsize);
 		}
 		
 		if (P >= 0) {
@@ -295,8 +293,8 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, TreeNode* tree, SDL_C
 			node->param.thickness * scale,
 			wood,
 			leafs,
-			LEAFSIZE(data) * (1 / node->param.leafs),
-			scale);
+			(node->param.leafsize * scale) * (1 / node->param.leafs),
+			node->param.leafsize * scale);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
 			//std::clog << "Pushing new node\n";
