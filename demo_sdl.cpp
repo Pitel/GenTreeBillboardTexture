@@ -49,7 +49,7 @@ void InitTexture(){
 #endif
                 );
 
-		GenTreeBillboardTexture(tree_texture, width, height, seed, depth, treeType, trunk, leaf);
+		GenTreeBillboardTexture(tree_texture, seed, depth, treeType, trunk, leaf);
 }
 bool Init()
 {

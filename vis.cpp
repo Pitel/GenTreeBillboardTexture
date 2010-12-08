@@ -139,13 +139,15 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float sc
 	}
 }
 
-void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1, int x2, int y2, float thickness, SDL_Color wood, SDL_Color leaf, float leafinterval, float scale) {
+void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thickness, SDL_Color wood, SDL_Color leaf, float leafinterval, float scale) {
 	//std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	//std::clog << leafinterval << '\n';
 	
-	y1 = clamp(y1, 0, height - 1);
-	x2 = clamp(x2, 0, width - 1);
-	y2 = clamp(y2, 0, height - 1);
+	x1 = clamp(x1, 0, canvas->w - 1);
+	y1 = clamp(y1, 0, canvas->h - 1);
+	x2 = clamp(x2, 0, canvas->w - 1);
+	y2 = clamp(y2, 0, canvas->h - 1);
+	//std::clog << "Clamp: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	float thickness_orig = thickness;
 	if (thickness < 1) {
 		thickness = 1;
@@ -249,7 +251,7 @@ void drawbranch(SDL_Surface *canvas, size_t width, size_t height, int x1, int y1
 	}
 }
 
-void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t height, TreeNode* tree, SDL_Color wood, SDL_Color leafs) {
+void GenTreeBillboardTexture_visualize(SDL_Surface * data, TreeNode* tree, SDL_Color wood, SDL_Color leafs) {
 	//std::clog << "Visualizing tree...\n";
 	
 	boundingBox bounds = getBoundingBox(tree);
@@ -259,15 +261,15 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 	
 	const float treeAspect = treeWidth / treeHeight;
 	//std::clog << "Tree aspect ratio: " << treeAspect << '\n';
-	const float imageAspect = (float) width / (float) height;
+	const float imageAspect = (float) data->w / (float) data->h;
 	//std::clog << "Image aspect ratio: " << imageAspect << '\n';
 	float scale = 1;
 	size_t offset = 0;
 	if (treeAspect < imageAspect) {
-		scale = height / treeHeight;
-		offset = (width - treeWidth * scale) / 2;
+		scale = data->h / treeHeight;
+		offset = (data->w - treeWidth * scale) / 2;
 	} else {
-		scale = width / treeWidth;
+		scale = data->w / treeWidth;
 	}
 	
 	queue<TreeNode*> q;
@@ -285,11 +287,11 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, size_t width, size_t 
 		}
 		
 		//std::clog << node->param.leafs << ' ' << scale << '\n';
-		drawbranch(data, width, height,
+		drawbranch(data,
 			(origin.x + abs(bounds.minX)) * scale + offset,
-			height - 1 - origin.z * scale,
+			data->h - 1 - origin.z * scale,
 			(node->param.branchEnd.x + abs(bounds.minX)) * scale + offset,
-			height - node->param.branchEnd.z * scale,
+			data->h - node->param.branchEnd.z * scale,
 			node->param.thickness * scale,
 			wood,
 			leafs,
