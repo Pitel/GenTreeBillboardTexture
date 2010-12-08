@@ -103,9 +103,10 @@ void Draw()
 }
 
 
+	SDL_Event event;
+
 bool ProcessEvent()
 {
-	SDL_Event event;
 
 	while(SDL_PollEvent(&event))
 	{
@@ -199,11 +200,95 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-	// Hlavni smycka programu
-	while(ProcessEvent())
-	{
-		Draw();
-	}
+//	// Hlavni smycka programu
+//	while(ProcessEvent())
+//	{
+//		Draw();
+//
+//        if(SDL_WaitEvent(&event) == 0)
+//            cerr << "ERR" << endl;
+//    }
+
+    bool active = true;
+
+    for(;;)// Infinite loop
+    {
+        SDL_Event event;
+
+        // Wait for event
+        if(SDL_WaitEvent(&event) == 0) //throw SDL_Exception();
+            cerr << "Error SDL_WaitEvent" << endl;
+
+         // Handle all waiting events
+        do
+        {
+
+            switch(event.type)
+            {
+
+                case SDL_ACTIVEEVENT :// Stop redraw when minimized
+                    if(event.active.state == SDL_APPACTIVE)
+                        active = event.active.gain;
+                    break;
+
+                case SDL_VIDEOEXPOSE :
+                  //  redraw = true;
+                    break;
+
+			// Klavesnice
+			case SDL_KEYDOWN:
+				switch(event.key.keysym.sym)
+				{
+					case SDLK_ESCAPE:
+						return false;
+						break;
+
+					default:
+						break;
+				}
+				break;
+
+			// Zmena velikosti okna
+			case SDL_VIDEORESIZE:
+				window = SDL_SetVideoMode(event.resize.w,
+					event.resize.h, WIN_BPP, WIN_FLAGS);
+				width = event.resize.w;
+				height = event.resize.h;
+				InitTexture();
+
+				if(window == NULL)
+				{
+					fprintf(stderr,
+						"Unable to resize window: %s\n",
+						SDL_GetError());
+					return false;
+				}
+				//redraw = true;
+				break;
+
+			// Pozadavek na ukonceni
+			case SDL_QUIT:
+				return false;
+				break;
+
+			default:
+				break;
+            }
+
+        } while(SDL_PollEvent(&event) == 1);
+
+        Draw();
+
+        // Optionally redraw window
+//        if(active && redraw)
+//        {
+//            Draw();
+//            cout << "Draaaaaaaaaaw" << endl;
+//        }
+//        else
+//            cout << "NOT DRAW " << active << " " << redraw << endl;
+    }
+
 
 	// Deinicializace a konec
 	Destroy();
