@@ -32,7 +32,7 @@ doc:
 	cd doc; $(LATEX) pgr.tex
 
 clean:
-	$(RM) *.o xlogin00.zip *.xpm $(PROG) $(PROG)_gui $(PROG)_sdl
+	$(RM) *.o xlogin00.zip $(PROG)_gui $(PROG)_sdl
 	cd doc; $(RM) *.out *.log *.aux *.pdf
 
 pack: doc
