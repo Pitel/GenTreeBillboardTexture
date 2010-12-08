@@ -1,0 +1,123 @@
+.TH "D:/SHARE/GenTreeBillboardTexture/demo_gui.cpp" 3 "st 8. pro 2010" "Version 0.9" "GenTreeBillboardTexture" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+D:/SHARE/GenTreeBillboardTexture/demo_gui.cpp \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <gtk/gtk.h>\fP
+.br
+\fC#include <glib.h>\fP
+.br
+\fC#include <cstring>\fP
+.br
+\fC#include <cstdio>\fP
+.br
+\fC#include <string>\fP
+.br
+\fC#include 'GenTreeBillboardTexture.h'\fP
+.br
+\fC#include <iostream>\fP
+.br
+\fC#include <fstream>\fP
+.br
+\fC#include <sstream>\fP
+.br
+
+.SS "Třídy"
+
+.in +1c
+.ti -1c
+.RI "struct \fB_guidialog\fP"
+.br
+.in -1c
+.SS "Definice typů"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fB_guidialog\fP \fBGuiDialog\fP"
+.br
+.ti -1c
+.RI "typedef enum \fBtreetyp\fP \fBTTree\fP"
+.br
+.in -1c
+.SS "Výčty"
+
+.in +1c
+.ti -1c
+.RI "enum \fBtreetyp\fP { \fBJABLON\fP =  0, \fBSMRK\fP, \fBPALMA\fP }"
+.br
+.in -1c
+.SS "Funkce"
+
+.in +1c
+.ti -1c
+.RI "std::string \fBIntToChar\fP (int i)"
+.br
+.ti -1c
+.RI "void \fBcolor_select\fP (GtkWidget *widget, gpointer data)"
+.br
+.ti -1c
+.RI "void \fBrun_sdldemo_surface\fP (void)"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char **argv)"
+.br
+.in -1c
+.SS "Proměnné"
+
+.in +1c
+.ti -1c
+.RI "\fBGuiDialog\fP \fBguidialog\fP"
+.br
+.ti -1c
+.RI "GtkWidget * \fBcolorseldlg\fP = NULL"
+.br
+.ti -1c
+.RI "GtkWidget * \fBdrawingarea\fP = NULL"
+.br
+.ti -1c
+.RI "GdkColor \fBcolor\fP"
+.br
+.ti -1c
+.RI "GdkColor \fBtrunk_color\fP = {0, 90*255,60*255,30*255}"
+.br
+.ti -1c
+.RI "GdkColor \fBleaf_color\fP = {0,30*255,150*255,30*255}"
+.br
+.in -1c
+.SH "Dokumentace definic typů"
+.PP 
+.SS "typedef struct \fB_guidialog\fP  \fBGuiDialog\fP"Dialog widgets 
+.SS "typedef enum \fBtreetyp\fP  \fBTTree\fP"
+.SH "Dokumentace výčtových typů"
+.PP 
+.SS "enum \fBtreetyp\fP"
+.PP
+\fBHodnoty výčtu: \fP
+.in +1c
+.TP
+\fB\fIJABLON \fP\fP
+.TP
+\fB\fISMRK \fP\fP
+.TP
+\fB\fIPALMA \fP\fP
+
+.SH "Dokumentace funkcí"
+.PP 
+.SS "void color_select (GtkWidget * widget, gpointer data)"
+.SS "std::string IntToChar (int i)"
+.SS "int main (int argc, char ** argv)"Create main window 
+.SS "void run_sdldemo_surface (void)"
+.SH "Dokumentace proměnných"
+.PP 
+.SS "GdkColor \fBcolor\fP"
+.SS "GtkWidget* \fBcolorseldlg\fP = NULL"
+.SS "GtkWidget* \fBdrawingarea\fP = NULL"
+.SS "\fBGuiDialog\fP \fBguidialog\fP"Dialog window 
+.SS "GdkColor \fBleaf_color\fP = {0,30*255,150*255,30*255}"
+.SS "GdkColor \fBtrunk_color\fP = {0, 90*255,60*255,30*255}"
+.SH "Autor"
+.PP 
+Generováno automaticky programem Doxygen ze zdrojových textů projektu GenTreeBillboardTexture.

@@ -1,0 +1,87 @@
+\documentclass[a4paper]{book}
+\usepackage{makeidx}
+\usepackage{graphicx}
+\usepackage{multicol}
+\usepackage{float}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{ifthen}
+\usepackage[table]{xcolor}
+\usepackage{textcomp}
+\usepackage{alltt}
+\usepackage{ifpdf}
+\ifpdf
+\usepackage[pdftex,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\else
+\usepackage[ps2pdf,
+            pagebackref=true,
+            colorlinks=true,
+            linkcolor=blue,
+            unicode
+           ]{hyperref}
+\usepackage{pspicture}
+\fi
+\usepackage[utf8]{inputenc}
+\usepackage[T2A]{fontenc}
+\usepackage[czech]{babel}
+
+\usepackage{mathptmx}
+\usepackage[scaled=.90]{helvet}
+\usepackage{courier}
+\usepackage{doxygen}
+\lstset{language=C++,inputencoding=utf8,basicstyle=\footnotesize,breaklines=true,breakatwhitespace=true,tabsize=8,numbers=left }
+\makeindex
+\setcounter{tocdepth}{3}
+\renewcommand{\footrulewidth}{0.4pt}
+\begin{document}
+\hypersetup{pageanchor=false}
+\begin{titlepage}
+\vspace*{7cm}
+\begin{center}
+{\Large GenTreeBillboardTexture \\[1ex]\large 0.9 }\\
+\vspace*{1cm}
+{\large Generováno programem Doxygen 1.7.2}\\
+\vspace*{0.5cm}
+{\small st 8. pro 2010 15.00:20}\\
+\end{center}
+\end{titlepage}
+\clearemptydoublepage
+\pagenumbering{roman}
+\tableofcontents
+\clearemptydoublepage
+\pagenumbering{arabic}
+\hypersetup{pageanchor=true}
+\chapter{Rejstřík tříd}
+\input{annotated}
+\chapter{Rejstřík souborů}
+\input{files}
+\chapter{Dokumentace tříd}
+\input{struct__guidialog}
+\input{structbounding_box}
+\input{structcartesian_coords}
+\input{structd}
+\input{class_g_rules}
+\input{structspheric_coords}
+\input{class_tree_node}
+\input{structtree_params}
+\chapter{Dokumentace souborů}
+\input{3d_8cpp}
+\input{demo__gui_8cpp}
+\input{demo__sdl_8cpp}
+\input{_gen_tree_billboard_texture_8cpp}
+\input{_gen_tree_billboard_texture_8h}
+\input{grammar_8cpp}
+\input{grammar_8h}
+\input{param_8cpp}
+\input{param_8h}
+\input{rules_8cpp}
+\input{rules_8h}
+\input{vis_8cpp}
+\input{vis_8h}
+\printindex
+\end{document}

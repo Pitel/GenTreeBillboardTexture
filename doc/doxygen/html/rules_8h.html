@@ -1,0 +1,140 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>GenTreeBillboardTexture: Dokumentace souboru D:/SHARE/GenTreeBillboardTexture/rules.h</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Generováno programem Doxygen 1.7.2 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul class="tablist">
+      <li><a href="main.html"><span>Hlavní&#160;stránka</span></a></li>
+      <li><a href="annotated.html"><span>Třídy</span></a></li>
+      <li class="current"><a href="files.html"><span>Soubory</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Seznam&#160;souborů</span></a></li>
+      <li><a href="globals.html"><span>Symboly&#160;v&#160;souborech</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#nested-classes">Třídy</a> &#124;
+<a href="#enum-members">Výčty</a> &#124;
+<a href="#var-members">Proměnné</a>  </div>
+  <div class="headertitle">
+<h1>Dokumentace souboru D:/SHARE/GenTreeBillboardTexture/rules.h</h1>  </div>
+</div>
+<div class="contents">
+<code>#include &lt;iostream&gt;</code><br/>
+<code>#include &lt;map&gt;</code><br/>
+<code>#include &lt;vector&gt;</code><br/>
+<code>#include &lt;string&gt;</code><br/>
+
+<p><a href="rules_8h_source.html">Zobrazit zdrojový text tohoto souboru.</a></p>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="nested-classes"></a>
+Třídy</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_g_rules.html">GRules</a></td></tr>
+<tr><td colspan="2"><h2><a name="enum-members"></a>
+Výčty</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2">PTreeType</a> { <a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2ab44f05da4b2135a4b159a6a53b602c87">PTREE_APPLE</a>, 
+<a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2a88f5fc61d8d4c70930f3abcaaec64a61">PTREE_PICEA</a>, 
+<a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2a36bd256ed280f742356a9e098d051701">PTREE_PALMA</a>, 
+<a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2ace733c17c3f23fb9734d3c995403833d">PTREE_COUNT</a>
+ }</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rules_8h.html#a5a27f914c36515e90cdc5728872c6b14">treeNodeType</a> { <br/>
+&#160;&#160;<a class="el" href="rules_8h.html#a5a27f914c36515e90cdc5728872c6b14a20c4e64d8bf1488fad5d7f71792a01de">TRUNK</a>, 
+<a class="el" href="rules_8h.html#a5a27f914c36515e90cdc5728872c6b14ad9b20a9207fb2cd3021b9eb0b7c6fe5e">BRANCH</a>, 
+<a class="el" href="rules_8h.html#a5a27f914c36515e90cdc5728872c6b14ad7edfd11dbed07ede582cc3908cac64e">BRANCH_UP</a>, 
+<a class="el" href="rules_8h.html#a5a27f914c36515e90cdc5728872c6b14a8578fcd72d28a366a287fecefd69fb96">BRANCH_DOWN</a>, 
+<br/>
+&#160;&#160;<a class="el" href="rules_8h.html#a5a27f914c36515e90cdc5728872c6b14a5440748326e2af11b34a860cc18b5ea8">TRUNK_BRANCHLESS</a>
+<br/>
+ }</td></tr>
+<tr><td colspan="2"><h2><a name="var-members"></a>
+Proměnné</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const char *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rules_8h.html#a903259f519e9b58655c416ea913c772b">printableRules</a> []</td></tr>
+</table>
+<hr/><h2>Dokumentace výčtových typů</h2>
+<a class="anchor" id="a0f13aab8ab80f3289cf8f97c6bb307c2"></a><!-- doxytag: member="rules.h::PTreeType" ref="a0f13aab8ab80f3289cf8f97c6bb307c2" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2">PTreeType</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Vyctovy typ reprezentujici dostupne modely stromu (gramatiky a parametry stromu) </p>
+<dl><dt><b>Hodnoty výčtu: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="a0f13aab8ab80f3289cf8f97c6bb307c2ab44f05da4b2135a4b159a6a53b602c87"></a><!-- doxytag: member="PTREE_APPLE" ref="a0f13aab8ab80f3289cf8f97c6bb307c2ab44f05da4b2135a4b159a6a53b602c87" args="" -->PTREE_APPLE</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a0f13aab8ab80f3289cf8f97c6bb307c2a88f5fc61d8d4c70930f3abcaaec64a61"></a><!-- doxytag: member="PTREE_PICEA" ref="a0f13aab8ab80f3289cf8f97c6bb307c2a88f5fc61d8d4c70930f3abcaaec64a61" args="" -->PTREE_PICEA</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a0f13aab8ab80f3289cf8f97c6bb307c2a36bd256ed280f742356a9e098d051701"></a><!-- doxytag: member="PTREE_PALMA" ref="a0f13aab8ab80f3289cf8f97c6bb307c2a36bd256ed280f742356a9e098d051701" args="" -->PTREE_PALMA</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a0f13aab8ab80f3289cf8f97c6bb307c2ace733c17c3f23fb9734d3c995403833d"></a><!-- doxytag: member="PTREE_COUNT" ref="a0f13aab8ab80f3289cf8f97c6bb307c2ace733c17c3f23fb9734d3c995403833d" args="" -->PTREE_COUNT</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+</div>
+</div>
+<a class="anchor" id="a5a27f914c36515e90cdc5728872c6b14"></a><!-- doxytag: member="rules.h::treeNodeType" ref="a5a27f914c36515e90cdc5728872c6b14" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="rules_8h.html#a5a27f914c36515e90cdc5728872c6b14">treeNodeType</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Vyctovy typ reprezentujici casti stromu (gramatika pracuje prave s temito castmi) </p>
+<dl><dt><b>Hodnoty výčtu: </b></dt><dd><table border="0" cellspacing="2" cellpadding="0">
+<tr><td valign="top"><em><a class="anchor" id="a5a27f914c36515e90cdc5728872c6b14a20c4e64d8bf1488fad5d7f71792a01de"></a><!-- doxytag: member="TRUNK" ref="a5a27f914c36515e90cdc5728872c6b14a20c4e64d8bf1488fad5d7f71792a01de" args="" -->TRUNK</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a5a27f914c36515e90cdc5728872c6b14ad9b20a9207fb2cd3021b9eb0b7c6fe5e"></a><!-- doxytag: member="BRANCH" ref="a5a27f914c36515e90cdc5728872c6b14ad9b20a9207fb2cd3021b9eb0b7c6fe5e" args="" -->BRANCH</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a5a27f914c36515e90cdc5728872c6b14ad7edfd11dbed07ede582cc3908cac64e"></a><!-- doxytag: member="BRANCH_UP" ref="a5a27f914c36515e90cdc5728872c6b14ad7edfd11dbed07ede582cc3908cac64e" args="" -->BRANCH_UP</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a5a27f914c36515e90cdc5728872c6b14a8578fcd72d28a366a287fecefd69fb96"></a><!-- doxytag: member="BRANCH_DOWN" ref="a5a27f914c36515e90cdc5728872c6b14a8578fcd72d28a366a287fecefd69fb96" args="" -->BRANCH_DOWN</em>&nbsp;</td><td>
+</td></tr>
+<tr><td valign="top"><em><a class="anchor" id="a5a27f914c36515e90cdc5728872c6b14a5440748326e2af11b34a860cc18b5ea8"></a><!-- doxytag: member="TRUNK_BRANCHLESS" ref="a5a27f914c36515e90cdc5728872c6b14a5440748326e2af11b34a860cc18b5ea8" args="" -->TRUNK_BRANCHLESS</em>&nbsp;</td><td>
+</td></tr>
+</table>
+</dd>
+</dl>
+
+</div>
+</div>
+<hr/><h2>Dokumentace proměnných</h2>
+<a class="anchor" id="a903259f519e9b58655c416ea913c772b"></a><!-- doxytag: member="rules.h::printableRules" ref="a903259f519e9b58655c416ea913c772b" args="[]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const char* <a class="el" href="rules_8h.html#a903259f519e9b58655c416ea913c772b">printableRules</a>[]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Pomocne pole obsahujici zkratky pro ladici vypis jednotlivych pravidel </p>
+
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>Generováno st 8. pro 2010 15.00:20 pro projekt GenTreeBillboardTexture programem&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
+</body>
+</html>

@@ -1,0 +1,269 @@
+\hypertarget{3d_8cpp}{
+\section{Dokumentace souboru D:/SHARE/GenTreeBillboardTexture/3d/3d.cpp}
+\label{3d_8cpp}\index{D:/SHARE/GenTreeBillboardTexture/3d/3d.cpp@{D:/SHARE/GenTreeBillboardTexture/3d/3d.cpp}}
+}
+{\ttfamily \#include \char`\"{}pgr.h\char`\"{}}\par
+{\ttfamily \#include $<$glm/glm.hpp$>$}\par
+{\ttfamily \#include $<$glm/gtc/matrix\_\-projection.hpp$>$}\par
+{\ttfamily \#include $<$glm/gtc/matrix\_\-transform.hpp$>$}\par
+{\ttfamily \#include $<$glm/gtc/type\_\-ptr.hpp$>$}\par
+{\ttfamily \#include $<$GL/gl.h$>$}\par
+{\ttfamily \#include $<$GL/glu.h$>$}\par
+{\ttfamily \#include $<$iostream$>$}\par
+{\ttfamily \#include \char`\"{}../grammar.h\char`\"{}}\par
+{\ttfamily \#include \char`\"{}../param.h\char`\"{}}\par
+{\ttfamily \#include $<$queue$>$}\par
+\subsection*{Funkce}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{3d_8cpp_af0f841e6c76c65281908ac6d821145f0}{newTree} (int \hyperlink{demo__sdl_8cpp_a5081a26baa914156df8541b03d09492e}{depth}, int \hyperlink{demo__sdl_8cpp_ae21f357c223957d36046a0d71cc6aed7}{seed})
+\item 
+void \hyperlink{3d_8cpp_ab29e01699e595602fac75d761f2032a1}{onInit} ()
+\item 
+void \hyperlink{3d_8cpp_a62661666d465bf8716aef797f492c27e}{onWindowRedraw} ()
+\item 
+void \hyperlink{3d_8cpp_aa835deffc0f06d2100b505762ddeeff8}{onWindowResized} (int w, int h)
+\item 
+void \hyperlink{3d_8cpp_a6942154f1a9d98259029852e65f219ac}{onKeyDown} (SDLKey key, Uint16)
+\item 
+void \hyperlink{3d_8cpp_ac22de8258b06dabe5d1b9cd5ebe0543b}{onKeyUp} (SDLKey key, Uint16)
+\item 
+void \hyperlink{3d_8cpp_a97551b50179f3dad3b47f9f783521efb}{onMouseMove} (unsigned, unsigned, int xrel, int yrel, Uint8 buttons)
+\item 
+void \hyperlink{3d_8cpp_ac6ec2c01a42c8dea2bab698699503e1d}{onMouseDown} (Uint8 button, unsigned, unsigned)
+\item 
+void \hyperlink{3d_8cpp_ae6c9e9e16339761d579b98121f756448}{onMouseUp} (Uint8, unsigned, unsigned)
+\item 
+int \hyperlink{3d_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Proměnné}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{3d_8cpp_a2474a5474cbff19523a51eb1de01cda4}{width}
+\item 
+int \hyperlink{3d_8cpp_ad12fc34ce789bce6c8a05d8a17138534}{height}
+\item 
+float \hyperlink{3d_8cpp_a46734a4f0ae366a167431a0aaf1875a3}{rx} = 0.0f
+\item 
+float \hyperlink{3d_8cpp_a1fb3f09c1d8b72e4532044f77c5cdec4}{ry} = -\/90.0f
+\item 
+float \hyperlink{3d_8cpp_ad14cf8d20cbd0a50cdc6cd204096aa46}{pz} = 3.0f
+\item 
+float \hyperlink{3d_8cpp_a487c437136ff9c2479e98260beed355b}{sxmin} = 0.0
+\item 
+float \hyperlink{3d_8cpp_a362f97c70c078da3ad9bc1c70011a344}{symin} = 0.0
+\item 
+float \hyperlink{3d_8cpp_ab4dbfc230d70118380f6525ce088b1a9}{szmin} = 0.0
+\item 
+float \hyperlink{3d_8cpp_adc350167ab2a64c239f9261937c12f82}{sxmax} = 0.0
+\item 
+float \hyperlink{3d_8cpp_a3b09b0fd60cab30b6406da88afa272b4}{symax} = 0.0
+\item 
+float \hyperlink{3d_8cpp_a43f6bcc2c964f65bd5b82e2c0692b54e}{szmax} = 0.0
+\item 
+int \hyperlink{3d_8cpp_acb5ba97551079e0b072c62c21d784ac5}{depth} = 40
+\item 
+int \hyperlink{3d_8cpp_a1447ad288a0a73454510f5777bdc3ed1}{seed} = 23505
+\item 
+bool \hyperlink{3d_8cpp_a9d513a048495d24c3d88b4ba0c323e19}{isHoldKey} = false
+\item 
+SDLKey \hyperlink{3d_8cpp_a2400885bed5be131f0bd5dc2f4c55282}{holdKey} = SDLK\_\-ESCAPE
+\item 
+\hyperlink{class_tree_node}{TreeNode} $\ast$ \hyperlink{3d_8cpp_a39a9ae7ca46d755c7df29c11d382a3c8}{mytree}
+\item 
+queue$<$ \hyperlink{class_tree_node}{TreeNode} $\ast$ $>$ \hyperlink{3d_8cpp_a51b3b9f9470b1a20a6d4d392ca30963c}{printNodes}
+\end{DoxyCompactItemize}
+
+
+\subsection{Dokumentace funkcí}
+\hypertarget{3d_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{
+\index{3d.cpp@{3d.cpp}!main@{main}}
+\index{main@{main}!3d.cpp@{3d.cpp}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{ argc, }
+\item[{char $\ast$}]{ argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}
+\label{3d_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+\hypertarget{3d_8cpp_af0f841e6c76c65281908ac6d821145f0}{
+\index{3d.cpp@{3d.cpp}!newTree@{newTree}}
+\index{newTree@{newTree}!3d.cpp@{3d.cpp}}
+\subsubsection[{newTree}]{\setlength{\rightskip}{0pt plus 5cm}void newTree (
+\begin{DoxyParamCaption}
+\item[{int}]{ depth, }
+\item[{int}]{ seed}
+\end{DoxyParamCaption}
+)}}
+\label{3d_8cpp_af0f841e6c76c65281908ac6d821145f0}
+\hypertarget{3d_8cpp_ab29e01699e595602fac75d761f2032a1}{
+\index{3d.cpp@{3d.cpp}!onInit@{onInit}}
+\index{onInit@{onInit}!3d.cpp@{3d.cpp}}
+\subsubsection[{onInit}]{\setlength{\rightskip}{0pt plus 5cm}void onInit (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{3d_8cpp_ab29e01699e595602fac75d761f2032a1}
+\hypertarget{3d_8cpp_a6942154f1a9d98259029852e65f219ac}{
+\index{3d.cpp@{3d.cpp}!onKeyDown@{onKeyDown}}
+\index{onKeyDown@{onKeyDown}!3d.cpp@{3d.cpp}}
+\subsubsection[{onKeyDown}]{\setlength{\rightskip}{0pt plus 5cm}void onKeyDown (
+\begin{DoxyParamCaption}
+\item[{SDLKey}]{ key, }
+\item[{Uint16}]{}
+\end{DoxyParamCaption}
+)}}
+\label{3d_8cpp_a6942154f1a9d98259029852e65f219ac}
+\hypertarget{3d_8cpp_ac22de8258b06dabe5d1b9cd5ebe0543b}{
+\index{3d.cpp@{3d.cpp}!onKeyUp@{onKeyUp}}
+\index{onKeyUp@{onKeyUp}!3d.cpp@{3d.cpp}}
+\subsubsection[{onKeyUp}]{\setlength{\rightskip}{0pt plus 5cm}void onKeyUp (
+\begin{DoxyParamCaption}
+\item[{SDLKey}]{ key, }
+\item[{Uint16}]{}
+\end{DoxyParamCaption}
+)}}
+\label{3d_8cpp_ac22de8258b06dabe5d1b9cd5ebe0543b}
+\hypertarget{3d_8cpp_ac6ec2c01a42c8dea2bab698699503e1d}{
+\index{3d.cpp@{3d.cpp}!onMouseDown@{onMouseDown}}
+\index{onMouseDown@{onMouseDown}!3d.cpp@{3d.cpp}}
+\subsubsection[{onMouseDown}]{\setlength{\rightskip}{0pt plus 5cm}void onMouseDown (
+\begin{DoxyParamCaption}
+\item[{Uint8}]{ button, }
+\item[{unsigned}]{, }
+\item[{unsigned}]{}
+\end{DoxyParamCaption}
+)}}
+\label{3d_8cpp_ac6ec2c01a42c8dea2bab698699503e1d}
+\hypertarget{3d_8cpp_a97551b50179f3dad3b47f9f783521efb}{
+\index{3d.cpp@{3d.cpp}!onMouseMove@{onMouseMove}}
+\index{onMouseMove@{onMouseMove}!3d.cpp@{3d.cpp}}
+\subsubsection[{onMouseMove}]{\setlength{\rightskip}{0pt plus 5cm}void onMouseMove (
+\begin{DoxyParamCaption}
+\item[{unsigned}]{, }
+\item[{unsigned}]{, }
+\item[{int}]{ xrel, }
+\item[{int}]{ yrel, }
+\item[{Uint8}]{ buttons}
+\end{DoxyParamCaption}
+)}}
+\label{3d_8cpp_a97551b50179f3dad3b47f9f783521efb}
+\hypertarget{3d_8cpp_ae6c9e9e16339761d579b98121f756448}{
+\index{3d.cpp@{3d.cpp}!onMouseUp@{onMouseUp}}
+\index{onMouseUp@{onMouseUp}!3d.cpp@{3d.cpp}}
+\subsubsection[{onMouseUp}]{\setlength{\rightskip}{0pt plus 5cm}void onMouseUp (
+\begin{DoxyParamCaption}
+\item[{Uint8}]{, }
+\item[{unsigned}]{, }
+\item[{unsigned}]{}
+\end{DoxyParamCaption}
+)}}
+\label{3d_8cpp_ae6c9e9e16339761d579b98121f756448}
+\hypertarget{3d_8cpp_a62661666d465bf8716aef797f492c27e}{
+\index{3d.cpp@{3d.cpp}!onWindowRedraw@{onWindowRedraw}}
+\index{onWindowRedraw@{onWindowRedraw}!3d.cpp@{3d.cpp}}
+\subsubsection[{onWindowRedraw}]{\setlength{\rightskip}{0pt plus 5cm}void onWindowRedraw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{3d_8cpp_a62661666d465bf8716aef797f492c27e}
+\hypertarget{3d_8cpp_aa835deffc0f06d2100b505762ddeeff8}{
+\index{3d.cpp@{3d.cpp}!onWindowResized@{onWindowResized}}
+\index{onWindowResized@{onWindowResized}!3d.cpp@{3d.cpp}}
+\subsubsection[{onWindowResized}]{\setlength{\rightskip}{0pt plus 5cm}void onWindowResized (
+\begin{DoxyParamCaption}
+\item[{int}]{ w, }
+\item[{int}]{ h}
+\end{DoxyParamCaption}
+)}}
+\label{3d_8cpp_aa835deffc0f06d2100b505762ddeeff8}
+
+
+\subsection{Dokumentace proměnných}
+\hypertarget{3d_8cpp_acb5ba97551079e0b072c62c21d784ac5}{
+\index{3d.cpp@{3d.cpp}!depth@{depth}}
+\index{depth@{depth}!3d.cpp@{3d.cpp}}
+\subsubsection[{depth}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf depth} = 40}}
+\label{3d_8cpp_acb5ba97551079e0b072c62c21d784ac5}
+\hypertarget{3d_8cpp_ad12fc34ce789bce6c8a05d8a17138534}{
+\index{3d.cpp@{3d.cpp}!height@{height}}
+\index{height@{height}!3d.cpp@{3d.cpp}}
+\subsubsection[{height}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf height}}}
+\label{3d_8cpp_ad12fc34ce789bce6c8a05d8a17138534}
+\hypertarget{3d_8cpp_a2400885bed5be131f0bd5dc2f4c55282}{
+\index{3d.cpp@{3d.cpp}!holdKey@{holdKey}}
+\index{holdKey@{holdKey}!3d.cpp@{3d.cpp}}
+\subsubsection[{holdKey}]{\setlength{\rightskip}{0pt plus 5cm}SDLKey {\bf holdKey} = SDLK\_\-ESCAPE}}
+\label{3d_8cpp_a2400885bed5be131f0bd5dc2f4c55282}
+\hypertarget{3d_8cpp_a9d513a048495d24c3d88b4ba0c323e19}{
+\index{3d.cpp@{3d.cpp}!isHoldKey@{isHoldKey}}
+\index{isHoldKey@{isHoldKey}!3d.cpp@{3d.cpp}}
+\subsubsection[{isHoldKey}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf isHoldKey} = false}}
+\label{3d_8cpp_a9d513a048495d24c3d88b4ba0c323e19}
+\hypertarget{3d_8cpp_a39a9ae7ca46d755c7df29c11d382a3c8}{
+\index{3d.cpp@{3d.cpp}!mytree@{mytree}}
+\index{mytree@{mytree}!3d.cpp@{3d.cpp}}
+\subsubsection[{mytree}]{\setlength{\rightskip}{0pt plus 5cm}{\bf TreeNode}$\ast$ {\bf mytree}}}
+\label{3d_8cpp_a39a9ae7ca46d755c7df29c11d382a3c8}
+\hypertarget{3d_8cpp_a51b3b9f9470b1a20a6d4d392ca30963c}{
+\index{3d.cpp@{3d.cpp}!printNodes@{printNodes}}
+\index{printNodes@{printNodes}!3d.cpp@{3d.cpp}}
+\subsubsection[{printNodes}]{\setlength{\rightskip}{0pt plus 5cm}queue$<${\bf TreeNode}$\ast$$>$ {\bf printNodes}}}
+\label{3d_8cpp_a51b3b9f9470b1a20a6d4d392ca30963c}
+\hypertarget{3d_8cpp_ad14cf8d20cbd0a50cdc6cd204096aa46}{
+\index{3d.cpp@{3d.cpp}!pz@{pz}}
+\index{pz@{pz}!3d.cpp@{3d.cpp}}
+\subsubsection[{pz}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf pz} = 3.0f}}
+\label{3d_8cpp_ad14cf8d20cbd0a50cdc6cd204096aa46}
+\hypertarget{3d_8cpp_a46734a4f0ae366a167431a0aaf1875a3}{
+\index{3d.cpp@{3d.cpp}!rx@{rx}}
+\index{rx@{rx}!3d.cpp@{3d.cpp}}
+\subsubsection[{rx}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf rx} = 0.0f}}
+\label{3d_8cpp_a46734a4f0ae366a167431a0aaf1875a3}
+\hypertarget{3d_8cpp_a1fb3f09c1d8b72e4532044f77c5cdec4}{
+\index{3d.cpp@{3d.cpp}!ry@{ry}}
+\index{ry@{ry}!3d.cpp@{3d.cpp}}
+\subsubsection[{ry}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf ry} = -\/90.0f}}
+\label{3d_8cpp_a1fb3f09c1d8b72e4532044f77c5cdec4}
+\hypertarget{3d_8cpp_a1447ad288a0a73454510f5777bdc3ed1}{
+\index{3d.cpp@{3d.cpp}!seed@{seed}}
+\index{seed@{seed}!3d.cpp@{3d.cpp}}
+\subsubsection[{seed}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf seed} = 23505}}
+\label{3d_8cpp_a1447ad288a0a73454510f5777bdc3ed1}
+\hypertarget{3d_8cpp_adc350167ab2a64c239f9261937c12f82}{
+\index{3d.cpp@{3d.cpp}!sxmax@{sxmax}}
+\index{sxmax@{sxmax}!3d.cpp@{3d.cpp}}
+\subsubsection[{sxmax}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf sxmax} = 0.0}}
+\label{3d_8cpp_adc350167ab2a64c239f9261937c12f82}
+\hypertarget{3d_8cpp_a487c437136ff9c2479e98260beed355b}{
+\index{3d.cpp@{3d.cpp}!sxmin@{sxmin}}
+\index{sxmin@{sxmin}!3d.cpp@{3d.cpp}}
+\subsubsection[{sxmin}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf sxmin} = 0.0}}
+\label{3d_8cpp_a487c437136ff9c2479e98260beed355b}
+\hypertarget{3d_8cpp_a3b09b0fd60cab30b6406da88afa272b4}{
+\index{3d.cpp@{3d.cpp}!symax@{symax}}
+\index{symax@{symax}!3d.cpp@{3d.cpp}}
+\subsubsection[{symax}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf symax} = 0.0}}
+\label{3d_8cpp_a3b09b0fd60cab30b6406da88afa272b4}
+\hypertarget{3d_8cpp_a362f97c70c078da3ad9bc1c70011a344}{
+\index{3d.cpp@{3d.cpp}!symin@{symin}}
+\index{symin@{symin}!3d.cpp@{3d.cpp}}
+\subsubsection[{symin}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf symin} = 0.0}}
+\label{3d_8cpp_a362f97c70c078da3ad9bc1c70011a344}
+\hypertarget{3d_8cpp_a43f6bcc2c964f65bd5b82e2c0692b54e}{
+\index{3d.cpp@{3d.cpp}!szmax@{szmax}}
+\index{szmax@{szmax}!3d.cpp@{3d.cpp}}
+\subsubsection[{szmax}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf szmax} = 0.0}}
+\label{3d_8cpp_a43f6bcc2c964f65bd5b82e2c0692b54e}
+\hypertarget{3d_8cpp_ab4dbfc230d70118380f6525ce088b1a9}{
+\index{3d.cpp@{3d.cpp}!szmin@{szmin}}
+\index{szmin@{szmin}!3d.cpp@{3d.cpp}}
+\subsubsection[{szmin}]{\setlength{\rightskip}{0pt plus 5cm}float {\bf szmin} = 0.0}}
+\label{3d_8cpp_ab4dbfc230d70118380f6525ce088b1a9}
+\hypertarget{3d_8cpp_a2474a5474cbff19523a51eb1de01cda4}{
+\index{3d.cpp@{3d.cpp}!width@{width}}
+\index{width@{width}!3d.cpp@{3d.cpp}}
+\subsubsection[{width}]{\setlength{\rightskip}{0pt plus 5cm}int {\bf width}}}
+\label{3d_8cpp_a2474a5474cbff19523a51eb1de01cda4}

@@ -1,0 +1,634 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
+<title>GenTreeBillboardTexture: Dokumentace souboru D:/SHARE/GenTreeBillboardTexture/param.cpp</title>
+<link href="tabs.css" rel="stylesheet" type="text/css"/>
+<link href="doxygen.css" rel="stylesheet" type="text/css"/>
+</head>
+<body>
+<!-- Generováno programem Doxygen 1.7.2 -->
+<div class="navigation" id="top">
+  <div class="tabs">
+    <ul class="tablist">
+      <li><a href="main.html"><span>Hlavní&#160;stránka</span></a></li>
+      <li><a href="annotated.html"><span>Třídy</span></a></li>
+      <li class="current"><a href="files.html"><span>Soubory</span></a></li>
+    </ul>
+  </div>
+  <div class="tabs2">
+    <ul class="tablist">
+      <li><a href="files.html"><span>Seznam&#160;souborů</span></a></li>
+      <li><a href="globals.html"><span>Symboly&#160;v&#160;souborech</span></a></li>
+    </ul>
+  </div>
+</div>
+<div class="header">
+  <div class="summary">
+<a href="#func-members">Funkce</a> &#124;
+<a href="#var-members">Proměnné</a>  </div>
+  <div class="headertitle">
+<h1>Dokumentace souboru D:/SHARE/GenTreeBillboardTexture/param.cpp</h1>  </div>
+</div>
+<div class="contents">
+<code>#include &lt;stdio.h&gt;</code><br/>
+<code>#include &lt;stdlib.h&gt;</code><br/>
+<code>#include &quot;<a class="el" href="param_8h_source.html">param.h</a>&quot;</code><br/>
+<code>#include &lt;cmath&gt;</code><br/>
+<code>#include &lt;queue&gt;</code><br/>
+<table class="memberdecls">
+<tr><td colspan="2"><h2><a name="func-members"></a>
+Funkce</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#ab146e0b421a3ce2cfba0bddf35a23228">GenTreeBillboardTexture_parametrize</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *tree, <a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2">PTreeType</a> <a class="el" href="demo__sdl_8cpp.html#a4ea43ba27a886a842bb936ac7fab3b45">treeType</a>, int <a class="el" href="demo__sdl_8cpp.html#ae21f357c223957d36046a0d71cc6aed7">seed</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#ab278b0f4ed8a23de2c207402a3147cdd">parametrizeNodes</a> (queue&lt; <a class="el" href="class_tree_node.html">TreeNode</a> * &gt; *processNodes, <a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2">PTreeType</a> <a class="el" href="demo__sdl_8cpp.html#a4ea43ba27a886a842bb936ac7fab3b45">treeType</a>, int maxlevel, <a class="el" href="structcartesian_coords.html">cartesianCoords</a> treetopCenter, int treetopBranchCount)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#ae1fd8dd4d1f0ba7073cfd9836bb64d7c">parametrizeNode</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *node, <a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2">PTreeType</a> <a class="el" href="demo__sdl_8cpp.html#a4ea43ba27a886a842bb936ac7fab3b45">treeType</a>, int maxlevel, <a class="el" href="structcartesian_coords.html">cartesianCoords</a> treetopCenter)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a84804dbae0214ca06100f2a8d2bcd45c">branchLengthTree1</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *current, int maxlevel)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a991ebed53bef19fdcabb8677b486add0">branchThicknessTree1</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *current, int maxlevel)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a45eca807a3b4588a717e7034bf00e64c">branchDirectionTree1</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *current, <a class="el" href="structcartesian_coords.html">cartesianCoords</a> treetopCenter)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#ad05661e4ade28c7dfd814c11d72b738b">branchLengthPicea</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *current, int maxlevel)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a6cf3a597955ecbc98c0a46b7f6a99cbb">branchThicknessPicea</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *current, int maxlevel)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a7d24d3cc337c7e03c42128f59f7d79f8">branchDirectionPicea</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *current, <a class="el" href="structcartesian_coords.html">cartesianCoords</a> treetopCenter)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a793155c5f693eb3a6d587dbc326fc001">branchLengthPalma</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *current, int maxlevel)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#ac2be275216d67cafd430ddf8f3444d3c">branchThicknessPalma</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *current, int maxlevel)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a838bc2a069b28a474bff49d0f1757390">branchDirectionPalma</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *current, <a class="el" href="structcartesian_coords.html">cartesianCoords</a> treetopCenter)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a788075c14d6abe99f83473cd2030ea63">fillAbsoluteVector</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *current)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#aac787ddce90a4b71592c6812b21cdf34">basicRandom</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a4d19e6856279334d2dd806af4e058c37">exponentialRandom</a> (double mv)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a95d0868b96693847bf183699b7da1c08">normalRandom</a> (double mean, double var)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#ac6155847070b0c5c926df1abcbb8df13">uniformRandom</a> (double l, double h)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbounding_box.html">boundingBox</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a66ee90c43e40ad70673b5b66b4717eee">combineBoundingBoxes</a> (<a class="el" href="structbounding_box.html">boundingBox</a> bb1, <a class="el" href="structbounding_box.html">boundingBox</a> bb2)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="el" href="structbounding_box.html">boundingBox</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a89c84cbf072be544cc3cf120b874f680">getBoundingBox</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *node)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#ab8757fd5bf1cc1308f558c4b84d69301">maxLevel</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *node)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a07f22b7a63e20822164175eca4c2ff77">calcChildLeafs</a> (<a class="el" href="class_tree_node.html">TreeNode</a> *node)</td></tr>
+<tr><td colspan="2"><h2><a name="var-members"></a>
+Proměnné</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">const <a class="el" href="structtree_params.html">treeParams</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="param_8cpp.html#a449bdfe43fc07bafe24ce6e2604f113d">treeBuilders</a> [PTREE_COUNT]</td></tr>
+</table>
+<hr/><h2>Dokumentace funkcí</h2>
+<a class="anchor" id="aac787ddce90a4b71592c6812b21cdf34"></a><!-- doxytag: member="param.cpp::basicRandom" ref="aac787ddce90a4b71592c6812b21cdf34" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double basicRandom </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a838bc2a069b28a474bff49d0f1757390"></a><!-- doxytag: member="param.cpp::branchDirectionPalma" ref="a838bc2a069b28a474bff49d0f1757390" args="(TreeNode *current, cartesianCoords treetopCenter)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void branchDirectionPalma </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcartesian_coords.html">cartesianCoords</a>&#160;</td>
+          <td class="paramname"> <em>treetopCenter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a7d24d3cc337c7e03c42128f59f7d79f8"></a><!-- doxytag: member="param.cpp::branchDirectionPicea" ref="a7d24d3cc337c7e03c42128f59f7d79f8" args="(TreeNode *current, cartesianCoords treetopCenter)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void branchDirectionPicea </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcartesian_coords.html">cartesianCoords</a>&#160;</td>
+          <td class="paramname"> <em>treetopCenter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a45eca807a3b4588a717e7034bf00e64c"></a><!-- doxytag: member="param.cpp::branchDirectionTree1" ref="a45eca807a3b4588a717e7034bf00e64c" args="(TreeNode *current, cartesianCoords treetopCenter)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void branchDirectionTree1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcartesian_coords.html">cartesianCoords</a>&#160;</td>
+          <td class="paramname"> <em>treetopCenter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a793155c5f693eb3a6d587dbc326fc001"></a><!-- doxytag: member="param.cpp::branchLengthPalma" ref="a793155c5f693eb3a6d587dbc326fc001" args="(TreeNode *current, int maxlevel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void branchLengthPalma </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"> <em>maxlevel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ad05661e4ade28c7dfd814c11d72b738b"></a><!-- doxytag: member="param.cpp::branchLengthPicea" ref="ad05661e4ade28c7dfd814c11d72b738b" args="(TreeNode *current, int maxlevel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void branchLengthPicea </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"> <em>maxlevel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a84804dbae0214ca06100f2a8d2bcd45c"></a><!-- doxytag: member="param.cpp::branchLengthTree1" ref="a84804dbae0214ca06100f2a8d2bcd45c" args="(TreeNode *current, int maxlevel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void branchLengthTree1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"> <em>maxlevel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac2be275216d67cafd430ddf8f3444d3c"></a><!-- doxytag: member="param.cpp::branchThicknessPalma" ref="ac2be275216d67cafd430ddf8f3444d3c" args="(TreeNode *current, int maxlevel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void branchThicknessPalma </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"> <em>maxlevel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a6cf3a597955ecbc98c0a46b7f6a99cbb"></a><!-- doxytag: member="param.cpp::branchThicknessPicea" ref="a6cf3a597955ecbc98c0a46b7f6a99cbb" args="(TreeNode *current, int maxlevel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void branchThicknessPicea </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"> <em>maxlevel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a991ebed53bef19fdcabb8677b486add0"></a><!-- doxytag: member="param.cpp::branchThicknessTree1" ref="a991ebed53bef19fdcabb8677b486add0" args="(TreeNode *current, int maxlevel)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void branchThicknessTree1 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>current</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"> <em>maxlevel</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a07f22b7a63e20822164175eca4c2ff77"></a><!-- doxytag: member="param.cpp::calcChildLeafs" ref="a07f22b7a63e20822164175eca4c2ff77" args="(TreeNode *node)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int calcChildLeafs </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>node</em>&#160;)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a66ee90c43e40ad70673b5b66b4717eee"></a><!-- doxytag: member="param.cpp::combineBoundingBoxes" ref="a66ee90c43e40ad70673b5b66b4717eee" args="(boundingBox bb1, boundingBox bb2)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbounding_box.html">boundingBox</a> combineBoundingBoxes </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structbounding_box.html">boundingBox</a>&#160;</td>
+          <td class="paramname"> <em>bb1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structbounding_box.html">boundingBox</a>&#160;</td>
+          <td class="paramname"> <em>bb2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4d19e6856279334d2dd806af4e058c37"></a><!-- doxytag: member="param.cpp::exponentialRandom" ref="a4d19e6856279334d2dd806af4e058c37" args="(double mv)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double exponentialRandom </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"> <em>mv</em>&#160;)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a788075c14d6abe99f83473cd2030ea63"></a><!-- doxytag: member="param.cpp::fillAbsoluteVector" ref="a788075c14d6abe99f83473cd2030ea63" args="(TreeNode *current)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void fillAbsoluteVector </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>current</em>&#160;)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab146e0b421a3ce2cfba0bddf35a23228"></a><!-- doxytag: member="param.cpp::GenTreeBillboardTexture_parametrize" ref="ab146e0b421a3ce2cfba0bddf35a23228" args="(TreeNode *tree, PTreeType treeType, int seed)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void GenTreeBillboardTexture_parametrize </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>tree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2">PTreeType</a>&#160;</td>
+          <td class="paramname"> <em>treeType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"> <em>seed</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a89c84cbf072be544cc3cf120b874f680"></a><!-- doxytag: member="param.cpp::getBoundingBox" ref="a89c84cbf072be544cc3cf120b874f680" args="(TreeNode *node)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structbounding_box.html">boundingBox</a> getBoundingBox </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>node</em>&#160;)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab8757fd5bf1cc1308f558c4b84d69301"></a><!-- doxytag: member="param.cpp::maxLevel" ref="ab8757fd5bf1cc1308f558c4b84d69301" args="(TreeNode *node)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int maxLevel </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>node</em>&#160;)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a95d0868b96693847bf183699b7da1c08"></a><!-- doxytag: member="param.cpp::normalRandom" ref="a95d0868b96693847bf183699b7da1c08" args="(double mean, double var)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double normalRandom </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"> <em>mean</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"> <em>var</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ae1fd8dd4d1f0ba7073cfd9836bb64d7c"></a><!-- doxytag: member="param.cpp::parametrizeNode" ref="ae1fd8dd4d1f0ba7073cfd9836bb64d7c" args="(TreeNode *node, PTreeType treeType, int maxlevel, cartesianCoords treetopCenter)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parametrizeNode </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_tree_node.html">TreeNode</a> *&#160;</td>
+          <td class="paramname"> <em>node</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2">PTreeType</a>&#160;</td>
+          <td class="paramname"> <em>treeType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"> <em>maxlevel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcartesian_coords.html">cartesianCoords</a>&#160;</td>
+          <td class="paramname"> <em>treetopCenter</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ab278b0f4ed8a23de2c207402a3147cdd"></a><!-- doxytag: member="param.cpp::parametrizeNodes" ref="ab278b0f4ed8a23de2c207402a3147cdd" args="(queue&lt; TreeNode * &gt; *processNodes, PTreeType treeType, int maxlevel, cartesianCoords treetopCenter, int treetopBranchCount)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void parametrizeNodes </td>
+          <td>(</td>
+          <td class="paramtype">queue&lt; <a class="el" href="class_tree_node.html">TreeNode</a> * &gt; *&#160;</td>
+          <td class="paramname"> <em>processNodes</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="rules_8h.html#a0f13aab8ab80f3289cf8f97c6bb307c2">PTreeType</a>&#160;</td>
+          <td class="paramname"> <em>treeType</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"> <em>maxlevel</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="structcartesian_coords.html">cartesianCoords</a>&#160;</td>
+          <td class="paramname"> <em>treetopCenter</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"> <em>treetopBranchCount</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="ac6155847070b0c5c926df1abcbb8df13"></a><!-- doxytag: member="param.cpp::uniformRandom" ref="ac6155847070b0c5c926df1abcbb8df13" args="(double l, double h)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">double uniformRandom </td>
+          <td>(</td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"> <em>l</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"> <em>h</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<hr/><h2>Dokumentace proměnných</h2>
+<a class="anchor" id="a449bdfe43fc07bafe24ce6e2604f113d"></a><!-- doxytag: member="param.cpp::treeBuilders" ref="a449bdfe43fc07bafe24ce6e2604f113d" args="[PTREE_COUNT]" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">const <a class="el" href="structtree_params.html">treeParams</a> <a class="el" href="param_8h.html#a449bdfe43fc07bafe24ce6e2604f113d">treeBuilders</a>[PTREE_COUNT]</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<b>Initializer:</b><div class="fragment"><pre class="fragment"> {
+    {<a class="code" href="param_8cpp.html#a84804dbae0214ca06100f2a8d2bcd45c">branchLengthTree1</a>, <a class="code" href="param_8cpp.html#a991ebed53bef19fdcabb8677b486add0">branchThicknessTree1</a>, <a class="code" href="param_8cpp.html#a45eca807a3b4588a717e7034bf00e64c">branchDirectionTree1</a>},
+    {<a class="code" href="param_8cpp.html#ad05661e4ade28c7dfd814c11d72b738b">branchLengthPicea</a>, <a class="code" href="param_8cpp.html#a6cf3a597955ecbc98c0a46b7f6a99cbb">branchThicknessPicea</a>, <a class="code" href="param_8cpp.html#a7d24d3cc337c7e03c42128f59f7d79f8">branchDirectionPicea</a>},
+    {<a class="code" href="param_8cpp.html#a793155c5f693eb3a6d587dbc326fc001">branchLengthPalma</a>, <a class="code" href="param_8cpp.html#ac2be275216d67cafd430ddf8f3444d3c">branchThicknessPalma</a>, <a class="code" href="param_8cpp.html#a838bc2a069b28a474bff49d0f1757390">branchDirectionPalma</a>}
+}
+</pre></div>
+</div>
+</div>
+</div>
+<hr class="footer"/><address class="footer"><small>Generováno st 8. pro 2010 15.00:20 pro projekt GenTreeBillboardTexture programem&#160;
+<a href="http://www.doxygen.org/index.html">
+<img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
+</body>
+</html>

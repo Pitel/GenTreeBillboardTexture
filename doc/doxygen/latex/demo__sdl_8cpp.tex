@@ -1,0 +1,187 @@
+\hypertarget{demo__sdl_8cpp}{
+\section{Dokumentace souboru D:/SHARE/GenTreeBillboardTexture/demo\_\-sdl.cpp}
+\label{demo__sdl_8cpp}\index{D:/SHARE/GenTreeBillboardTexture/demo\_\-sdl.cpp@{D:/SHARE/GenTreeBillboardTexture/demo\_\-sdl.cpp}}
+}
+{\ttfamily \#include $<$cstdio$>$}\par
+{\ttfamily \#include $<$cstdlib$>$}\par
+{\ttfamily \#include $<$cstring$>$}\par
+{\ttfamily \#include $<$iostream$>$}\par
+{\ttfamily \#include $<$fstream$>$}\par
+{\ttfamily \#include $<$SDL.h$>$}\par
+{\ttfamily \#include \char`\"{}GenTreeBillboardTexture.h\char`\"{}}\par
+\subsection*{Definice maker}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{demo__sdl_8cpp_a25896b1fb00ec16b634f887e1d492079}{SDL\_\-SUBSYSTEMS}~SDL\_\-INIT\_\-VIDEO
+\item 
+\#define \hyperlink{demo__sdl_8cpp_aab446c0dd0dc37a262dfb0b529210da4}{WIN\_\-FLAGS}~SDL\_\-SWSURFACE $|$SDL\_\-RESIZABLE
+\item 
+\#define \hyperlink{demo__sdl_8cpp_a11ffb62eed3ec1a66ac55ac086a983c3}{WIN\_\-BPP}~32
+\end{DoxyCompactItemize}
+\subsection*{Funkce}
+\begin{DoxyCompactItemize}
+\item 
+void \hyperlink{demo__sdl_8cpp_ad684ebdecadeaa3a348be34505a8f68a}{InitTexture} ()
+\item 
+bool \hyperlink{demo__sdl_8cpp_ad19abaacb073bdef7940926f64b2aace}{Init} ()
+\item 
+void \hyperlink{demo__sdl_8cpp_ac919a991060ede6983343719401686de}{Destroy} ()
+\item 
+void \hyperlink{demo__sdl_8cpp_a3d5cf0d8d37b6b17224867eb397c9a16}{Draw} ()
+\item 
+bool \hyperlink{demo__sdl_8cpp_ac9a4ed0c87243846b4f0833332e2b0cd}{ProcessEvent} ()
+\item 
+int \hyperlink{demo__sdl_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\subsection*{Proměnné}
+\begin{DoxyCompactItemize}
+\item 
+unsigned int \hyperlink{demo__sdl_8cpp_aca34d28e3d8bcbcadb8edb4e3af24f8c}{width} = 256
+\item 
+unsigned int \hyperlink{demo__sdl_8cpp_ab2e78c61905b4419fcc7b4cfc500fe85}{height} = 512
+\item 
+unsigned int \hyperlink{demo__sdl_8cpp_ae21f357c223957d36046a0d71cc6aed7}{seed} = 2353
+\item 
+unsigned int \hyperlink{demo__sdl_8cpp_a5081a26baa914156df8541b03d09492e}{depth} = 150
+\item 
+\hyperlink{rules_8h_a0f13aab8ab80f3289cf8f97c6bb307c2}{PTreeType} \hyperlink{demo__sdl_8cpp_a4ea43ba27a886a842bb936ac7fab3b45}{treeType} = PTREE\_\-APPLE
+\item 
+bool \hyperlink{demo__sdl_8cpp_a00dae56d4a83ce51cc5ae8a7e7aabf95}{use\_\-sdlsurface} = false
+\item 
+SDL\_\-Color \hyperlink{demo__sdl_8cpp_a6c1cf7facf9af4bf0d5c9443774b8e70}{trunk} = \{150,75,0,0\}
+\item 
+SDL\_\-Color \hyperlink{demo__sdl_8cpp_abf1c4d688c2eb1508e9370f678b5cb05}{leaf} = \{0,255,0,0\}
+\item 
+SDL\_\-Surface $\ast$ \hyperlink{demo__sdl_8cpp_a6d9b16b7f9669bae1da7ba47ffc84ce3}{window}
+\item 
+SDL\_\-Surface $\ast$ \hyperlink{demo__sdl_8cpp_a361a62b49dc88be1be1acc3f442a3d70}{tree\_\-texture}
+\end{DoxyCompactItemize}
+
+
+\subsection{Dokumentace k definicím maker}
+\hypertarget{demo__sdl_8cpp_a25896b1fb00ec16b634f887e1d492079}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!SDL\_\-SUBSYSTEMS@{SDL\_\-SUBSYSTEMS}}
+\index{SDL\_\-SUBSYSTEMS@{SDL\_\-SUBSYSTEMS}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{SDL\_\-SUBSYSTEMS}]{\setlength{\rightskip}{0pt plus 5cm}\#define SDL\_\-SUBSYSTEMS~SDL\_\-INIT\_\-VIDEO}}
+\label{demo__sdl_8cpp_a25896b1fb00ec16b634f887e1d492079}
+\hypertarget{demo__sdl_8cpp_a11ffb62eed3ec1a66ac55ac086a983c3}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!WIN\_\-BPP@{WIN\_\-BPP}}
+\index{WIN\_\-BPP@{WIN\_\-BPP}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{WIN\_\-BPP}]{\setlength{\rightskip}{0pt plus 5cm}\#define WIN\_\-BPP~32}}
+\label{demo__sdl_8cpp_a11ffb62eed3ec1a66ac55ac086a983c3}
+\hypertarget{demo__sdl_8cpp_aab446c0dd0dc37a262dfb0b529210da4}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!WIN\_\-FLAGS@{WIN\_\-FLAGS}}
+\index{WIN\_\-FLAGS@{WIN\_\-FLAGS}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{WIN\_\-FLAGS}]{\setlength{\rightskip}{0pt plus 5cm}\#define WIN\_\-FLAGS~SDL\_\-SWSURFACE $|$SDL\_\-RESIZABLE}}
+\label{demo__sdl_8cpp_aab446c0dd0dc37a262dfb0b529210da4}
+
+
+\subsection{Dokumentace funkcí}
+\hypertarget{demo__sdl_8cpp_ac919a991060ede6983343719401686de}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!Destroy@{Destroy}}
+\index{Destroy@{Destroy}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{Destroy}]{\setlength{\rightskip}{0pt plus 5cm}void Destroy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{demo__sdl_8cpp_ac919a991060ede6983343719401686de}
+\hypertarget{demo__sdl_8cpp_a3d5cf0d8d37b6b17224867eb397c9a16}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!Draw@{Draw}}
+\index{Draw@{Draw}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{Draw}]{\setlength{\rightskip}{0pt plus 5cm}void Draw (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{demo__sdl_8cpp_a3d5cf0d8d37b6b17224867eb397c9a16}
+\hypertarget{demo__sdl_8cpp_ad19abaacb073bdef7940926f64b2aace}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!Init@{Init}}
+\index{Init@{Init}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{Init}]{\setlength{\rightskip}{0pt plus 5cm}bool Init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{demo__sdl_8cpp_ad19abaacb073bdef7940926f64b2aace}
+\hypertarget{demo__sdl_8cpp_ad684ebdecadeaa3a348be34505a8f68a}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!InitTexture@{InitTexture}}
+\index{InitTexture@{InitTexture}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{InitTexture}]{\setlength{\rightskip}{0pt plus 5cm}void InitTexture (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{demo__sdl_8cpp_ad684ebdecadeaa3a348be34505a8f68a}
+\hypertarget{demo__sdl_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!main@{main}}
+\index{main@{main}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{main}]{\setlength{\rightskip}{0pt plus 5cm}int main (
+\begin{DoxyParamCaption}
+\item[{int}]{ argc, }
+\item[{char $\ast$}]{ argv\mbox{[}$\,$\mbox{]}}
+\end{DoxyParamCaption}
+)}}
+\label{demo__sdl_8cpp_a0ddf1224851353fc92bfbff6f499fa97}
+\hypertarget{demo__sdl_8cpp_ac9a4ed0c87243846b4f0833332e2b0cd}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!ProcessEvent@{ProcessEvent}}
+\index{ProcessEvent@{ProcessEvent}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{ProcessEvent}]{\setlength{\rightskip}{0pt plus 5cm}bool ProcessEvent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{demo__sdl_8cpp_ac9a4ed0c87243846b4f0833332e2b0cd}
+
+
+\subsection{Dokumentace proměnných}
+\hypertarget{demo__sdl_8cpp_a5081a26baa914156df8541b03d09492e}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!depth@{depth}}
+\index{depth@{depth}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{depth}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf depth} = 150}}
+\label{demo__sdl_8cpp_a5081a26baa914156df8541b03d09492e}
+\hypertarget{demo__sdl_8cpp_ab2e78c61905b4419fcc7b4cfc500fe85}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!height@{height}}
+\index{height@{height}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{height}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf height} = 512}}
+\label{demo__sdl_8cpp_ab2e78c61905b4419fcc7b4cfc500fe85}
+\hypertarget{demo__sdl_8cpp_abf1c4d688c2eb1508e9370f678b5cb05}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!leaf@{leaf}}
+\index{leaf@{leaf}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{leaf}]{\setlength{\rightskip}{0pt plus 5cm}SDL\_\-Color {\bf leaf} = \{0,255,0,0\}}}
+\label{demo__sdl_8cpp_abf1c4d688c2eb1508e9370f678b5cb05}
+\hypertarget{demo__sdl_8cpp_ae21f357c223957d36046a0d71cc6aed7}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!seed@{seed}}
+\index{seed@{seed}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{seed}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf seed} = 2353}}
+\label{demo__sdl_8cpp_ae21f357c223957d36046a0d71cc6aed7}
+\hypertarget{demo__sdl_8cpp_a361a62b49dc88be1be1acc3f442a3d70}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!tree\_\-texture@{tree\_\-texture}}
+\index{tree\_\-texture@{tree\_\-texture}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{tree\_\-texture}]{\setlength{\rightskip}{0pt plus 5cm}SDL\_\-Surface$\ast$ {\bf tree\_\-texture}}}
+\label{demo__sdl_8cpp_a361a62b49dc88be1be1acc3f442a3d70}
+\hypertarget{demo__sdl_8cpp_a4ea43ba27a886a842bb936ac7fab3b45}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!treeType@{treeType}}
+\index{treeType@{treeType}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{treeType}]{\setlength{\rightskip}{0pt plus 5cm}{\bf PTreeType} {\bf treeType} = PTREE\_\-APPLE}}
+\label{demo__sdl_8cpp_a4ea43ba27a886a842bb936ac7fab3b45}
+\hypertarget{demo__sdl_8cpp_a6c1cf7facf9af4bf0d5c9443774b8e70}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!trunk@{trunk}}
+\index{trunk@{trunk}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{trunk}]{\setlength{\rightskip}{0pt plus 5cm}SDL\_\-Color {\bf trunk} = \{150,75,0,0\}}}
+\label{demo__sdl_8cpp_a6c1cf7facf9af4bf0d5c9443774b8e70}
+\hypertarget{demo__sdl_8cpp_a00dae56d4a83ce51cc5ae8a7e7aabf95}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!use\_\-sdlsurface@{use\_\-sdlsurface}}
+\index{use\_\-sdlsurface@{use\_\-sdlsurface}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{use\_\-sdlsurface}]{\setlength{\rightskip}{0pt plus 5cm}bool {\bf use\_\-sdlsurface} = false}}
+\label{demo__sdl_8cpp_a00dae56d4a83ce51cc5ae8a7e7aabf95}
+\hypertarget{demo__sdl_8cpp_aca34d28e3d8bcbcadb8edb4e3af24f8c}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!width@{width}}
+\index{width@{width}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{width}]{\setlength{\rightskip}{0pt plus 5cm}unsigned int {\bf width} = 256}}
+\label{demo__sdl_8cpp_aca34d28e3d8bcbcadb8edb4e3af24f8c}
+\hypertarget{demo__sdl_8cpp_a6d9b16b7f9669bae1da7ba47ffc84ce3}{
+\index{demo\_\-sdl.cpp@{demo\_\-sdl.cpp}!window@{window}}
+\index{window@{window}!demo_sdl.cpp@{demo\_\-sdl.cpp}}
+\subsubsection[{window}]{\setlength{\rightskip}{0pt plus 5cm}SDL\_\-Surface$\ast$ {\bf window}}}
+\label{demo__sdl_8cpp_a6d9b16b7f9669bae1da7ba47ffc84ce3}

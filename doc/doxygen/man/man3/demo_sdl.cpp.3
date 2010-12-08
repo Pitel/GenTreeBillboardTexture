@@ -1,0 +1,120 @@
+.TH "D:/SHARE/GenTreeBillboardTexture/demo_sdl.cpp" 3 "st 8. pro 2010" "Version 0.9" "GenTreeBillboardTexture" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+D:/SHARE/GenTreeBillboardTexture/demo_sdl.cpp \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <cstdio>\fP
+.br
+\fC#include <cstdlib>\fP
+.br
+\fC#include <cstring>\fP
+.br
+\fC#include <iostream>\fP
+.br
+\fC#include <fstream>\fP
+.br
+\fC#include <SDL.h>\fP
+.br
+\fC#include 'GenTreeBillboardTexture.h'\fP
+.br
+
+.SS "Definice maker"
+
+.in +1c
+.ti -1c
+.RI "#define \fBSDL_SUBSYSTEMS\fP   SDL_INIT_VIDEO"
+.br
+.ti -1c
+.RI "#define \fBWIN_FLAGS\fP   SDL_SWSURFACE |SDL_RESIZABLE"
+.br
+.ti -1c
+.RI "#define \fBWIN_BPP\fP   32"
+.br
+.in -1c
+.SS "Funkce"
+
+.in +1c
+.ti -1c
+.RI "void \fBInitTexture\fP ()"
+.br
+.ti -1c
+.RI "bool \fBInit\fP ()"
+.br
+.ti -1c
+.RI "void \fBDestroy\fP ()"
+.br
+.ti -1c
+.RI "void \fBDraw\fP ()"
+.br
+.ti -1c
+.RI "bool \fBProcessEvent\fP ()"
+.br
+.ti -1c
+.RI "int \fBmain\fP (int argc, char *argv[])"
+.br
+.in -1c
+.SS "Proměnné"
+
+.in +1c
+.ti -1c
+.RI "unsigned int \fBwidth\fP = 256"
+.br
+.ti -1c
+.RI "unsigned int \fBheight\fP = 512"
+.br
+.ti -1c
+.RI "unsigned int \fBseed\fP = 2353"
+.br
+.ti -1c
+.RI "unsigned int \fBdepth\fP = 150"
+.br
+.ti -1c
+.RI "\fBPTreeType\fP \fBtreeType\fP = PTREE_APPLE"
+.br
+.ti -1c
+.RI "bool \fBuse_sdlsurface\fP = false"
+.br
+.ti -1c
+.RI "SDL_Color \fBtrunk\fP = {150,75,0,0}"
+.br
+.ti -1c
+.RI "SDL_Color \fBleaf\fP = {0,255,0,0}"
+.br
+.ti -1c
+.RI "SDL_Surface * \fBwindow\fP"
+.br
+.ti -1c
+.RI "SDL_Surface * \fBtree_texture\fP"
+.br
+.in -1c
+.SH "Dokumentace k definicím maker"
+.PP 
+.SS "#define SDL_SUBSYSTEMS   SDL_INIT_VIDEO"
+.SS "#define WIN_BPP   32"
+.SS "#define WIN_FLAGS   SDL_SWSURFACE |SDL_RESIZABLE"
+.SH "Dokumentace funkcí"
+.PP 
+.SS "void Destroy ()"
+.SS "void Draw ()"
+.SS "bool Init ()"
+.SS "void InitTexture ()"
+.SS "int main (int argc, char * argv[])"
+.SS "bool ProcessEvent ()"
+.SH "Dokumentace proměnných"
+.PP 
+.SS "unsigned int \fBdepth\fP = 150"
+.SS "unsigned int \fBheight\fP = 512"
+.SS "SDL_Color \fBleaf\fP = {0,255,0,0}"
+.SS "unsigned int \fBseed\fP = 2353"
+.SS "SDL_Surface* \fBtree_texture\fP"
+.SS "\fBPTreeType\fP \fBtreeType\fP = PTREE_APPLE"
+.SS "SDL_Color \fBtrunk\fP = {150,75,0,0}"
+.SS "bool \fBuse_sdlsurface\fP = false"
+.SS "unsigned int \fBwidth\fP = 256"
+.SS "SDL_Surface* \fBwindow\fP"
+.SH "Autor"
+.PP 
+Generováno automaticky programem Doxygen ze zdrojových textů projektu GenTreeBillboardTexture.

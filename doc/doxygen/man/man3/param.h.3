@@ -1,0 +1,155 @@
+.TH "D:/SHARE/GenTreeBillboardTexture/param.h" 3 "st 8. pro 2010" "Version 0.9" "GenTreeBillboardTexture" \" -*- nroff -*-
+.ad l
+.nh
+.SH NAME
+D:/SHARE/GenTreeBillboardTexture/param.h \- 
+.SH SYNOPSIS
+.br
+.PP
+\fC#include <cstring>\fP
+.br
+\fC#include <sstream>\fP
+.br
+\fC#include <queue>\fP
+.br
+\fC#include <cmath>\fP
+.br
+\fC#include 'grammar.h'\fP
+.br
+
+.SS "Třídy"
+
+.in +1c
+.ti -1c
+.RI "struct \fBsphericCoords\fP"
+.br
+.ti -1c
+.RI "struct \fBcartesianCoords\fP"
+.br
+.ti -1c
+.RI "struct \fBd\fP"
+.br
+.ti -1c
+.RI "struct \fBtreeParams\fP"
+.br
+.ti -1c
+.RI "struct \fBboundingBox\fP"
+.br
+.in -1c
+.SS "Definice typů"
+
+.in +1c
+.ti -1c
+.RI "typedef struct \fBcartesianCoords\fP \fBcartesianCoords\fP"
+.br
+.ti -1c
+.RI "typedef struct \fBd\fP \fBparamInfo\fP"
+.br
+.in -1c
+.SS "Funkce"
+
+.in +1c
+.ti -1c
+.RI "double \fBbasicRandom\fP ()"
+.br
+.ti -1c
+.RI "double \fBexponentialRandom\fP (double mv)"
+.br
+.ti -1c
+.RI "double \fBnormalRandom\fP (double mean, double var)"
+.br
+.ti -1c
+.RI "double \fBuniformRandom\fP (double l, double h)"
+.br
+.ti -1c
+.RI "void \fBfillAbsoluteVector\fP (\fBTreeNode\fP *current)"
+.br
+.ti -1c
+.RI "void \fBbranchLengthTree1\fP (\fBTreeNode\fP *current, int maxlevel)"
+.br
+.ti -1c
+.RI "void \fBbranchThicknessTree1\fP (\fBTreeNode\fP *current, int maxlevel)"
+.br
+.ti -1c
+.RI "void \fBbranchDirectionTree1\fP (\fBTreeNode\fP *current, \fBcartesianCoords\fP treetopCenter)"
+.br
+.ti -1c
+.RI "void \fBbranchLengthPicea\fP (\fBTreeNode\fP *current, int maxlevel)"
+.br
+.ti -1c
+.RI "void \fBbranchThicknessPicea\fP (\fBTreeNode\fP *current, int maxlevel)"
+.br
+.ti -1c
+.RI "void \fBbranchDirectionPicea\fP (\fBTreeNode\fP *current, \fBcartesianCoords\fP treetopCenter)"
+.br
+.ti -1c
+.RI "void \fBbranchLengthPalma\fP (\fBTreeNode\fP *current, int maxlevel)"
+.br
+.ti -1c
+.RI "void \fBbranchThicknessPalma\fP (\fBTreeNode\fP *current, int maxlevel)"
+.br
+.ti -1c
+.RI "void \fBbranchDirectionPalma\fP (\fBTreeNode\fP *current, \fBcartesianCoords\fP treetopCenter)"
+.br
+.ti -1c
+.RI "void \fBGenTreeBillboardTexture_parametrize\fP (\fBTreeNode\fP *node, \fBPTreeType\fP \fBtreeType\fP, int \fBseed\fP=0)"
+.br
+.ti -1c
+.RI "void \fBparametrizeNodes\fP (queue< \fBTreeNode\fP * > *processNodes, \fBPTreeType\fP \fBtreeType\fP, int maxlevel, \fBcartesianCoords\fP treetopCenter, int treetopBranchCount)"
+.br
+.ti -1c
+.RI "void \fBparametrizeNode\fP (\fBTreeNode\fP *node, \fBPTreeType\fP \fBtreeType\fP, int maxlevel, \fBcartesianCoords\fP treetopCenter)"
+.br
+.ti -1c
+.RI "\fBboundingBox\fP \fBgetBoundingBox\fP (\fBTreeNode\fP *node)"
+.br
+.ti -1c
+.RI "\fBboundingBox\fP \fBcombineBoundingBoxes\fP (\fBboundingBox\fP bb1, \fBboundingBox\fP bb2)"
+.br
+.ti -1c
+.RI "int \fBmaxLevel\fP (\fBTreeNode\fP *node)"
+.br
+.ti -1c
+.RI "int \fBcalcChildLeafs\fP (\fBTreeNode\fP *node)"
+.br
+.in -1c
+.SS "Proměnné"
+
+.in +1c
+.ti -1c
+.RI "const \fBtreeParams\fP \fBtreeBuilders\fP [PTREE_COUNT]"
+.br
+.in -1c
+.SH "Dokumentace definic typů"
+.PP 
+.SS "typedef struct \fBcartesianCoords\fP  \fBcartesianCoords\fP"
+.SS "typedef struct \fBd\fP  \fBparamInfo\fP"
+.SH "Dokumentace funkcí"
+.PP 
+.SS "double basicRandom ()"
+.SS "void branchDirectionPalma (\fBTreeNode\fP * current, \fBcartesianCoords\fP treetopCenter)"
+.SS "void branchDirectionPicea (\fBTreeNode\fP * current, \fBcartesianCoords\fP treetopCenter)"
+.SS "void branchDirectionTree1 (\fBTreeNode\fP * current, \fBcartesianCoords\fP treetopCenter)"
+.SS "void branchLengthPalma (\fBTreeNode\fP * current, int maxlevel)"
+.SS "void branchLengthPicea (\fBTreeNode\fP * current, int maxlevel)"
+.SS "void branchLengthTree1 (\fBTreeNode\fP * current, int maxlevel)"
+.SS "void branchThicknessPalma (\fBTreeNode\fP * current, int maxlevel)"
+.SS "void branchThicknessPicea (\fBTreeNode\fP * current, int maxlevel)"
+.SS "void branchThicknessTree1 (\fBTreeNode\fP * current, int maxlevel)"
+.SS "int calcChildLeafs (\fBTreeNode\fP * node)"
+.SS "\fBboundingBox\fP combineBoundingBoxes (\fBboundingBox\fP bb1, \fBboundingBox\fP bb2)"
+.SS "double exponentialRandom (double mv)"
+.SS "void fillAbsoluteVector (\fBTreeNode\fP * current)"
+.SS "void GenTreeBillboardTexture_parametrize (\fBTreeNode\fP * node, \fBPTreeType\fP treeType, int seed = \fC0\fP)"
+.SS "\fBboundingBox\fP getBoundingBox (\fBTreeNode\fP * node)"
+.SS "int maxLevel (\fBTreeNode\fP * node)"
+.SS "double normalRandom (double mean, double var)"
+.SS "void parametrizeNode (\fBTreeNode\fP * node, \fBPTreeType\fP treeType, int maxlevel, \fBcartesianCoords\fP treetopCenter)"
+.SS "void parametrizeNodes (queue< \fBTreeNode\fP * > * processNodes, \fBPTreeType\fP treeType, int maxlevel, \fBcartesianCoords\fP treetopCenter, int treetopBranchCount)"
+.SS "double uniformRandom (double l, double h)"
+.SH "Dokumentace proměnných"
+.PP 
+.SS "const \fBtreeParams\fP \fBtreeBuilders\fP[PTREE_COUNT]"
+.SH "Autor"
+.PP 
+Generováno automaticky programem Doxygen ze zdrojových textů projektu GenTreeBillboardTexture.

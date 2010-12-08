@@ -1,0 +1,123 @@
+\hypertarget{vis_8cpp}{
+\section{Dokumentace souboru D:/SHARE/GenTreeBillboardTexture/vis.cpp}
+\label{vis_8cpp}\index{D:/SHARE/GenTreeBillboardTexture/vis.cpp@{D:/SHARE/GenTreeBillboardTexture/vis.cpp}}
+}
+{\ttfamily \#include $<$cstdio$>$}\par
+{\ttfamily \#include $<$cstdlib$>$}\par
+{\ttfamily \#include $<$cstring$>$}\par
+{\ttfamily \#include $<$cmath$>$}\par
+{\ttfamily \#include \char`\"{}vis.h\char`\"{}}\par
+\subsection*{Definice maker}
+\begin{DoxyCompactItemize}
+\item 
+\#define \hyperlink{vis_8cpp_aac9153aee4bdb92701df902e06a74eb3}{SWAP}(a, b)~a $^\wedge$= b; b $^\wedge$= a; a $^\wedge$= b;
+\end{DoxyCompactItemize}
+\subsection*{Funkce}
+\begin{DoxyCompactItemize}
+\item 
+int \hyperlink{vis_8cpp_acf1b8aba42ea8488b62c36ec13f0b6b2}{clamp} (int val, int min, int max)
+\item 
+float \hyperlink{vis_8cpp_a163ef714320f5c5ed8747b888b52fad2}{fclamp} (float val, float min, float max)
+\item 
+void \hyperlink{vis_8cpp_a9ae372b33429b61a261cfa5a75eec73b}{putpixel} (SDL\_\-Surface $\ast$surface, size\_\-t x, size\_\-t y, SDL\_\-Color c, unsigned int alpha=255)
+\item 
+void \hyperlink{vis_8cpp_a7ad334ff4bb6f2992b4850cb57822e83}{drawleaf} (SDL\_\-Surface $\ast$canvas, size\_\-t x, size\_\-t y, SDL\_\-Color \hyperlink{demo__gui_8cpp_abde185e4bd246ac3fd9a63681f258be9}{color}, float size\_\-ex)
+\item 
+void \hyperlink{vis_8cpp_a572924297690e44b4d4b9124966f358c}{drawbranch} (SDL\_\-Surface $\ast$canvas, int x1, int y1, int x2, int y2, float thickness, SDL\_\-Color wood, SDL\_\-Color \hyperlink{demo__sdl_8cpp_abf1c4d688c2eb1508e9370f678b5cb05}{leaf}, float leafinterval, float leafsize)
+\item 
+void \hyperlink{vis_8cpp_ab70e0aeb3ad0ad6f8c48f75ed581a3e7}{GenTreeBillboardTexture\_\-visualize} (SDL\_\-Surface $\ast$data, \hyperlink{class_tree_node}{TreeNode} $\ast$tree, SDL\_\-Color wood, SDL\_\-Color leafs)
+\end{DoxyCompactItemize}
+
+
+\subsection{Dokumentace k definicím maker}
+\hypertarget{vis_8cpp_aac9153aee4bdb92701df902e06a74eb3}{
+\index{vis.cpp@{vis.cpp}!SWAP@{SWAP}}
+\index{SWAP@{SWAP}!vis.cpp@{vis.cpp}}
+\subsubsection[{SWAP}]{\setlength{\rightskip}{0pt plus 5cm}\#define SWAP(
+\begin{DoxyParamCaption}
+\item[{}]{a, }
+\item[{}]{b}
+\end{DoxyParamCaption}
+)~a $^\wedge$= b; b $^\wedge$= a; a $^\wedge$= b;}}
+\label{vis_8cpp_aac9153aee4bdb92701df902e06a74eb3}
+
+
+\subsection{Dokumentace funkcí}
+\hypertarget{vis_8cpp_acf1b8aba42ea8488b62c36ec13f0b6b2}{
+\index{vis.cpp@{vis.cpp}!clamp@{clamp}}
+\index{clamp@{clamp}!vis.cpp@{vis.cpp}}
+\subsubsection[{clamp}]{\setlength{\rightskip}{0pt plus 5cm}int clamp (
+\begin{DoxyParamCaption}
+\item[{int}]{ val, }
+\item[{int}]{ min, }
+\item[{int}]{ max}
+\end{DoxyParamCaption}
+)}}
+\label{vis_8cpp_acf1b8aba42ea8488b62c36ec13f0b6b2}
+\hypertarget{vis_8cpp_a572924297690e44b4d4b9124966f358c}{
+\index{vis.cpp@{vis.cpp}!drawbranch@{drawbranch}}
+\index{drawbranch@{drawbranch}!vis.cpp@{vis.cpp}}
+\subsubsection[{drawbranch}]{\setlength{\rightskip}{0pt plus 5cm}void drawbranch (
+\begin{DoxyParamCaption}
+\item[{SDL\_\-Surface $\ast$}]{ canvas, }
+\item[{int}]{ x1, }
+\item[{int}]{ y1, }
+\item[{int}]{ x2, }
+\item[{int}]{ y2, }
+\item[{float}]{ thickness, }
+\item[{SDL\_\-Color}]{ wood, }
+\item[{SDL\_\-Color}]{ leaf, }
+\item[{float}]{ leafinterval, }
+\item[{float}]{ leafsize}
+\end{DoxyParamCaption}
+)}}
+\label{vis_8cpp_a572924297690e44b4d4b9124966f358c}
+\hypertarget{vis_8cpp_a7ad334ff4bb6f2992b4850cb57822e83}{
+\index{vis.cpp@{vis.cpp}!drawleaf@{drawleaf}}
+\index{drawleaf@{drawleaf}!vis.cpp@{vis.cpp}}
+\subsubsection[{drawleaf}]{\setlength{\rightskip}{0pt plus 5cm}void drawleaf (
+\begin{DoxyParamCaption}
+\item[{SDL\_\-Surface $\ast$}]{ canvas, }
+\item[{size\_\-t}]{ x, }
+\item[{size\_\-t}]{ y, }
+\item[{SDL\_\-Color}]{ color, }
+\item[{float}]{ size\_\-ex}
+\end{DoxyParamCaption}
+)}}
+\label{vis_8cpp_a7ad334ff4bb6f2992b4850cb57822e83}
+\hypertarget{vis_8cpp_a163ef714320f5c5ed8747b888b52fad2}{
+\index{vis.cpp@{vis.cpp}!fclamp@{fclamp}}
+\index{fclamp@{fclamp}!vis.cpp@{vis.cpp}}
+\subsubsection[{fclamp}]{\setlength{\rightskip}{0pt plus 5cm}float fclamp (
+\begin{DoxyParamCaption}
+\item[{float}]{ val, }
+\item[{float}]{ min, }
+\item[{float}]{ max}
+\end{DoxyParamCaption}
+)}}
+\label{vis_8cpp_a163ef714320f5c5ed8747b888b52fad2}
+\hypertarget{vis_8cpp_ab70e0aeb3ad0ad6f8c48f75ed581a3e7}{
+\index{vis.cpp@{vis.cpp}!GenTreeBillboardTexture\_\-visualize@{GenTreeBillboardTexture\_\-visualize}}
+\index{GenTreeBillboardTexture\_\-visualize@{GenTreeBillboardTexture\_\-visualize}!vis.cpp@{vis.cpp}}
+\subsubsection[{GenTreeBillboardTexture\_\-visualize}]{\setlength{\rightskip}{0pt plus 5cm}void GenTreeBillboardTexture\_\-visualize (
+\begin{DoxyParamCaption}
+\item[{SDL\_\-Surface $\ast$}]{ data, }
+\item[{{\bf TreeNode} $\ast$}]{ tree, }
+\item[{SDL\_\-Color}]{ wood, }
+\item[{SDL\_\-Color}]{ leafs}
+\end{DoxyParamCaption}
+)}}
+\label{vis_8cpp_ab70e0aeb3ad0ad6f8c48f75ed581a3e7}
+\hypertarget{vis_8cpp_a9ae372b33429b61a261cfa5a75eec73b}{
+\index{vis.cpp@{vis.cpp}!putpixel@{putpixel}}
+\index{putpixel@{putpixel}!vis.cpp@{vis.cpp}}
+\subsubsection[{putpixel}]{\setlength{\rightskip}{0pt plus 5cm}void putpixel (
+\begin{DoxyParamCaption}
+\item[{SDL\_\-Surface $\ast$}]{ surface, }
+\item[{size\_\-t}]{ x, }
+\item[{size\_\-t}]{ y, }
+\item[{SDL\_\-Color}]{ c, }
+\item[{unsigned int}]{ alpha = {\ttfamily 255}}
+\end{DoxyParamCaption}
+)}}
+\label{vis_8cpp_a9ae372b33429b61a261cfa5a75eec73b}
