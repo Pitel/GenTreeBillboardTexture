@@ -1,5 +1,6 @@
 GenTreeBillboardTexture
 =======================
+The tree impostor texture generator.
 
 Usage
 -----
@@ -13,6 +14,10 @@ Usage
 		SDL_Color wood,			//Color of wood
 		SDL_Color leafs			//Color of leafs
 	);
+
+Dependencies
+------------
+* [SDL](http://www.libsdl.org)
 
 Authors
 -------

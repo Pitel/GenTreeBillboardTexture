@@ -34,6 +34,7 @@ typedef struct d{
 	cartesianCoords branchEnd; //souradnice konce vetve
 	float thickness;
 	float leafs; //nakolik je vetev zalistena - <0, 1>
+	float leafsize; //velikost listu
 	int childLeafs; //kolik listu grafu se vyskytuje dohromady ve vsech detech uzlu
 	operator std::string(){ std::stringstream tmp; tmp << "{l: " << level << ", rV: " << (std::string)relativeVector << ", aV: " << (std::string)absoluteVector << ", bE: " << (std::string)branchEnd << "}"; return tmp.str(); }
 } paramInfo;
