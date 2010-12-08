@@ -9,15 +9,13 @@
 
 using namespace std;
 
-/** PTreeType enum type
- *
+/**
  *  Vyctovy typ reprezentujici dostupne modely stromu
  *  (gramatiky a parametry stromu) 
  */ 
 enum PTreeType {PTREE_APPLE, PTREE_PICEA, PTREE_PALMA, PTREE_COUNT};
 
-/** treeNodeType enum type
- *
+/**
  *  Vyctovy typ reprezentujici casti stromu
  *  (gramatika pracuje prave s temito castmi) 
  */ 
@@ -29,14 +27,12 @@ enum treeNodeType {
 	  TRUNK_BRANCHLESS
 };
 
-/** printableRules[]
- *
+/**
  *  Pomocne pole obsahujici zkratky pro ladici vypis jednotlivych pravidel
  */   
 extern const char* printableRules[];
 
-/** GRules
- *
+/**
  *  Trida starajici se o generovani gramatiky pro strom urciteho typu
  */  
 class GRules
@@ -50,8 +46,7 @@ class GRules
       
         GRules(int);
         
-        /** GetRule(PTreeType, treeNodeType, vector<int>*)
-         *
+        /**
          *  Vstupem funkce je typ stromu, pravidlo, ktere je potreba rozgenerovat
          *  a vector integeru, do ktereho se nakopiruji vybrana rozgenerovana pravidla         
          */                          

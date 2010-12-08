@@ -30,10 +30,12 @@ $(PROG): $(PROG)_gui.cpp $(PROG)_sdl.cpp $(OBJS)
 
 doc:
 	cd doc; $(LATEX) pgr.tex
+	cd doc; doxygen Doxyfile
 
 clean:
 	$(RM) *.o xlogin00.zip $(PROG)_gui $(PROG)
 	cd doc; $(RM) *.out *.log *.aux *.pdf
+	$(RM) -r doc/doxygen
 
 pack: doc
-	zip -r xlogin00.zip *.cpp *.h *.ui Makefile doc/*.pdf README*
+	zip -r xlogin00.zip *.cpp *.h *.ui Makefile doc/*.pdf README* doc/doxygen

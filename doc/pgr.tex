@@ -7,11 +7,20 @@
 %---------------------------------------------------------------------------
 \section{Zadání}
 
-Zde napište informace k zadání (nejde jen o přepis toho, co je na webu;
-komentujte vaše vlastní zpřesnění zadání, zaměření, důrazy, pojetí atd.). Text
-strukturujte, použijte odrážky, číslování$\ldots$
+%Zde napište informace k zadání (nejde jen o přepis toho, co je na webu;
+%komentujte vaše vlastní zpřesnění zadání, zaměření, důrazy, pojetí atd.). Text
+%strukturujte, použijte odrážky, číslování$\ldots$
+%
+%Rozsah: cca 10 odrážek
 
-Rozsah: cca 10 odrážek
+\begin{itemize}
+\item Vytvořit funkci(e), která(é) vygeneruje věrohodnou texturu, kterou půjde použít jako billboard pro zobrazení jednoduchého stromu
+\item Funkce bude dobře parametrizovatelná (velikost stromu, barevné ladění, typ stromu, apod.)
+\item Funkce nebude pracovat nad globálními daty ani alokovat data - nageneruje data do dané paměti, např: void GenTreeBillboardTexture(char *data, int width, int height, float param, ...);
+\item Demonstrujte v jednoduché scéně
+\item Důležitá je rychlost funkce, vizuální kvalita výsledku a zapozdření/znovupoužitelnost kódu
+\item Popsat algoritmus generování a možnost parametrizace v dokumentaci
+\end{itemize}
 
 %---------------------------------------------------------------------------
 \section{Použité technologie}
@@ -47,26 +56,40 @@ Rozsah: cca 10 odrážek
 %---------------------------------------------------------------------------
 \section{Nejdůležitější dosažené výsledky}
 
-Popište 3 věci, které jsou na vašem projektu nejlepší. Nejlépe ukažte a
-komentujte obrázky, v nejhorším případě vypište textově.
+%Popište 3 věci, které jsou na vašem projektu nejlepší. Nejlépe ukažte a
+%komentujte obrázky, v nejhorším případě vypište textově.
+
+\begin{itemize}
+\item Rozšiřitelnost a variabilita
+\item Vektorový přístup
+\item Prostorové větve
+\end{itemize}
 
 %---------------------------------------------------------------------------
 \section{Ovládání vytvořeného programu}
 
-Stručně popište, jak se program ovládá (nejlépe odrážky rozdělené do
-kategorií). Pokud se ovládání odchyluje od zkratek a způsobů obvykle
-používaných v okýnkových nadstavbách operačních systémů, zdůvodněte, proč se
-tak děje.
+%Stručně popište, jak se program ovládá (nejlépe odrážky rozdělené do
+%kategorií). Pokud se ovládání odchyluje od zkratek a způsobů obvykle
+%používaných v okýnkových nadstavbách operačních systémů, zdůvodněte, proč se
+%tak děje.
+%
+%Rozsah: potřebný počet odrážek
 
-Rozsah: potřebný počet odrážek
+\begin{itemize}
+\item Rozhlížení pohybem myši
+\item Pohyb v kurzorovými klávesami
+\end{itemize}
 
 %---------------------------------------------------------------------------
 \section{Zvláštní použité znalosti}
 
-Uveďte informace, které byly potřeba nad rámec výuky probírané na FIT.
-Vysvětlete je pomocí obrázků, schémat, vzorců apod. 
+%Uveďte informace, které byly potřeba nad rámec výuky probírané na FIT.
+%Vysvětlete je pomocí obrázků, schémat, vzorců apod.
+%
+%Rozsah: podle potřeby
 
-Rozsah: podle potřeby 
+\subsection{L-systémy}
+Herp derp hurrr durrr1!!!
 
 %---------------------------------------------------------------------------
 \section{Rozdělení práce v týmu}
@@ -91,10 +114,15 @@ Rozsah: podle potřeby
 %---------------------------------------------------------------------------
 \section{Co bylo nejpracnější}
 
-Popište, co vám při řešení nejvíce komplikovalo život, s čím jste se museli
-potýkat, co zabralo čas.
+%Popište, co vám při řešení nejvíce komplikovalo život, s čím jste se museli
+%potýkat, co zabralo čas.
+%
+%Rozsah: 5-10 řádků
 
-Rozsah: 5-10 řádků
+\begin{itemize}
+\item Git -- až přiliš složitý oproti Subversion.
+\item Příroda -- není tak deterministická, jak bychom si přáli.
+\end{itemize}
 
 %---------------------------------------------------------------------------
 \section{Zkušenosti získané řešením projektu}

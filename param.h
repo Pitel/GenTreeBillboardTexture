@@ -29,7 +29,7 @@ typedef struct cartesianCoords {
 	}
 } cartesianCoords;
 
-typedef struct d{
+typedef struct ParamInfo {
     int level;
 	sphericCoords relativeVector; //smer vetve, vzhledem k rodicovske vetvi
 	sphericCoords absoluteVector; //smer vetve, vzhledem ke kmeni (presneji k ose Y)
