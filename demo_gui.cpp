@@ -32,9 +32,10 @@ typedef struct _guidialog
 
 typedef enum treetyp
 {
-    LISTNATY = 0,
-    JEHLICNAN
-} TShare_service;
+    JABLON = 0,
+    SMRK,
+    PALMA
+} TTree;
 
 /** Dialog window */
 GuiDialog guidialog;
@@ -148,10 +149,14 @@ run_sdldemo_surface ( void )
     gui_argv[9] = l_g.c_str();
     gui_argv[10] = l_b.c_str();
 
-    if(gtk_combo_box_get_active (GTK_COMBO_BOX (guidialog.gui_treetype)) != JEHLICNAN )
-        gui_argv[11] = "listnaty";
-    else
-        gui_argv[11] = "jehlicnan";
+    if(gtk_combo_box_get_active (GTK_COMBO_BOX (guidialog.gui_treetype)) == JABLON )
+        gui_argv[11] = "apple";
+
+    if(gtk_combo_box_get_active (GTK_COMBO_BOX (guidialog.gui_treetype)) == SMRK )
+        gui_argv[11] = "spruce";
+
+    if(gtk_combo_box_get_active (GTK_COMBO_BOX (guidialog.gui_treetype)) == SMRK )
+        gui_argv[11] = "palm";
 
     gui_argv[12] = NULL;
 
@@ -241,7 +246,7 @@ main ( int argc,  char **argv )
     gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_leaf), GTK_STATE_NORMAL, &leaf_color);
 
 
-    gtk_combo_box_set_active (GTK_COMBO_BOX (guidialog.gui_treetype), LISTNATY);
+    gtk_combo_box_set_active (GTK_COMBO_BOX (guidialog.gui_treetype), JABLON);
 
 
     /* Destroy builder */

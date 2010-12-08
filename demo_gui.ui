@@ -274,10 +274,13 @@
     </columns>
     <data>
       <row>
-        <col id="0" translatable="yes">Broad-leaved tree</col>
+        <col id="0" translatable="yes">Apple tree</col>
       </row>
       <row>
-        <col id="0" translatable="yes">Pinopsida</col>
+        <col id="0" translatable="yes">Spruce</col>
+      </row>
+      <row>
+        <col id="0" translatable="yes">Palm tree</col>
       </row>
     </data>
   </object>
