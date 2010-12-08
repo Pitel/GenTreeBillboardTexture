@@ -3,6 +3,7 @@
 #include <cstring>
 #include <iostream>
 #include <fstream>
+#include <ctime>
 
 #include <SDL.h>
 
@@ -50,7 +51,29 @@ void InitTexture(){
 #endif
                 );
 
-		GenTreeBillboardTexture(tree_texture, seed, depth, treeType, trunk, leaf);
+    double tstart, tstop, ttime, ttimeclock;
+
+    tstart = (double)clock();//CLOCKS_PER_SEC;
+
+
+    GenTreeBillboardTexture(tree_texture, seed, depth, treeType, trunk, leaf);
+
+    tstop = (double)clock();//CLOCKS_PER_SEC;
+
+    ttimeclock = tstop-tstart; /*ttime is how long your code run */
+
+    ttime = tstop/CLOCKS_PER_SEC - tstart/CLOCKS_PER_SEC; /*ttime is how long your code run */
+
+    cout << " Cas generovani stromu " << endl;
+    cout << "+----------------------" << endl;
+    cout << "| " << ttimeclock << " [clocks] - clocks per sec: " << CLOCKS_PER_SEC << endl;
+   // cout << "| " << ttime*1000000 << " [us] - microsecond" << endl;
+    cout << "| " << ttime*1000 << " [ms] - milisecond" << endl;
+    cout << "| " << ttime << " [s] - second" << endl;
+    cout << "+----------------------" << endl << endl;
+
+
+
 }
 bool Init()
 {
