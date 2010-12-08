@@ -19,6 +19,7 @@ typedef struct _guidialog
     GtkWidget *gui_sdldemo_surface;
 
     /* Share informations */
+    GtkWidget *gui_treetype;
     GtkWidget *gui_width;
     GtkWidget *gui_height;
     GtkWidget *gui_seed;
@@ -28,6 +29,12 @@ typedef struct _guidialog
 
 } GuiDialog;
 
+
+typedef enum treetyp
+{
+    LISTNATY = 0,
+    JEHLICNAN
+} TShare_service;
 
 /** Dialog window */
 GuiDialog guidialog;
@@ -116,7 +123,7 @@ run_sdldemo_surface ( void )
     std::string l_g = IntToChar(leaf_color.green >> 8);
     std::string l_b = IntToChar(leaf_color.blue >> 8);
 
-    const gchar *gui_argv[12];
+    const gchar *gui_argv[13];
     GError *error;
 /*
  cout << "RUN" << endl;
@@ -140,7 +147,13 @@ run_sdldemo_surface ( void )
     gui_argv[8] = l_r.c_str();
     gui_argv[9] = l_g.c_str();
     gui_argv[10] = l_b.c_str();
-    gui_argv[11] = NULL;
+
+    if(gtk_combo_box_get_active (GTK_COMBO_BOX (guidialog.gui_treetype)) != JEHLICNAN )
+        gui_argv[11] = "listnaty";
+    else
+        gui_argv[11] = "jehlicnan";
+
+    gui_argv[12] = NULL;
 
 
     GSpawnFlags flag = G_SPAWN_CHILD_INHERITS_STDIN;
@@ -211,6 +224,10 @@ main ( int argc,  char **argv )
     guidialog.gui_leaf = GTK_WIDGET( gtk_builder_get_object( builder, "btn_leaf"));
     g_signal_connect (guidialog.gui_leaf, "clicked", G_CALLBACK (color_select), (gpointer) &leaf_color);
 
+
+    guidialog.gui_treetype = GTK_WIDGET( gtk_builder_get_object( builder, "combobox_treetype"));
+
+
     /* Setup default values */
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_width), "600");
     gtk_entry_set_text( GTK_ENTRY (guidialog.gui_height), "800");
@@ -222,6 +239,9 @@ main ( int argc,  char **argv )
 
     gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_trunk), GTK_STATE_NORMAL, &trunk_color);
     gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_leaf), GTK_STATE_NORMAL, &leaf_color);
+
+
+    gtk_combo_box_set_active (GTK_COMBO_BOX (guidialog.gui_treetype), LISTNATY);
 
 
     /* Destroy builder */
