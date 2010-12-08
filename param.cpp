@@ -71,6 +71,11 @@ void parametrizeNode(TreeNode *node, PTreeType treeType, int maxlevel, cartesian
 	//pote nechame projit vsechny potomky
 	if(node->childNodes.size() == 0){
 		node->param.leafs = 0.8; //koncova vetev, dame ji nejake listy
+		if(treeType == PTREE_PICEA){
+			node->param.leafsize = 0.001;
+		}else{
+			node->param.leafsize = 0.01;
+		}
 	}else{
 		node->param.leafs = 0.0;
 	}
@@ -148,7 +153,7 @@ void branchLengthPicea(TreeNode *current, int maxlevel) {
 			current->param.relativeVector.r = 0.02+0.02*uniformRandom(0.7, 1.3)*coef;
 			break;
 		default:
-			current->param.relativeVector.r = 0.14*uniformRandom(0.7, 1.3)*coef;
+			current->param.relativeVector.r = 0.07*uniformRandom(0.7, 1.3)*coef;
 			break;
 	}
 }
