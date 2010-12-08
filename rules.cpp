@@ -194,12 +194,6 @@ GRules::GRules(int seed)
     this->rules.insert(pair<PTreeType, vector<int> >(PTREE_PALMA, rule_pa4));
 }
 
-void GRules::AddRule(PTreeType name, vector<int> rule)
-{
-     // Modularity support  - future?
-     
-     this->rules.insert(pair<PTreeType, vector<int> >(name, rule));
-}
 
 int GRules::GetRule(PTreeType name, treeNodeType symbol, vector<int> *data)
 {
