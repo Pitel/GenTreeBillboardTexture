@@ -7,7 +7,10 @@
 
 queue<TreeNode*> TreeNode::printNodes;
 
-
+/** TreeNode() constructor
+ *
+ *  Konstruktor uzlu stromu (cely strom je slozen z techto uzlu)  
+ */ 
 TreeNode::TreeNode(treeNodeType type,TreeNode* parent)
 {
       this->type = type;
@@ -19,11 +22,15 @@ void TreeNode::printTree()
     TreeNode::printNodes.push(this);
     TreeNode::processPrint();
 }
+
+
 void TreeNode::printTreeWithParams()
 {
 	TreeNode::printNodes.push(this);
 	TreeNode::processPrintWithParams();
 }
+
+
 
 void TreeNode::processPrint()
 {
@@ -48,6 +55,7 @@ void TreeNode::processPrint()
     }
 }
 
+ 
 void TreeNode::processPrintWithParams()
 {
 	int size = TreeNode::printNodes.size();
@@ -70,6 +78,7 @@ void TreeNode::processPrintWithParams()
 	  processPrintWithParams();
 	}
 }
+
 
 TreeNode* GenTreeBillboardTexture_grammar(PTreeType treeType, int depth ,int seed) {
 
