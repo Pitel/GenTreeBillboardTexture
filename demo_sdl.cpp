@@ -185,6 +185,7 @@ int main(int argc, char *argv[])
         if(!strcmp(argv[11],"palm"))
             treeType = PTREE_PALMA;
 
+
         //PTREE_PICEA, PTREE_PALMA, PTREE_COUNT
 
     }

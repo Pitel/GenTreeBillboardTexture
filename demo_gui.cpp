@@ -155,7 +155,7 @@ run_sdldemo_surface ( void )
     if(gtk_combo_box_get_active (GTK_COMBO_BOX (guidialog.gui_treetype)) == SMRK )
         gui_argv[11] = "spruce";
 
-    if(gtk_combo_box_get_active (GTK_COMBO_BOX (guidialog.gui_treetype)) == SMRK )
+    if(gtk_combo_box_get_active (GTK_COMBO_BOX (guidialog.gui_treetype)) == PALMA )
         gui_argv[11] = "palm";
 
     gui_argv[12] = NULL;
