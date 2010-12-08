@@ -5,7 +5,6 @@
 #include "vis.h"
 
 #define SWAP(a, b) a ^= b; b ^= a; a ^= b;
-#define LEAFSIZE(canvas) (canvas->w + canvas->h) / 2.0 / 60.0
 
 int clamp(int val, int min, int max) {
 	if (val < min) {
@@ -60,12 +59,9 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, int alpha=2
 	*bufp = color;
 }
 
-void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float scale) {
-	//const float size_ex = LEAFSIZE(canvas);
-	//int size = LEAFSIZE(canvas);
-	//std::clog << size << '\n';
-	const float size_ex = 0.02*scale;
-	int size = size_ex;
+void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float size_ex) {
+	//std::clog << size_ex << '\n';
+	unsigned int size = size_ex;
 	
 	if(size < 1){
 		size = 1;
@@ -77,37 +73,37 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float sc
 	float alpha;
 	float alpha1, alpha2;
 	float tx, ty;
-	for(int i=0; i<= size/2+1; i++){ //list je ctverec, u stredu zcela nepruhledny, cim vice od stredu, tim pruhlednejsi
-		for (int j = 0; j <= size/2+1; j++) {
+	for (unsigned int i = 0; i <= size / 2 + 1; i++) {	//list je ctverec, u stredu zcela nepruhledny, cim vice od stredu, tim pruhlednejsi
+		for (unsigned int j = 0; j <= size / 2 + 1; j++) {
 			tx = j;
 			ty = i;
-			alpha1 = fclamp((1.0-((abs(float(tx)))/float(size_ex)*2.0)), 0.0, 1.0)*2.0;
-			alpha1 += fclamp((1.0-((abs(float(tx-0.5)))/float(size_ex)*2.0)), 0.0, 1.0);
-			alpha1 += fclamp((1.0-((abs(float(tx+0.5)))/float(size_ex)*2.0)), 0.0, 1.0);
-			alpha1 /= 4.0;
-			alpha2 = fclamp((1.0-((abs(float(ty)))/float(size_ex)*2.0)), 0.0, 1.0)*2.0;
-			alpha2 += fclamp((1.0-((abs(float(ty+0.5)))/float(size_ex)*2.0)), 0.0, 1.0);
-			alpha2 += fclamp((1.0-((abs(float(ty-0.5)))/float(size_ex)*2.0)), 0.0, 1.0);
-			alpha2 /= 4.0;
-			alpha = alpha1*alpha2;
+			alpha1 = fclamp(1 - abs(tx) / size_ex * 2, 0, 1) * 2;
+			alpha1 += fclamp(1 - abs(tx - 0.5) / size_ex * 2, 0, 1);
+			alpha1 += fclamp(1 - abs(tx + 0.5) / size_ex * 2, 0, 1);
+			alpha1 /= 4;
+			alpha2 = fclamp(1 - abs(ty) / size_ex * 2, 0, 1) * 2;
+			alpha2 += fclamp(1 - abs(ty + 0.5) / size_ex * 2, 0, 1);
+			alpha2 += fclamp(1 - abs(ty - 0.5) / size_ex * 2, 0, 1);
+			alpha2 /= 4;
+			alpha = alpha1 * alpha2;
 
-			if(alpha > 0.0){ //jenom pokud ma smysl kreslit
-				putpixel(canvas, x+tx, y+ty, color, alpha*255);
-				if(tx != 0){ //pouze, pokud jsem tento pixel jiz nekreslili (na stredu listu se tato hodnota prekryva)
-					putpixel(canvas, x-tx, y+ty, color, alpha*255);
+			if (alpha > 0) {	//jenom pokud ma smysl kreslit
+				putpixel(canvas, x + tx, y + ty, color, alpha * 255);
+				if (tx > 0) {	//pouze, pokud jsem tento pixel jiz nekreslili (na stredu listu se tato hodnota prekryva)
+					putpixel(canvas, x - tx, y + ty, color, alpha * 255);
 				}
-				if(ty != 0){
-					putpixel(canvas, x+tx, y-ty, color, alpha*255);
+				if(ty > 0) {
+					putpixel(canvas, x + tx, y - ty, color, alpha * 255);
 				}
-				if(tx != 0 && ty != 0){
-					putpixel(canvas, x-tx, y-ty, color, alpha*255);
+				if(tx > 0 && ty > 0) {
+					putpixel(canvas, x - tx, y - ty, color, alpha * 255);
 				}
 			}
 		}
 	}
 }
 
-void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thickness, SDL_Color wood, SDL_Color leaf, float leafinterval, float scale) {
+void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thickness, SDL_Color wood, SDL_Color leaf, float leafinterval, float leafsize) {
 	//std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
 	//std::clog << leafinterval << '\n';
 	
@@ -207,7 +203,7 @@ void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thick
 			}
 			tx = clamp(tx, 0, canvas->w);
 			ty = clamp(ty, 0, canvas->h);
-			drawleaf(canvas, tx, ty, leaf, scale);
+			drawleaf(canvas, tx, ty, leaf, leafsize);
 		}
 		
 		if (P >= 0) {
@@ -263,8 +259,8 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, TreeNode* tree, SDL_C
 			node->param.thickness * scale,
 			wood,
 			leafs,
-			LEAFSIZE(data) * (1 / node->param.leafs),
-			scale);
+			(node->param.leafsize * scale) * (1 / node->param.leafs),
+			node->param.leafsize * scale);
 		
 		for (size_t i = 0; i < node->childNodes.size(); i++) {
 			//std::clog << "Pushing new node\n";

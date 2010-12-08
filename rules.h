@@ -10,7 +10,7 @@
 using namespace std;
 
 //PTREE_COUNT znaci pocet typu stromu, tedy cislovat postupne a PTREE_COUNT nechat posledni
-enum PTreeType {PTREE_APPLE, PTREE_PICEA, PTREE_COUNT};
+enum PTreeType {PTREE_APPLE, PTREE_PICEA, PTREE_PALMA, PTREE_COUNT};
 
 enum treeNodeType {
     TRUNK,

@@ -158,28 +158,14 @@ bool ProcessEvent()
 int main(int argc, char *argv[])
 {
 
-  // std::cout << "ARGC: "<< argc << std::endl;
 
-   //std::cout << "ARGV: "<< argv[0] << std::endl;
-
-    if(argc == 11)
+    if(argc == 12)
     {
         width = atoi(argv[1]);
         height = atoi(argv[2]);
         seed = atoi(argv[3]);
         depth = atoi(argv[4]);
-/*      
-        std::cout << std::endl << "**** demo_sdl ****" << std::endl;
-        std::cout << "ARGV: "<< argv[1] << std::endl;
-        std::cout << "ARGV: "<< argv[2] << std::endl;
-        std::cout << "ARGV: "<< argv[3] << std::endl;
-        std::cout << "ARGV: "<< argv[4] << std::endl;
-        std::cout << "ARGV: "<< argv[5] << std::endl;
-        std::cout << "ARGV: "<< argv[6] << std::endl;
-        std::cout << "ARGV: "<< argv[7] << std::endl;
-        std::cout << "ARGV: "<< argv[8] << std::endl;
-        std::cout << "ARGV: "<< argv[9] << std::endl;
-        std::cout << "ARGV: "<< argv[10] << std::endl;*/
+
 
         trunk.r = atoi(argv[5]);
         trunk.g = atoi(argv[6]);
@@ -188,6 +174,13 @@ int main(int argc, char *argv[])
         leaf.r = atoi(argv[8]);
         leaf.g = atoi(argv[9]);
         leaf.b = atoi(argv[10]);
+
+        if(!strcmp(argv[11],"listnaty"))
+            treeType = PTREE_APPLE;
+        else
+            treeType = PTREE_PICEA;
+
+        //PTREE_PICEA, PTREE_PALMA, PTREE_COUNT
 
     }
 
