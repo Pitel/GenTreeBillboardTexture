@@ -26,13 +26,13 @@ vis.o: vis.cpp vis.h grammar.h rules.h param.h
 #Slinkovani
 $(PROG): $(PROG)_gui.cpp $(PROG)_sdl.cpp $(OBJS)
 	$(CXX) $(OBJS) $(CXXFLAGS) $(GTK) $(SDL) $(PROG)_gui.cpp -o $(PROG)_gui
-	$(CXX) $(OBJS) $(CXXFLAGS) $(SDL) $(PROG)_sdl.cpp -o $(PROG)_sdl
+	$(CXX) $(OBJS) $(CXXFLAGS) $(SDL) $(PROG)_sdl.cpp -o $(PROG)
 
 doc:
 	cd doc; $(LATEX) pgr.tex
 
 clean:
-	$(RM) *.o xlogin00.zip $(PROG)_gui $(PROG)_sdl
+	$(RM) *.o xlogin00.zip $(PROG)_gui $(PROG)
 	cd doc; $(RM) *.out *.log *.aux *.pdf
 
 pack: doc
