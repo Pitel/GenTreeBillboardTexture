@@ -159,7 +159,7 @@ void branchLengthPicea(TreeNode *current, int maxlevel) {
 	}
 }
 void branchThicknessPicea(TreeNode *current, int maxlevel) {
-	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0015; //tloustka vetve odpovida poctu vetvi, ktere z teto rostou (musi sedet plocha prurezu)
+	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0025; //tloustka vetve odpovida poctu vetvi, ktere z teto rostou (musi sedet plocha prurezu)
 }
 
 void branchDirectionPicea(TreeNode *current, cartesianCoords treetopCenter) {

@@ -17,7 +17,8 @@ unsigned int width = 256;
 unsigned int height = 512;
 unsigned int seed = 2353;
 unsigned int depth = 150;
-PTreeType treeType = PTREE_PICEA;
+
+PTreeType treeType = PTREE_APPLE;
 
 bool use_sdlsurface = false;
 
@@ -175,10 +176,15 @@ int main(int argc, char *argv[])
         leaf.g = atoi(argv[9]);
         leaf.b = atoi(argv[10]);
 
-        if(!strcmp(argv[11],"listnaty"))
+        if(!strcmp(argv[11],"apple"))
             treeType = PTREE_APPLE;
-        else
+
+        if(!strcmp(argv[11],"spruce"))
             treeType = PTREE_PICEA;
+
+        if(!strcmp(argv[11],"palm"))
+            treeType = PTREE_PALMA;
+
 
         //PTREE_PICEA, PTREE_PALMA, PTREE_COUNT
 
