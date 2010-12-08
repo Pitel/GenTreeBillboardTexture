@@ -14,6 +14,7 @@ int clamp(int val, int min, int max) {
 	}
 	return val;
 }
+
 float fclamp(float val, float min, float max) {
 	if (val < min) {
 		return min;
@@ -23,40 +24,33 @@ float fclamp(float val, float min, float max) {
 	return val;
 }
 
-void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, int alpha=255) {
+void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, unsigned int alpha = 255) {
 	// Presahuje rozmery surface, zapis do neplatne pameti
 	if (x >= abs(surface->w) || y >= abs(surface->h)) {
 		return;
 	}
-	/*const unsigned short noise = 128;
-	const double random = (basicRandom() * noise) - noise / 2;
-	c.r = clamp(c.r + random, 0, 255);
-	c.g = clamp(c.g + random, 0, 255);
-	c.b = clamp(c.b + random, 0, 255);
-	*/
 	const float noise = 0.8;
-	const double random = 1.0+basicRandom()*noise - noise/2.0;
-	c.r = clamp(c.r*random, 0, 255);
-	c.g = clamp(c.g*random, 0, 255);
-	c.b = clamp(c.b*random, 0, 255);
-	//Uint32 color = SDL_MapRGB(surface->format, c.r, c.g, c.b);
+	const double random = 1 + basicRandom() * noise - noise / 2;
+	c.r = clamp(c.r * random, 0, 255);
+	c.g = clamp(c.g * random, 0, 255);
+	c.b = clamp(c.b * random, 0, 255);
 	
 	//pouzivame napevno 32bitovou barevnou hloubku
-	Uint32 *bufp;
-	bufp = (Uint32 *)surface->pixels + y*surface->pitch/4 + x;
+	Uint32* bufp;
+	bufp = (Uint32*) surface->pixels + y  *surface->pitch / 4 + x;
 	//spocitame novou barvu pomoci apha scitani barev (zdrojova barva ma vzdy nulovou pruhlednost, tj. u ni alphu ignorujeme)
 	Uint8 orig_r;
 	Uint8 orig_g;
 	Uint8 orig_b;
 	Uint8 orig_a;
 	SDL_GetRGBA(*bufp, surface->format, &orig_r, &orig_g, &orig_b, &orig_a);
-	float a_o = orig_a/255.0;
-	float a_n = alpha/255.0;
-	Uint8 new_r = c.r*a_n+orig_r*a_o*(1.0-a_n);
-	Uint8 new_g = c.g*a_n+orig_g*a_o*(1.0-a_n);
-	Uint8 new_b = c.b*a_n+orig_b*a_o*(1.0-a_n);
-	Uint8 new_a = (a_n+a_o*(1.0-a_n))*255.0;
-
+	float a_o = orig_a / 255.0;
+	float a_n = alpha / 255.0;
+	Uint8 new_r = c.r * a_n + orig_r * a_o * (1 - a_n);
+	Uint8 new_g = c.g * a_n + orig_g * a_o * (1 - a_n);
+	Uint8 new_b = c.b * a_n + orig_b * a_o * (1 - a_n);
+	Uint8 new_a = (a_n + a_o * (1 - a_n)) * 255;
+	
 	Uint32 color = SDL_MapRGBA(surface->format, new_r, new_g, new_b, new_a);
 	*bufp = color;
 }
@@ -88,7 +82,7 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float si
 			alpha2 += fclamp(1 - abs(ty - 0.5) / size_ex * 2, 0, 1);
 			alpha2 /= 4;
 			alpha = alpha1 * alpha2;
-
+			
 			if (alpha > 0) {	//jenom pokud ma smysl kreslit
 				putpixel(canvas, x + tx, y + ty, color, alpha * 255);
 				if (tx > 0) {	//pouze, pokud jsem tento pixel jiz nekreslili (na stredu listu se tato hodnota prekryva)
