@@ -7,11 +7,11 @@ Usage
 	SDL_Surface canvas;
 	GenTreeBillboardTexture(
 		SDL_Surface &canvas,	//Pointer to SDL Surface
-		unsigned int seed,	//Seed for random numbers
-		unsigned int depth,	//Depth of L-system
-		PTreeType typeTree,	//Type of tree
-		SDL_Color wood,		//Color of wood
-		SDL_Color leafs		//Color of leafs
+		unsigned int seed,		//Seed for random numbers
+		unsigned int depth,		//Depth of L-system
+		PTreeType typeTree,		//Type of tree
+		SDL_Color wood,			//Color of wood
+		SDL_Color leafs			//Color of leafs
 	);
 
 Authors
