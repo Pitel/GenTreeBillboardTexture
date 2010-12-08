@@ -5,7 +5,7 @@
 #include <queue>
 
 const treeParams treeBuilders[PTREE_COUNT] = {
-   /* PTREE_1 */ {branchLengthTree1, branchThicknessTree1, branchDirectionTree1},
+   /* PTREE_APPLE */ {branchLengthTree1, branchThicknessTree1, branchDirectionTree1},
    /* PTREE_PICEA */ {branchLengthPicea, branchThicknessPicea, branchDirectionPicea}
 };
 

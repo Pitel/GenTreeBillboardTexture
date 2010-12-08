@@ -61,8 +61,6 @@ double uniformRandom(double l, double h);
 //funkce po doplneni potrebnych udaju spocita absolutni vektor smeru vetve a koncove souradnice
 void fillAbsoluteVector(TreeNode *current);
 
-enum PTreeType {PTREE_1, PTREE_PICEA, PTREE_COUNT}; //PTREE_COUNT znaci pocet typu stromu, tedy cislovat postupne a PTREE_COUNT nechat posledni
-
 typedef struct {
 	void (*branchLengthFunc)(TreeNode *, int);
 	void (*branchThicknessFunc)(TreeNode *, int);

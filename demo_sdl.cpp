@@ -15,8 +15,9 @@
 
 unsigned int width = 256;
 unsigned int height = 512;
-unsigned int seed = 23505;
-unsigned int depth = 40;
+unsigned int seed = 2353;
+unsigned int depth = 150;
+PTreeType treeType = PTREE_PICEA;
 
 bool use_sdlsurface = false;
 
@@ -48,7 +49,7 @@ void InitTexture(){
 #endif
                 );
 
-		GenTreeBillboardTexture(tree_texture, width, height, seed, depth, trunk, leaf);
+		GenTreeBillboardTexture(tree_texture, seed, depth, treeType, trunk, leaf);
 }
 bool Init()
 {
@@ -167,7 +168,7 @@ int main(int argc, char *argv[])
         height = atoi(argv[2]);
         seed = atoi(argv[3]);
         depth = atoi(argv[4]);
-/*
+/*      
         std::cout << std::endl << "**** demo_sdl ****" << std::endl;
         std::cout << "ARGV: "<< argv[1] << std::endl;
         std::cout << "ARGV: "<< argv[2] << std::endl;

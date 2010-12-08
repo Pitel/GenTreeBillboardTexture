@@ -11,7 +11,6 @@
 //
 //  Data types
 //
-
 typedef struct tNode {
     struct tNode* parentNode;
     treeNodeType type;
@@ -42,6 +41,6 @@ class TreeNode
 //
 //  Functions
 //
-TreeNode* GenTreeBillboardTexture_grammar(string /* Tree type */, int /*depth*/, int /*seed*/);
+TreeNode* GenTreeBillboardTexture_grammar(PTreeType /* Tree type */, int /*depth*/, int /*seed*/);
 
 #endif
