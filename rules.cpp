@@ -163,7 +163,7 @@ GRules::GRules(int seed)
    
     vector<int> rule_pa2;
     rule_pa2.push_back(BRANCH_UP);
-    rule_pa2.push_back(1);
+    rule_pa2.push_back(5);
     rule_pa2.push_back(BRANCH_DOWN);
     rule_pa2.push_back(BRANCH_DOWN);
     rule_pa2.push_back(BRANCH_DOWN);
