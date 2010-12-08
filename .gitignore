@@ -1,7 +1,7 @@
 *.[ao]
 *.exe
 demo_gui
-demo_sdl
+demo
 xlogin00.zip
 *.config
 *.creator*
