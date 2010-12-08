@@ -180,7 +180,7 @@ void branchDirectionPicea(TreeNode *current, cartesianCoords treetopCenter) {
 	fillAbsoluteVector(current); //pocita se s tim, ze delka vetve uz je nastavena
 }
 
-//palma
+//plma
 void branchLengthPalma(TreeNode *current, int maxlevel) {
 	//delka zavisi na levelu a typu
 	float coef;
@@ -189,16 +189,13 @@ void branchLengthPalma(TreeNode *current, int maxlevel) {
 	switch(current->type){
 		case TRUNK:
 		case TRUNK_BRANCHLESS:
-			if(current->parentNode == NULL){ //prvni kmen
-				coef *= 5.0;
-			}
-			current->param.relativeVector.r = 0.02+0.06*uniformRandom(0.7, 1.3)*coef;
+			current->param.relativeVector.r = -0.05;
 			break;
-		case BRANCH:
-			current->param.relativeVector.r = 0.02+0.02*uniformRandom(0.7, 1.3)*coef;
+		case BRANCH_UP:
+			current->param.relativeVector.r = 0.006+0.006*uniformRandom(0.7, 1.3)*coef;
 			break;
 		default:
-			current->param.relativeVector.r = 0.14*uniformRandom(0.7, 1.3)*coef;
+			current->param.relativeVector.r = 0.07*uniformRandom(0.7, 1.3)*coef;
 			break;
 	}
 }
@@ -210,11 +207,11 @@ void branchDirectionPalma(TreeNode *current, cartesianCoords treetopCenter) {
 	if(current->type == TRUNK || current->type == TRUNK_BRANCHLESS) { //kmen, nechame ho vest temer rovne
 		current->param.relativeVector.theta = exponentialRandom(M_PI*(0.5/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem viz druhy parametr
 		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
-	}else if(current->type == BRANCH && current->parentNode != NULL && current->parentNode->type == TRUNK){ //vetev z kmene, nechame ji vest vicemene vodorovne nahodnym smerem z kmene
-		current->param.relativeVector.theta = normalRandom(M_PI*(100.0/180.0), M_PI*(5.0/180.0));
+	}else if(current->type == BRANCH_UP && current->parentNode != NULL && current->parentNode->type == TRUNK){ //vetev z kmene, nechame ji vest vicemene vodorovne nahodnym smerem z kmene
+		current->param.relativeVector.theta = normalRandom(M_PI*(80.0/180.0), M_PI*(5.0/180.0));
 		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
 	}else if(current->type == BRANCH){ //pokracovani zakladni vetve, nechame ji rust mirne do vyse
-		current->param.relativeVector.theta = uniformRandom(M_PI*(1.0/180.0), M_PI*(2.0/180.0)); //nejaky maly odklon
+		current->param.relativeVector.theta = uniformRandom(M_PI*(-2.0/180.0), M_PI*(-1.0/180.0)); //nejaky maly odklon
 		current->param.relativeVector.phi = normalRandom(M_PI, M_PI*(10.0/180.0)); //rotace kolem 180°
 	}else{ //vetev smerujici k zemi
 		current->param.relativeVector.theta = normalRandom(M_PI*(90.0/180.0), M_PI*(15.0/180.0)); //odklon kolem 90°
