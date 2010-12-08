@@ -5,6 +5,9 @@
 #include "grammar.h"
 #include "param.h"
 
+/**
+ * Vizualizace stromu
+ */
 void GenTreeBillboardTexture_visualize(SDL_Surface* data, TreeNode* tree, SDL_Color wood, SDL_Color leafs);
 
 #endif
