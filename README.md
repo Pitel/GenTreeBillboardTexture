@@ -1,5 +1,6 @@
 GenTreeBillboardTexture
 =======================
+The tree impostor texture generator.
 
 Usage
 -----
