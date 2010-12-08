@@ -13,3 +13,4 @@ doc/*.aux
 doc/*.pdf
 doc/*.log
 doc/*.out
+doc/doxygen
