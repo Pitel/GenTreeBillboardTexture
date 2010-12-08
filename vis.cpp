@@ -234,7 +234,9 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, TreeNode* tree, SDL_C
 	
 	queue<TreeNode*> q;
 	q.push(tree);
+	SDL_Color wood_orig = wood;
 	while (!q.empty()) {
+		wood = wood_orig;
 		//std::clog << q.size() << '\n';
 		TreeNode* node = q.front();
 		
@@ -246,12 +248,14 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, TreeNode* tree, SDL_C
 			origin = node->parentNode->param.branchEnd;
 		}
 		
-		//std::clog << node->param.leafs << ' ' << scale << '\n';
+		if(node->param.branchvis == LVIS_LEAF){ //pro vetve, ktere se maji vizualizovat barvou listu
+			wood = leafs; //pouzijeme i pro drevo barvu listu
+		}
 		drawbranch(data,
 			(origin.x + abs(bounds.minX)) * scale + offset,
-			data->h - 1 - origin.z * scale,
+			data->h - 1 - (origin.z + abs(bounds.minZ)) * scale,
 			(node->param.branchEnd.x + abs(bounds.minX)) * scale + offset,
-			data->h - node->param.branchEnd.z * scale,
+			data->h - (node->param.branchEnd.z + abs(bounds.minZ)) * scale,
 			node->param.thickness * scale,
 			wood,
 			leafs,

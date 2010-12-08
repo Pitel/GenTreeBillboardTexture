@@ -6,6 +6,8 @@
 #include <queue>
 #include <cmath>
 
+enum leafVisType {LVIS_WOOD, LVIS_LEAF};
+
 typedef struct {
 	float r; //delka vektoru
 	float theta; //odklon od osy Z (rotace kolem Y, aplikovano po rotaci kolem Z)
@@ -35,6 +37,7 @@ typedef struct d{
 	float thickness;
 	float leafs; //nakolik je vetev zalistena - <0, 1>
 	float leafsize; //velikost listu
+	leafVisType branchvis; //zpusob vizualizace vetve
 	int childLeafs; //kolik listu grafu se vyskytuje dohromady ve vsech detech uzlu
 	operator std::string(){ std::stringstream tmp; tmp << "{l: " << level << ", rV: " << (std::string)relativeVector << ", aV: " << (std::string)absoluteVector << ", bE: " << (std::string)branchEnd << "}"; return tmp.str(); }
 } paramInfo;
@@ -60,6 +63,9 @@ double uniformRandom(double l, double h);
 
 //funkce po doplneni potrebnych udaju spocita absolutni vektor smeru vetve a koncove souradnice
 void fillAbsoluteVector(TreeNode *current);
+
+//funkce pro dopocitani branchEnd na zaklade absoluteVector
+void fillBranchEnd(TreeNode *current);
 
 typedef struct {
 	void (*branchLengthFunc)(TreeNode *, int);

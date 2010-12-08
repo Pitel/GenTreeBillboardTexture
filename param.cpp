@@ -64,22 +64,20 @@ void parametrizeNodes(queue<TreeNode*> *processNodes, PTreeType treeType, int ma
 }
 void parametrizeNode(TreeNode *node, PTreeType treeType, int maxlevel, cartesianCoords treetopCenter){
 	//parametrizace daneho uzlu
+	node->param.branchvis = LVIS_WOOD;
+
+	//pote nechame projit vsechny potomky
+	if(node->childNodes.size() == 0){
+		node->param.leafs = 0.8; //koncova vetev, dame ji nejake listy
+		node->param.leafsize = 0.01;
+	}else{
+		node->param.leafs = 0.0;
+	}
 	//zavolame prislusne funkce parametrizujici v danem typu stromu
 	treeBuilders[treeType].branchLengthFunc(node, maxlevel);
 	treeBuilders[treeType].branchThicknessFunc(node, maxlevel);
 	treeBuilders[treeType].branchDirectionFunc(node, treetopCenter);
 
-	//pote nechame projit vsechny potomky
-	if(node->childNodes.size() == 0){
-		node->param.leafs = 0.8; //koncova vetev, dame ji nejake listy
-		if(treeType == PTREE_PICEA){
-			node->param.leafsize = 0.001;
-		}else{
-			node->param.leafsize = 0.01;
-		}
-	}else{
-		node->param.leafs = 0.0;
-	}
 }
 
 void branchLengthTree1(TreeNode *current, int maxlevel) {
@@ -140,6 +138,9 @@ void branchDirectionTree1(TreeNode *current, cartesianCoords treetopCenter) {
 void branchLengthPicea(TreeNode *current, int maxlevel) {
 	//delka zavisi na levelu a typu
 	float coef;
+	if(current->childNodes.size() == 0){
+		current->param.leafsize = 0.001; //navic nastavime zalisteni
+	}
 	coef = (1.0+maxlevel)/current->param.level;
 	coef = log10(1.0+100*coef)/2.0; //zavislost pomeru delky vetve na aktualnim levelu
 	switch(current->type){
@@ -175,6 +176,7 @@ void branchDirectionPicea(TreeNode *current, cartesianCoords treetopCenter) {
 	}else{ //vetev smerujici k zemi
 		current->param.relativeVector.theta = normalRandom(M_PI*(90.0/180.0), M_PI*(15.0/180.0)); //odklon kolem 90°
 		current->param.relativeVector.phi = normalRandom(M_PI*(0.0/180.0), M_PI*(15.0/180.0)); //rotace kolem 90°
+		current->param.branchvis = LVIS_LEAF; //navis nastavime zpusob vizualizace
 	}
 
 	fillAbsoluteVector(current); //pocita se s tim, ze delka vetve uz je nastavena
@@ -188,37 +190,52 @@ void branchLengthPalma(TreeNode *current, int maxlevel) {
 	coef = log10(1.0+100*coef)/2.0; //zavislost pomeru delky vetve na aktualnim levelu
 	switch(current->type){
 		case TRUNK:
+			current->param.relativeVector.r = 0.0; //z trunku vedou ty ostatni vetve, vzhledem k tomu, ze vedou z konce, a dal z nej roste dolu zbytek kmenu, nastavime mu nulovou delku, aby nad ostatnimi vetvemi nebyl 1 clanek kmenu
+			break;
 		case TRUNK_BRANCHLESS:
-			current->param.relativeVector.r = -0.05;
+			current->param.relativeVector.r = 0.03;
 			break;
 		case BRANCH_UP:
-			current->param.relativeVector.r = 0.006+0.006*uniformRandom(0.7, 1.3)*coef;
+			current->param.relativeVector.r = 0.003+0.006*uniformRandom(0.7, 1.3)*coef;
+			current->param.branchvis = LVIS_LEAF; //navis nastavime zpusob vizualizace
 			break;
 		default:
-			current->param.relativeVector.r = 0.07*uniformRandom(0.7, 1.3)*coef;
+			current->param.relativeVector.r = 0.01*uniformRandom(0.7, 1.3)*coef*sqrt(max(1.0, maxlevel-4.0));
+			current->param.branchvis = LVIS_LEAF;
 			break;
 	}
 }
 void branchThicknessPalma(TreeNode *current, int maxlevel) {
 	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0015; //tloustka vetve odpovida poctu vetvi, ktere z teto rostou (musi sedet plocha prurezu)
+	if(current->type == TRUNK_BRANCHLESS && current->parentNode != NULL){
+		current->param.thickness = current->parentNode->param.thickness; //tloustku ziskame z rodice
+	}
 }
 
 void branchDirectionPalma(TreeNode *current, cartesianCoords treetopCenter) {
-	if(current->type == TRUNK || current->type == TRUNK_BRANCHLESS) { //kmen, nechame ho vest temer rovne
+	current->param.leafs = 0.0; //palma ma listy resene vetvemi
+	if(current->type == TRUNK_BRANCHLESS && current->parentNode != NULL && current->parentNode->type == TRUNK){ //vetev z kmene, nechame ji vest vicemene vodorovne nahodnym smerem z kmene
+		current->param.relativeVector.theta = normalRandom(M_PI*(180.0/180.0), M_PI*(3.5/180.0));
+		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
+		fillAbsoluteVector(current);
+	}else if(current->type == TRUNK || current->type == TRUNK_BRANCHLESS) { //kmen, nechame ho vest temer rovne
 		current->param.relativeVector.theta = exponentialRandom(M_PI*(0.5/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem viz druhy parametr
 		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
+		fillAbsoluteVector(current);
 	}else if(current->type == BRANCH_UP && current->parentNode != NULL && current->parentNode->type == TRUNK){ //vetev z kmene, nechame ji vest vicemene vodorovne nahodnym smerem z kmene
 		current->param.relativeVector.theta = normalRandom(M_PI*(80.0/180.0), M_PI*(5.0/180.0));
 		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
-	}else if(current->type == BRANCH){ //pokracovani zakladni vetve, nechame ji rust mirne do vyse
+		fillAbsoluteVector(current);
+	}else if(current->type == BRANCH_UP){ //pokracovani zakladni vetve, nechame ji rust mirne do vyse
 		current->param.relativeVector.theta = uniformRandom(M_PI*(-2.0/180.0), M_PI*(-1.0/180.0)); //nejaky maly odklon
 		current->param.relativeVector.phi = normalRandom(M_PI, M_PI*(10.0/180.0)); //rotace kolem 180°
+		fillAbsoluteVector(current);
 	}else{ //vetev smerujici k zemi
-		current->param.relativeVector.theta = normalRandom(M_PI*(90.0/180.0), M_PI*(15.0/180.0)); //odklon kolem 90°
-		current->param.relativeVector.phi = normalRandom(M_PI*(0.0/180.0), M_PI*(15.0/180.0)); //rotace kolem 90°
+		current->param.absoluteVector.theta = normalRandom(M_PI*(180.0/180.0), M_PI*(15.0/180.0)); //odklon kolem 90°
+		current->param.absoluteVector.phi = normalRandom(M_PI*(0.0/180.0), M_PI*(15.0/180.0)); //rotace kolem 90°
+		current->param.absoluteVector.r = current->param.relativeVector.r; //pouzijeme hodnotu spocitanou drive
+		fillBranchEnd(current);
 	}
-
-	fillAbsoluteVector(current); //pocita se s tim, ze delka vetve uz je nastavena
 }
 
 void fillAbsoluteVector(TreeNode *current) {
@@ -258,6 +275,17 @@ void fillAbsoluteVector(TreeNode *current) {
 		current->param.branchEnd.y = ry;
 		current->param.branchEnd.z = rz;
 	}
+}
+
+
+void fillBranchEnd(TreeNode *current){
+	double rx = current->param.absoluteVector.r*sin(current->param.absoluteVector.theta)*cos(current->param.absoluteVector.phi);
+	double ry = current->param.absoluteVector.r*sin(current->param.absoluteVector.theta)*sin(current->param.absoluteVector.phi);
+	double rz = current->param.absoluteVector.r*cos(current->param.absoluteVector.theta);
+
+	current->param.branchEnd.x = current->parentNode->param.branchEnd.x+rx;
+	current->param.branchEnd.y = current->parentNode->param.branchEnd.y+ry;
+	current->param.branchEnd.z = current->parentNode->param.branchEnd.z+rz;
 }
 
 //rand <0, 1) (predpoklada inicializovany srand)
