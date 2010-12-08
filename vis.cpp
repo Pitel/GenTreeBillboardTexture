@@ -42,40 +42,6 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, int alpha=2
 	c.b = clamp(c.b*random, 0, 255);
 	//Uint32 color = SDL_MapRGB(surface->format, c.r, c.g, c.b);
 	
-	/*
-	switch(surface->format->BytesPerPixel) {
-		case 1:// Assuming 8-bpp
-			{
-			Uint8 *bufp;
-			bufp = (Uint8 *)surface->pixels + y*surface->pitch + x;
-			*bufp = color;
-			}
-			break;
-		case 2:// Probably 15-bpp or 16-bpp
-			{
-			Uint16 *bufp;
-			bufp = (Uint16 *)surface->pixels + y*surface->pitch/2 + x;
-			*bufp = color;
-			}
-			break;
-		case 3:// Slow 24-bpp mode, usually not used
-			{
-			Uint8 *bufp;
-			bufp = (Uint8 *)surface->pixels + y*surface->pitch + x*surface->format->BytesPerPixel;
-			*(bufp+surface->format->Rshift/8) = c.r;
-			*(bufp+surface->format->Gshift/8) = c.g;
-			*(bufp+surface->format->Bshift/8) = c.b;
-			}
-			break;
-		case 4:// Probably 32-bpp
-			{
-			Uint32 *bufp;
-			bufp = (Uint32 *)surface->pixels + y*surface->pitch/4 + x;
-			*bufp = color;
-			}
-			break;
-	}
-	*/
 	//pouzivame napevno 32bitovou barevnou hloubku
 	Uint32 *bufp;
 	bufp = (Uint32 *)surface->pixels + y*surface->pitch/4 + x;
@@ -83,12 +49,14 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, int alpha=2
 	Uint8 orig_r;
 	Uint8 orig_g;
 	Uint8 orig_b;
-	SDL_GetRGB(*bufp, surface->format, &orig_r, &orig_g, &orig_b);
-	Uint8 new_r = c.r*alpha/255.0+orig_r*(1.0-alpha/255.0);
-	Uint8 new_g = c.g*alpha/255.0+orig_g*(1.0-alpha/255.0);
-	Uint8 new_b = c.b*alpha/255.0+orig_b*(1.0-alpha/255.0);
+	Uint8 orig_a;
+	SDL_GetRGBA(*bufp, surface->format, &orig_r, &orig_g, &orig_b, &orig_a);
+	Uint8 new_r = c.r*alpha/255.0+orig_r*(orig_a/255.0)*(1.0-alpha/255.0);
+	Uint8 new_g = c.g*alpha/255.0+orig_g*(orig_a/255.0)*(1.0-alpha/255.0);
+	Uint8 new_b = c.b*alpha/255.0+orig_b*(orig_a/255.0)*(1.0-alpha/255.0);
+	Uint8 new_a = (alpha/255.0+(orig_a/255.0)*(1.0-alpha/255.0))*255.0;
 
-	Uint32 color = SDL_MapRGB(surface->format, new_r, new_g, new_b);
+	Uint32 color = SDL_MapRGBA(surface->format, new_r, new_g, new_b, new_a);
 	*bufp = color;
 }
 
