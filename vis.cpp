@@ -92,9 +92,7 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, int alpha=2
 }
 
 void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float size_ex) {
-	//const float size_ex = LEAFSIZE(canvas);
-	//int size = LEAFSIZE(canvas);
-	//std::clog << size << '\n';
+	//std::clog << size_ex << '\n';
 	int size = size_ex;
 	
 	if(size < 1){
