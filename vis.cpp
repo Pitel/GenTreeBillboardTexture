@@ -170,7 +170,7 @@ void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thick
 			wood.r *= koef;
 			wood.g *= koef;
 			wood.b *= koef;
-			float alpha = 255*sqrt(sqrt(koef));
+			float alpha = 255*min(sqrt(sqrt(koef*10)), 1.0f);
 			alpha *= float(thickness_orig)/thickness;
 			if (steep) {
 				putpixel(canvas, y - thickness / 2 + t, x, wood, alpha);
@@ -189,22 +189,26 @@ void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thick
 	
 	y = y1;
 	SDL_Color leaf_orig = leaf;
-	bool isleaf = false;
+	int noofleafs = 0; //pocet listu, ktere vykreslit
 	for (int x = x1; x <= x2; x++) {	//Listy
-		isleaf = false;
+		noofleafs = 0;
 		if(leafinterval_cut != 0 && (x % leafinterval_cut) == 0){
-			isleaf = true;
+			noofleafs = 1; //vykreslime 1 list
 		}else if(leafinterval_cut == 0 && leafinterval >= 0.0){ //pokud je to po zaokrouhleni nula, ale jinak ne, chceme list s pravdepodobnosti odpovidajici leafintervalu 
-			if(basicRandom() >= leafinterval){
-				isleaf = true;
+			float fnoofleafs = 1.0/leafinterval; //pocet listu k vykresleni je 1/interval mezi nimi, tedy pocet listu na pixel
+			noofleafs = fnoofleafs; //zaokrouhlime dolu
+			if(basicRandom() >= fnoofleafs-noofleafs){ //pokud je random vetsi, nez desetinna cast poctu listu k vukresleni, pridame 1 list k vykresleni
+				noofleafs += 1;
 			}
 		}
-		if (isleaf == true) {
+		for(int le=0; le<noofleafs; le++) {
 			leaf = leaf_orig;
 			float yrand = basicRandom();
 			float xrand = basicRandom();
-			size_t yoffset = yrand * thickness - thickness / 2;
-			size_t xoffset = xrand * dx - dx / 2;
+			//size_t yoffset = yrand * thickness - thickness / 2;
+			//size_t xoffset = xrand * dx - dx / 2;
+			size_t yoffset = yrand * leafsize*2.0 - leafsize / 2.0;
+			size_t xoffset = xrand * leafsize*2.0 - leafsize / 2.0;
 			float koef = xrand;
 			koef = 1.0+koef*1.7-0.5;
 			leaf.r = clamp(leaf.r*koef, 0, 255);

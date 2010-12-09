@@ -67,7 +67,7 @@ void parametrizeNode(TreeNode *node, PTreeType treeType, int maxlevel, cartesian
 	node->param.branchvis = LVIS_WOOD;
 
 	//pote nechame projit vsechny potomky
-	if(node->childNodes.size() == 0){
+	if(node->childNodes.size() == 0){ //vychozi nastaveni listu
 		node->param.leafs = 0.8; //koncova vetev, dame ji nejake listy
 		node->param.leafsize = 0.01;
 	}else{
@@ -138,8 +138,9 @@ void branchDirectionTree1(TreeNode *current, cartesianCoords treetopCenter) {
 void branchLengthPicea(TreeNode *current, int maxlevel) {
 	//delka zavisi na levelu a typu
 	float coef;
-	if(current->childNodes.size() == 0){
-		current->param.leafsize = 0.001; //navic nastavime zalisteni
+	if(current->childNodes.size() == 0){ //koncova vetev
+		current->param.leafsize = 0.02; //navic nastavime zalisteni
+		current->param.leafs = 3.0; //a mnozstvi listu
 	}
 	coef = (1.0+maxlevel)/current->param.level;
 	coef = log10(1.0+100*coef)/2.0; //zavislost pomeru delky vetve na aktualnim levelu
@@ -200,15 +201,15 @@ void branchLengthPalma(TreeNode *current, int maxlevel) {
 			current->param.branchvis = LVIS_LEAF; //navis nastavime zpusob vizualizace
 			break;
 		default:
-			current->param.relativeVector.r = 0.01*uniformRandom(0.7, 1.3)*coef*sqrt(max(1.0, maxlevel-4.0));
+			current->param.relativeVector.r = 0.002*uniformRandom(0.7, 1.3)*coef*max(1.0, (maxlevel-2.0));
 			current->param.branchvis = LVIS_LEAF;
 			break;
 	}
 }
 void branchThicknessPalma(TreeNode *current, int maxlevel) {
 	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0015; //tloustka vetve odpovida poctu vetvi, ktere z teto rostou (musi sedet plocha prurezu)
-	if(current->type == TRUNK_BRANCHLESS && current->parentNode != NULL){
-		current->param.thickness = current->parentNode->param.thickness; //tloustku ziskame z rodice
+	if(current->type == TRUNK_BRANCHLESS){ //tloustku kmene spocitame primo z maximalniho levelu
+		current->param.thickness = 0.002*max(1.0, (maxlevel-2.0));
 	}
 }
 
