@@ -14,11 +14,11 @@
 %Rozsah: cca 10 odrážek
 
 \begin{itemize}
-\item Vytvořit funkci(e), která(é) vygeneruje věrohodnou texturu, kterou půjde použít jako billboard pro zobrazení jednoduchého stromu
-\item Funkce bude dobře parametrizovatelná (velikost stromu, barevné ladění, typ stromu, apod.)
-\item Funkce nebude pracovat nad globálními daty ani alokovat data - nageneruje data do dané paměti, např: void GenTreeBillboardTexture(char *data, int width, int height, float param, ...);
-\item Demonstrujte v jednoduché scéně
-\item Důležitá je rychlost funkce, vizuální kvalita výsledku a zapozdření/znovupoužitelnost kódu
+\item Vytvořit funkci, která vygeneruje věrohodnou texturu, kterou půjde použít jako billboard pro zobrazení stromů různých druhů
+\item Funkce bude dobře parametrizovatelná (kvalita stromu, rozlišení billboardu, barevné ladění, typ stromu)
+\item Funkce nepracuje nad globálními daty ani nealokuje data -- nageneruje data do dané paměti
+\item Demonstrujte v jednoduché scéně -- rovina se stromy různých typů, s jejich vzdáleností klesá jejich kvalita, protože se zmenšuje jejich plocha kterou zabírají na obrazovce
+\item Důležitá je zapozdření/znovupoužitelnost kódu, vizuální kvalita výsledku a rychlost funkce
 \item Popsat algoritmus generování a možnost parametrizace v dokumentaci
 \end{itemize}
 
@@ -37,6 +37,7 @@
 \item Bresenhamův algoritmus kreslení úseček
 \item Git
 \item OpenGL
+\item GLM
 \end{itemize}
 
 %---------------------------------------------------------------------------
@@ -50,7 +51,7 @@
 %Rozsah: potřebný počet odrážek
 
 \begin{itemize}
-\item TUREK, Michal. Seriál SDL : Hry nejen pro Linux. Root.cz [online]. 2005, [cit. 2010-12-05]. Dostupný z WWW: {\textless}http://www.root.cz/serialy/sdl-hry-nejen-pro-linux/{\textgreater}.
+\item TUREK, Michal. Seriál SDL: Hry nejen pro Linux. Root.cz [online]. 2005, [cit. 2010-12-05]. Dostupný z WWW: {\textless}http://www.root.cz/serialy/sdl-hry-nejen-pro-linux/{\textgreater}.
 \item Úryvky kódu ze cvičení z předmětu PGR
 \end{itemize}
 
@@ -62,7 +63,7 @@
 
 \begin{itemize}
 \item Rozšiřitelnost a variabilita
-\item Vektorový přístup
+\item Vektorový přístup a deterministický algoritmus
 \item Prostorové větve
 \end{itemize}
 
@@ -99,14 +100,14 @@
 
 \subsection{L-systémy}
 Pro určení struktury a hlavních rysů stromů jsme použily upravený L-systém,
-kde je struktura stromu definována pomocí bezkontextových gramatik. Tyto gramatiky 
+kde je struktura stromu definována pomocí bezkontextových gramatik. Tyto gramatiky
 obsahují pouze nonterminály a v našem případě jsou přizpůsobeny tak, aby je bylo možné
-generovat bez konce (cyklicky do určité hloubky). Jednotlivé nonterminály představují 
+generovat bez konce (cyklicky do určité hloubky). Jednotlivé nonterminály představují
 určité části stromu (kmen, větev, kmen bez větví apod.).Tyto nonterminály jsou později
 parametrizované pro určité typy stromů. Různé variability výsledných stromů jsme
 docílili toho, že jsme gramatiku udělali nedeterministickou a vybírali náhodně
-odpovídající pravidla pro rozgenerování. Výsledkem této fáze projektu je narozdíl 
-od běžných L-systému, kde se výstup ve formě textu předává "želví grafice", 
+odpovídající pravidla pro rozgenerování. Výsledkem této fáze projektu je narozdíl
+od běžných L-systému, kde se výstup ve formě textu předává "želví grafice",
 derivační strom, který je předán další fázi k 3D parametrizaci.
 
 %---------------------------------------------------------------------------
@@ -124,7 +125,7 @@ derivační strom, který je předán další fázi k 3D parametrizaci.
 
 \begin{itemize}
 \item Bc. Tomáš Kubík: L-systémy.
-\item Bc. Jan Kaláb: rasterizace.
+\item Bc. Jan Kaláb: rasterizace, správa repozitáře.
 \item Bc. František Skála: parametrizace.
 \item Bc. Jan Lipovský: demo.
 \end{itemize}
@@ -140,67 +141,77 @@ derivační strom, který je předán další fázi k 3D parametrizaci.
 \begin{itemize}
 \item Git -- až přiliš složitý oproti Subversion.
 \item Příroda -- není tak deterministická, jak bychom si přáli.
-\item Billboarding v demu -- místama složitější matematika pro představení
+\item Paraemtrizace -- odhalení správných konstant a funkcí generujících realistické stromy.
+\item Billboarding v demu -- místy složitější matematika pro představu.
 \end{itemize}
 
 %---------------------------------------------------------------------------
 \section{Zkušenosti získané řešením projektu}
 
-Popište, co jste se řešením projektu naučili. Zahrňte dovednosti obecně
-programátorské, věci z oblasti počítačové grafiky, ale i spolupráci v týmu,
-hospodaření s časem, atd.
+%Popište, co jste se řešením projektu naučili. Zahrňte dovednosti obecně
+%programátorské, věci z oblasti počítačové grafiky, ale i spolupráci v týmu,
+%hospodaření s časem, atd.
+%
+%Rozsah: formulujte stručně, uchopte cca 3-5 věcí
 
-Rozsah: formulujte stručně, uchopte cca 3-5 věcí
+\begin{itemize}
+\item Práce s Gitem.
+\item Prostorová představivost.
+\item Nový pohled na přírodu.
+\item Extrémní programování.
+\end{itemize}
 
 %---------------------------------------------------------------------------
 \section{Autoevaluace}
 
-Ohodnoťte vaše řešení v jednotlivých kategoriích (0 – nic neuděláno,
-zoufalství, 100\% – dokonalost sama). Projekt, který ve finále obdrží plný
-počet bodů, může mít složky hodnocené i hodně nízko. Uvedení hodnot blízkých
-100\% ve všech nebo mnoha kategoriích může ukazovat na nepochopení problematiky
-nebo na snahu kamuflovat slabé stránky projektu. Bodově hodnocena bude i
-schopnost vnímat silné a slabé stránky svého řešení.
+%Ohodnoťte vaše řešení v jednotlivých kategoriích (0 – nic neuděláno,
+%zoufalství, 100\% – dokonalost sama). Projekt, který ve finále obdrží plný
+%počet bodů, může mít složky hodnocené i hodně nízko. Uvedení hodnot blízkých
+%100\% ve všech nebo mnoha kategoriích může ukazovat na nepochopení problematiky
+%nebo na snahu kamuflovat slabé stránky projektu. Bodově hodnocena bude i
+%schopnost vnímat silné a slabé stránky svého řešení.
 
-\paragraph{Technický návrh (50\%):} (analýza, dekompozice problému, volba
+\paragraph{Technický návrh (80\%):} (analýza, dekompozice problému, volba
 vhodných prostředků, $\ldots$) 
-Stručně (1-2 řádky) komentujte hodnocení. 
+Dobře jsme si rozdělili generování stromu na nezávislé celky a tudíž umožnili paralelní práci členů týmu.
 
-\paragraph{Programování (50\%):} (kvalita a čitelnost kódu, spolehlivost běhu,
+\paragraph{Programování (70\%):} (kvalita a čitelnost kódu, spolehlivost běhu,
 obecnost řešení, znovupoužitelnost, $\ldots$)
-Stručně (1-2 řádky) komentujte hodnocení. 
+Čitelnost kódu je nekonzistentní, protože každý pracoval na svém bloku. Výsledek je velice stabilní, i v extrémní zátěži generování stromů fungovalo.
 
-\paragraph{Vzhled vytvořeného řešení (50\%):} (uvěřitelnost zobrazení,
+\paragraph{Vzhled vytvořeného řešení (70\%):} (uvěřitelnost zobrazení,
 estetická kvalita, vhled GUI, $\ldots$)
-Stručně (1-2 řádky) komentujte hodnocení. 
+Pro hry a stromy v dálce dostatečné. Pokud by ale strom měl být hlavním objektem scény, kvalita už není tak dobrá. To ale nevadí, protože billboardy se stejně pooužívají především ve hrách pro vzdálené stromy.
 
-\paragraph{Využití zdrojů (50\%):} (využití existujícího kódu a dat, využití
+\paragraph{Využití zdrojů (40\%):} (využití existujícího kódu a dat, využití
 literatury, $\ldots$)
-Stručně (1-2 řádky) komentujte hodnocení. 
+Pouze jsme použili články z Wikipedie.
 
-\paragraph{Hospodaření s časem (50\%):} (rovnoměrné dotažení částí projektu,
+\paragraph{Hospodaření s časem (80\%):} (rovnoměrné dotažení částí projektu,
 míra spěchu, chybějící části řešení, $\ldots$)
-Stručně (1-2 řádky) komentujte hodnocení. 
+Kostru jsme vytvořili záhy po zadání projektu a poté do ní postupně implementovali potřebné funkce.
 
-\paragraph{Spolupráce v týmu (50\%):} (komunikace, dodržování dohod, vzájemné
+\paragraph{Spolupráce v týmu (95\%):} (komunikace, dodržování dohod, vzájemné
 spolehnutí, rovnoměrnost, $\ldots$)
-Stručně (1-2 řádky) komentujte hodnocení. 
+Rychlá komunikace přes IM, IRC a emaily. Několik celodenních session.
 
-\paragraph{Celkový dojem (50\%):} (pracnost, získané dovednosti, užitečnost,
+\paragraph{Celkový dojem (70\%):} (pracnost, získané dovednosti, užitečnost,
 volba zadání, cokoliv, $\ldots$)
-Stručně (5-10 řádků) komentujte hodnocení. 
+Náročné bylo získání a aplikování znalostí. Projekt to byl zajímavý a kreativní, určitě zajímavější než jiné projekty.
 
 %---------------------------------------------------------------------------
 \section{Doporučení pro budoucí zadávání projektů}
 
-Co vám vyhovovalo a co nevyhovovalo na organizaci projektů? Které prvky by měly
-být zachovány, zesíleny, potlačeny, eliminovány?
+%Co vám vyhovovalo a co nevyhovovalo na organizaci projektů? Které prvky by měly
+%být zachovány, zesíleny, potlačeny, eliminovány?
+
+Ocenili bychom příklad ideálního výstupu.
 
 %---------------------------------------------------------------------------
-\section{Různé}
-
-Ještě něco by v dokumentaci mělo být? Napište to sem! Podle potřeby i založte
-novou kapitolu.
+%\section{Různé}
+%
+%Ještě něco by v dokumentaci mělo být? Napište to sem! Podle potřeby i založte
+%novou kapitolu.
 
 \end{document}
 % vim:set ft=tex expandtab enc=utf8:
