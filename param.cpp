@@ -163,11 +163,11 @@ void branchLengthPicea(TreeNode *current, int maxlevel) {
 			break;
 	}
 }
-void branchThicknessPicea(TreeNode *current, int maxlevel) {
+void branchThicknessPicea(TreeNode *current, int) {
 	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0025; //tloustka vetve odpovida poctu vetvi, ktere z teto rostou (musi sedet plocha prurezu)
 }
 
-void branchDirectionPicea(TreeNode *current, cartesianCoords treetopCenter) {
+void branchDirectionPicea(TreeNode *current, cartesianCoords) {
 	if(current->type == TRUNK || current->type == TRUNK_BRANCHLESS) { //kmen, nechame ho vest temer rovne
 		current->param.relativeVector.theta = exponentialRandom(M_PI*(0.5/180.0)); //nejaky maly odklon, exponencialni rozlozeni se stredem viz druhy parametr
 		current->param.relativeVector.phi = uniformRandom(0.0, M_PI*2.0); //rotace - 0-360°
@@ -216,7 +216,7 @@ void branchThicknessPalma(TreeNode *current, int maxlevel) {
 	}
 }
 
-void branchDirectionPalma(TreeNode *current, cartesianCoords treetopCenter) {
+void branchDirectionPalma(TreeNode *current, cartesianCoords) {
 	current->param.leafs = 0.0; //palma ma listy resene vetvemi
 	if(current->type == TRUNK_BRANCHLESS && current->parentNode != NULL && current->parentNode->type == TRUNK){ //vetev z kmene, nechame ji vest vicemene vodorovne nahodnym smerem z kmene
 		current->param.relativeVector.theta = normalRandom(M_PI*(180.0/180.0), M_PI*(3.5/180.0));

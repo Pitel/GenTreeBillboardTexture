@@ -236,7 +236,7 @@ void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thick
 			leaf.r = clamp(leaf.r*koef, 0, 255);
 			leaf.g = clamp(leaf.g*koef, 0, 255);
 			leaf.b = clamp(leaf.b*koef, 0, 255);
-			size_t tx, ty;
+			int tx, ty;
 			if (steep) {
 				tx = y + yoffset;
 				ty = x + xoffset;
