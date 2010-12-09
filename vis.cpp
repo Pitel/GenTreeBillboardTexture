@@ -6,9 +6,7 @@
 
 #define SWAP(a, b) a ^= b; b ^= a; a ^= b;
 
-/**
- * Pomocná funkce na omezení hodonoty celočiselné proměnné
- */
+/** Pomocná funkce na omezení hodonoty celočiselné proměnné */
 int clamp(int val, int min, int max) {
 	if (val < min) {
 		return min;
@@ -18,9 +16,7 @@ int clamp(int val, int min, int max) {
 	return val;
 }
 
-/**
- * Pomocná funkce na omezení hodonoty proměnné v plovoucí desetinné čárce
- */
+/** Pomocná funkce na omezení hodonoty proměnné v plovoucí desetinné čárce */
 float fclamp(float val, float min, float max) {
 	if (val < min) {
 		return min;
@@ -30,9 +26,7 @@ float fclamp(float val, float min, float max) {
 	return val;
 }
 
-/**
- * Kreslení pixelu
- *
+/** Kreslení pixelu
  * Nakreslí pixel zadané barvy a přidá šum.
  */
 void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, unsigned int alpha = 255) {
@@ -66,9 +60,7 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, unsigned in
 	*bufp = color;
 }
 
-/**
- * Kreslení listu
- *
+/** Kreslení listu
  * Nakreslí list na zadanou souřadnici.
  */
 void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float size_ex) {
@@ -115,9 +107,7 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float si
 	}
 }
 
-/**
- * Kreslení větve
- *
+/** Kreslení větve
  * Kreslí větev s listy na zadané souřadnice. Nejdřív se kreslí větev, poté se kreslí listy.
  */
 void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thickness, SDL_Color wood, SDL_Color leaf, float leafinterval, float leafsize) {
@@ -232,9 +222,7 @@ void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thick
 	}
 }
 
-/**
- * Vizualizace stromu
- *
+/** Vizualizace stromu
  * Funkce BFS algoritmem prochází strom, a kreslí jeho větve s listy podle zadaných parametrů
  */
 void GenTreeBillboardTexture_visualize(SDL_Surface * data, TreeNode* tree, SDL_Color wood, SDL_Color leafs) {
