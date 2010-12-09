@@ -38,4 +38,5 @@ clean:
 	$(RM) -r doc/doxygen
 
 pack: doc
-	zip -r xlogin00.zip *.cpp *.h *.ui Makefile doc/*.pdf README* doc/doxygen
+	cd billboard; make clean
+	zip -r xlogin00.zip *.cpp *.h *.ui Makefile doc/*.pdf README* doc/doxygen billboard
