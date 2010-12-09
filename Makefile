@@ -30,7 +30,7 @@ $(PROG): $(PROG)_gui.cpp $(PROG)_sdl.cpp $(OBJS)
 
 doc:
 	cd doc; $(LATEX) pgr.tex
-	cd doc; doxygen Doxyfile
+	doxygen doc/Doxyfile
 
 clean:
 	$(RM) *.o xlogin00.zip $(PROG)_gui $(PROG)
