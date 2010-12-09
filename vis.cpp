@@ -45,7 +45,7 @@ float fclamp(float val, float min, float max) {
  */
 void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, unsigned int alpha = 255) {
 	// Presahuje rozmery surface, zapis do neplatne pameti
-	if (x >= abs(surface->w) || y >= abs(surface->h)) {
+	if (x >= (unsigned int) abs(surface->w) || y >= (unsigned int) abs(surface->h)) {
 		return;
 	}
 	const float noise = 0.8;
