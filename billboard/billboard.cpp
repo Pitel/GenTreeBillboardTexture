@@ -205,6 +205,7 @@ void onWindowRedraw()
 		}
 	}
 
+	glDepthMask(GL_TRUE);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
     glEnable(GL_DEPTH_TEST);
@@ -262,7 +263,7 @@ void onWindowRedraw()
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 
 
-    glDisable(GL_DEPTH_TEST);
+	glDepthMask(GL_FALSE);
 	for(int i=0; i<TREE_COUNT; i++){
 		mv = glm::translate(
 				glm::rotate(
