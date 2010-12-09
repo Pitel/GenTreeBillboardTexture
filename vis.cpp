@@ -209,15 +209,18 @@ void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thick
 	y = y1;
 	SDL_Color leaf_orig = leaf;
 	int noofleafs = 0; //pocet listu, ktere vykreslit
+	int lim = max(canvas->w, canvas->h); //hranicni hodnota pro kresleni listu
 	for (int x = x1; x <= x2; x++) {	//Listy
 		noofleafs = 0;
-		if(leafinterval_cut != 0 && (x % leafinterval_cut) == 0){
-			noofleafs = 1; //vykreslime 1 list
-		}else if(leafinterval_cut == 0 && leafinterval >= 0.0){ //pokud je to po zaokrouhleni nula, ale jinak ne, chceme list s pravdepodobnosti odpovidajici leafintervalu 
-			float fnoofleafs = 1.0/leafinterval; //pocet listu k vykresleni je 1/interval mezi nimi, tedy pocet listu na pixel
-			noofleafs = fnoofleafs; //zaokrouhlime dolu
-			if(basicRandom() >= fnoofleafs-noofleafs){ //pokud je random vetsi, nez desetinna cast poctu listu k vukresleni, pridame 1 list k vykresleni
-				noofleafs += 1;
+		if(leafinterval != lim){
+			if(leafinterval_cut != 0 && (x % leafinterval_cut) == 0){
+				noofleafs = 1; //vykreslime 1 list
+			}else if(leafinterval_cut == 0 && leafinterval > 0.0){ //pokud je to po zaokrouhleni nula, ale jinak ne, chceme list s pravdepodobnosti odpovidajici leafintervalu 
+				float fnoofleafs = 1.0/leafinterval; //pocet listu k vykresleni je 1/interval mezi nimi, tedy pocet listu na pixel
+				noofleafs = fnoofleafs; //zaokrouhlime dolu
+				if(basicRandom() >= fnoofleafs-noofleafs){ //pokud je random vetsi, nez desetinna cast poctu listu k vukresleni, pridame 1 list k vykresleni
+					noofleafs += 1;
+				}
 			}
 		}
 		for(int le=0; le<noofleafs; le++) {
@@ -268,6 +271,11 @@ void GenTreeBillboardTexture_visualize(SDL_Surface * data, TreeNode* tree, SDL_C
 	//std::clog << "Visualizing tree...\n";
 	
 	boundingBox bounds = getBoundingBox(tree);
+	cartesianCoords tbs = getAndResetTreeBase(tree);
+	//vycentrovani kmene
+	float mdiff = max(abs(bounds.minX-tbs.x), abs(bounds.maxX-tbs.x));
+	bounds.minX = tbs.x-mdiff;
+	bounds.maxX = tbs.x+mdiff;
 	//std::clog << "Bounds: " << (std::string)(bounds) << '\n';
 	const float treeWidth = abs(bounds.minX - bounds.maxX);
 	const float treeHeight = abs(bounds.minZ - bounds.maxZ);

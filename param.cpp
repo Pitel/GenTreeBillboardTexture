@@ -240,6 +240,17 @@ void branchDirectionPalma(TreeNode *current, cartesianCoords treetopCenter) {
 		current->param.absoluteVector.r = current->param.relativeVector.r; //pouzijeme hodnotu spocitanou drive
 		fillBranchEnd(current);
 	}
+	if(current->type == TRUNK_BRANCHLESS && current->childNodes.size() == 0){ //posledni clanek kmene smerem dolu
+		TreeNode* scan = current;
+		while(scan->type != TRUNK){ //dokud nenarazime na kmen, ktery je jiste pritomen
+			scan = scan->parentNode;
+		}
+		//nastavime cilove souradnice prvniho clanku kmene na cilove souradnice posledniho (nebot kmen roste dolu, takto zjistime z prvniho clanku jeho stred)
+		////vyuzijeme ted jiz zbytecny relativni vektor, setri to pamet, struktura nemusi mit dalsi prvky
+		scan->param.relativeVector.r = current->param.branchEnd.z;
+		scan->param.relativeVector.phi = current->param.branchEnd.y;
+		scan->param.relativeVector.theta = current->param.branchEnd.x;
+	}
 }
 
 void fillAbsoluteVector(TreeNode *current) {
@@ -354,6 +365,19 @@ boundingBox getBoundingBox(TreeNode *node){
 		combinedBB = combineBoundingBoxes(combinedBB, getBoundingBox(node->childNodes[i]));
 	}
 	return combinedBB;
+}
+
+cartesianCoords getAndResetTreeBase(TreeNode *parentNode){ //zjistni prvniho bodu stromu
+	if(parentNode->param.relativeVector.r < 0.0){ //pripad, kdy je stred dan koncem korene
+		cartesianCoords ret;
+		ret.z = parentNode->param.relativeVector.r;
+		ret.y = parentNode->param.relativeVector.phi;
+		ret.x = parentNode->param.relativeVector.theta;
+		parentNode->param.branchEnd = cartesianCoords(); //vynulujeme
+		return ret;
+	}else{
+	   	return cartesianCoords(); //jinak je stred v nule
+	}
 }
 
 int maxLevel(TreeNode *node){

@@ -110,6 +110,8 @@ void parametrizeNode(TreeNode *node, PTreeType treeType, int maxlevel, cartesian
 boundingBox getBoundingBox(TreeNode *node);
 boundingBox combineBoundingBoxes(boundingBox bb1, boundingBox bb2);
 
+cartesianCoords getAndResetTreeBase(TreeNode *parentNode); //zjistni prvniho bodu stromu a jeho pripadne nastaveni na zadouci hodnoty
+
 int maxLevel(TreeNode *node);
 int calcChildLeafs(TreeNode *node);
 #endif
