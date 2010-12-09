@@ -51,6 +51,7 @@
 
 \begin{itemize}
 \item TUREK, Michal. Seriál SDL : Hry nejen pro Linux. Root.cz [online]. 2005, [cit. 2010-12-05]. Dostupný z WWW: {\textless}http://www.root.cz/serialy/sdl-hry-nejen-pro-linux/{\textgreater}.
+\item Úryvky kódu ze cvičení z předmětu PGR
 \end{itemize}
 
 %---------------------------------------------------------------------------
@@ -75,11 +76,19 @@
 %
 %Rozsah: potřebný počet odrážek
 
+\subsection{Demo aplikace - užití v praxi}
 \begin{itemize}
+\item Jedná se o využití textury v 3D prostoru pomocí billboardingu
 \item Rozhlížení pohybem myši
-\item Pohyb v kurzorovými klávesami
+\item Pohyb pomocí kláves W, S, A, D
 \end{itemize}
 
+\subsection{Aplikace pro parametrizaci stromu}
+\begin{itemize}
+\item Jedná se o klasickou okenní aplikaci
+\item Uživatel si zde může naklikat jednotlivé parametry stromu (typ, detail apod.)
+\item Po nastavení parametrů je vygenerován odpovídající obrázek
+\end{itemize}
 %---------------------------------------------------------------------------
 \section{Zvláštní použité znalosti}
 
@@ -89,7 +98,16 @@
 %Rozsah: podle potřeby
 
 \subsection{L-systémy}
-Herp derp hurrr durrr1!!!
+Pro určení struktury a hlavních rysů stromů jsme použily upravený L-systém,
+kde je struktura stromu definována pomocí bezkontextových gramatik. Tyto gramatiky 
+obsahují pouze nonterminály a v našem případě jsou přizpůsobeny tak, aby je bylo možné
+generovat bez konce (cyklicky do určité hloubky). Jednotlivé nonterminály představují 
+určité části stromu (kmen, větev, kmen bez větví apod.).Tyto nonterminály jsou později
+parametrizované pro určité typy stromů. Různé variability výsledných stromů jsme
+docílili toho, že jsme gramatiku udělali nedeterministickou a vybírali náhodně
+odpovídající pravidla pro rozgenerování. Výsledkem této fáze projektu je narozdíl 
+od běžných L-systému, kde se výstup ve formě textu předává "želví grafice", 
+derivační strom, který je předán další fázi k 3D parametrizaci.
 
 %---------------------------------------------------------------------------
 \section{Rozdělení práce v týmu}
@@ -122,6 +140,7 @@ Herp derp hurrr durrr1!!!
 \begin{itemize}
 \item Git -- až přiliš složitý oproti Subversion.
 \item Příroda -- není tak deterministická, jak bychom si přáli.
+\item Billboarding v demu -- místama složitější matematika pro představení
 \end{itemize}
 
 %---------------------------------------------------------------------------
