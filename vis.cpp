@@ -4,9 +4,14 @@
 #include <cmath>
 #include "vis.h"
 
+/** Makro pro rychlé prohození dvou proměnných. */
 #define SWAP(a, b) a ^= b; b ^= a; a ^= b;
 
-/** Pomocná funkce na omezení hodonoty celočiselné proměnné */
+/** Pomocná funkce na omezení hodonoty celočiselné proměnné.
+ * @param val Hodnota pro omezení
+ * @param min Nejmenší přípustná hodnota
+ * @param max Největší přípustná hodnota
+ */
 int clamp(int val, int min, int max) {
 	if (val < min) {
 		return min;
@@ -16,7 +21,11 @@ int clamp(int val, int min, int max) {
 	return val;
 }
 
-/** Pomocná funkce na omezení hodonoty proměnné v plovoucí desetinné čárce */
+/** Pomocná funkce na omezení hodonoty proměnné v plovoucí desetinné čárce.
+ * @param val Hodnota pro omezení
+ * @param min Nejmenší přípustná hodnota
+ * @param max Největší přípustná hodnota
+ */
 float fclamp(float val, float min, float max) {
 	if (val < min) {
 		return min;
@@ -26,8 +35,13 @@ float fclamp(float val, float min, float max) {
 	return val;
 }
 
-/** Kreslení pixelu
+/** Kreslení pixelu.
  * Nakreslí pixel zadané barvy a přidá šum.
+ * @param surface Ukazatel na SDL Surface
+ * @param x X (vodorovná) souřadnice pixelu
+ * @param y Y (svislá) souřadnice pixelu
+ * @param c Barva pixelu
+ * @param alpha Průhlednost pixelu
  */
 void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, unsigned int alpha = 255) {
 	// Presahuje rozmery surface, zapis do neplatne pameti
@@ -60,8 +74,13 @@ void putpixel(SDL_Surface *surface, size_t x, size_t y, SDL_Color c, unsigned in
 	*bufp = color;
 }
 
-/** Kreslení listu
+/** Kreslení listu.
  * Nakreslí list na zadanou souřadnici.
+ * @param canvas Ukazatel na SDL Surface
+ * @param x X (vodorovná) souřadnice listu
+ * @param y Y (svislá) souřadnice listu
+ * @param color Barva pixelu
+ * @param size_ex Velikost listu
  */
 void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float size_ex) {
 	//std::clog << size_ex << '\n';
@@ -107,8 +126,18 @@ void drawleaf(SDL_Surface *canvas, size_t x, size_t y, SDL_Color color, float si
 	}
 }
 
-/** Kreslení větve
- * Kreslí větev s listy na zadané souřadnice. Nejdřív se kreslí větev, poté se kreslí listy.
+/** Kreslení větve.
+ * Kreslí větev s listy na zadané souřadnice. Nejdřív se kreslí větev, poté se kreslí listy. Pro kreslení se používá Bresenhamův algoritmus pro kreslení úsečky.
+ * @param canvas Ukazatel na SDL Surface
+ * @param x1 X (vodorovná) souřadnice počátku větve
+ * @param y1 Y (svislá) souřadnice počátku větve
+ * @param x2 X (vodorovná) souřadnice konce větve
+ * @param y2 Y (svislá) souřadnice konce větve
+ * @param thickness Tloušťka větve
+ * @param wood Barva dřeva
+ * @param leaf Barva listů
+ * @param leafinterval Interval místění listů na větev
+ * @param leafsize Velikost listů
  */
 void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thickness, SDL_Color wood, SDL_Color leaf, float leafinterval, float leafsize) {
 	//std::clog << "Line: " << '[' << x1 << ", " << y1 << "] -> [" << x2 << ", " << y2 << ']' << '\n';
@@ -228,8 +257,12 @@ void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thick
 	}
 }
 
-/** Vizualizace stromu
- * Funkce BFS algoritmem prochází strom, a kreslí jeho větve s listy podle zadaných parametrů
+/** Vizualizace stromu.
+ * Funkce BFS algoritmem prochází strom, a kreslí jeho větve s listy podle zadaných parametrů.
+ * @param data Ukazatel na SDLSurface
+ * @param tree Struktura s parametry stromu
+ * @param wood Barva dřeva
+ * @param leafs Barva listů
  */
 void GenTreeBillboardTexture_visualize(SDL_Surface * data, TreeNode* tree, SDL_Color wood, SDL_Color leafs) {
 	//std::clog << "Visualizing tree...\n";
