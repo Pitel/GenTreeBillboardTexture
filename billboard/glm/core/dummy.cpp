@@ -1,19 +1,6 @@
 #include "../glm.hpp"
 #include "../ext.hpp"
 
-enum TYPE
-{
-	DEFAULT,
-	SSE1,
-	SSE2
-};
-
-template <TYPE T = DEFAULT>
-void default_template_arg()
-{
-	printf("default: %d\n", T);
-}
-
 int main()
 {
 	//glm::mat2x3 m1(1.0f);
@@ -103,6 +90,4 @@ int main()
 	//	glm::vec3 v(1.0f);
 	//	glm::vec4 w = m * v;
 	//}
-
-	default_template_arg<DEFAULT>();
 }
