@@ -2,7 +2,7 @@ GenTreeBillboardTexture
 =======================
 The tree impostor texture generator.
 
-![GenTreeBillboardTexture](http://farm6.static.flickr.com/5003/5246466666_40d55ce14a.jpg)
+![GenTreeBillboardTexture](http://farm6.static.flickr.com/5003/5246466666_40d55ce14a_m.jpg)
 
 Usage
 -----
