@@ -69,7 +69,7 @@ std::string IntToChar(int i)
 }
 
 void
-color_select (GtkWidget *widget, gpointer data)
+color_select (GtkWidget *, gpointer data)
 {
   gint response;
   GtkColorSelection *colorsel;
