@@ -85,6 +85,9 @@ void branchLengthTree1(TreeNode *current, int maxlevel) {
 	current->param.relativeVector.r = 0.04*uniformRandom(0.7, 1.3)*(1.0+maxlevel)/current->param.level;
 }
 void branchThicknessTree1(TreeNode *current, int maxlevel) {
+	if(current->childNodes.size() == 0){ //koncova vetev
+		current->param.leafs = 1000.0/max(1.0, maxlevel*maxlevel*maxlevel-1.0); //nastavime i pocet listu, v zavislosti na maximalnim levelu
+	}
 	current->param.thickness = sqrt(current->param.childLeafs+1.0)*0.0015; //tloustka vetve odpovida poctu vetvi, ktere z teto rostou (musi sedet plocha prurezu)
 }
 

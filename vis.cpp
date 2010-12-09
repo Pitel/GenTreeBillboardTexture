@@ -212,9 +212,11 @@ void drawbranch(SDL_Surface *canvas, int x1, int y1, int x2, int y2, float thick
 				tx = x + xoffset;
 				ty = y + yoffset;
 			}
-			tx = clamp(tx, 0, canvas->w);
-			ty = clamp(ty, 0, canvas->h);
-			drawleaf(canvas, tx, ty, leaf, leafsize);
+			int ntx = clamp(tx, 0, canvas->w);
+			int nty = clamp(ty, 0, canvas->h);
+			if(ntx == tx && nty == ty){ //jen pokud lezi bod uvnitr obrazu
+				drawleaf(canvas, tx, ty, leaf, leafsize);
+			}
 		}
 		
 		if (P >= 0) {
