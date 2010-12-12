@@ -1,6 +1,6 @@
 PROG=demo
 CXX=g++
-CXXFLAGS=-O2 -Wall -Wextra -pedantic-errors -pipe -march=native #-g
+CXXFLAGS=-O2 -Wall -Wextra -pedantic-errors -pipe -march=native -L/usr/lib #-g
 SDL=`sdl-config --cflags --libs`
 GTK=`pkg-config --cflags --libs gtk+-2.0`
 
