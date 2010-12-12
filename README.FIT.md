@@ -6,7 +6,7 @@ Jednoduche demo
 ----------------
 Prikazem `make` se prelozi jednoduche demo, ktere spustite z prikazove radky `./demo`. Pokud si prejete parametrizovat generovani stromu pouzijte program `./demo_gui`, ktery zkompilujete prikazem `make gui`.
 
-POZOR: Na pocitacich v CVT neni nainstalovana podpora [GLADE](http://glade.gnome.org), ktery pouzivame pri vytvareni GUI. Preklad funguje na serveru eva.fit.vutbr.cz prikazem `gmake gui`.
+POZOR: Na pocitacich v CVT neni nainstalovana podpora [Glade](http://glade.gnome.org), ktery pouzivame pri vytvareni GUI. Preklad funguje na serveru eva.fit.vutbr.cz prikazem `gmake gui`.
 
 Billboard demo
 ---------------
