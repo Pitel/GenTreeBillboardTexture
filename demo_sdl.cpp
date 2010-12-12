@@ -14,17 +14,17 @@
 #define WIN_BPP 32
 
 
-unsigned int width = 256;
-unsigned int height = 512;
+unsigned int width = 600;
+unsigned int height = 800;
 unsigned int seed = 2353;
-unsigned int depth = 150;
+unsigned int depth = 300;
 
 PTreeType treeType = PTREE_APPLE;
 
 bool use_sdlsurface = false;
 
-SDL_Color trunk = {150,75,0,0};
-SDL_Color leaf = {0,255,0,0};
+SDL_Color trunk = {90,60,30,0};
+SDL_Color leaf = {30,150,30,0};
 
 SDL_Surface *window;
 SDL_Surface *tree_texture;  // Vygenerovany strom
@@ -33,9 +33,8 @@ void InitTexture(){
 	if(tree_texture != NULL){
 		free(tree_texture);
 	}
-    //Pouzije se SDL_surface
 
-        tree_texture = SDL_CreateRGBSurface(
+    tree_texture = SDL_CreateRGBSurface(
                 SDL_SWSURFACE,
                 width, height, 32,
 #if SDL_BYTEORDER == SDL_LIL_ENDIAN
@@ -51,28 +50,13 @@ void InitTexture(){
 #endif
                 );
 
-    double tstart, tstop, ttime, ttimeclock;
-
-    tstart = (double)clock();//CLOCKS_PER_SEC;
-
+    if(SDL_MUSTLOCK(tree_texture))
+        SDL_LockSurface(tree_texture);
 
     GenTreeBillboardTexture(tree_texture, seed, depth, treeType, trunk, leaf);
 
-    tstop = (double)clock();//CLOCKS_PER_SEC;
-
-    ttimeclock = tstop-tstart; /*ttime is how long your code run */
-
-    ttime = tstop/CLOCKS_PER_SEC - tstart/CLOCKS_PER_SEC; /*ttime is how long your code run */
-
-    cout << " Cas generovani stromu " << endl;
-    cout << "+----------------------" << endl;
-    cout << "| " << ttimeclock << " [clocks] - clocks per sec: " << CLOCKS_PER_SEC << endl;
-   // cout << "| " << ttime*1000000 << " [us] - microsecond" << endl;
-    cout << "| " << ttime*1000 << " [ms] - milisecond" << endl;
-    cout << "| " << ttime << " [s] - second" << endl;
-    cout << "+----------------------" << endl << endl;
-
-
+    if(SDL_MUSTLOCK(tree_texture))
+        SDL_UnlockSurface(tree_texture);
 
 }
 bool Init()
@@ -126,7 +110,7 @@ void Draw()
 }
 
 
-	SDL_Event event;
+SDL_Event event;
 
 bool ProcessEvent()
 {
@@ -183,7 +167,39 @@ bool ProcessEvent()
 int main(int argc, char *argv[])
 {
 
+    if(argc == 1)
+    {
+        cout << "Please select type of tree:" << endl;
+        cout << "----------------------------" << endl;
+        cout << "1 - Apple tree" << endl;
+        cout << "2 - Spruce" << endl;
+        cout << "3 - Palm tree" << endl << endl;
+        cout << "Please enter nubmer [1, 2 or 3]: " << flush;
+        string typ("");
 
+
+        getline(cin,typ);
+
+
+        if(!strcmp(typ.c_str(),"1"))
+        {
+            treeType = PTREE_APPLE;
+            depth = 350;
+        }
+
+        if(!strcmp(typ.c_str(),"2"))
+        {
+            treeType = PTREE_PICEA;
+            depth = 4000;
+        }
+
+        if(!strcmp(typ.c_str(),"3"))
+        {
+            treeType = PTREE_PALMA;
+            depth = 2500;
+        }
+    }
+    else
     if(argc == 12)
     {
         width = atoi(argv[1]);
@@ -208,10 +224,11 @@ int main(int argc, char *argv[])
 
         if(!strcmp(argv[11],"palm"))
             treeType = PTREE_PALMA;
-
-
-        //PTREE_PICEA, PTREE_PALMA, PTREE_COUNT
-
+    }
+    else
+    {
+        cout << "Run ./demo and select tree or use ./demo_gui for better parametrization of tree." << endl;
+        exit(0);
     }
 
 
@@ -223,16 +240,6 @@ int main(int argc, char *argv[])
 		return 1;
 	}
 
-//	// Hlavni smycka programu
-//	while(ProcessEvent())
-//	{
-//		Draw();
-//
-//        if(SDL_WaitEvent(&event) == 0)
-//            cerr << "ERR" << endl;
-//    }
-
-    bool active = true;
 
     for(;;)// Infinite loop
     {
@@ -248,72 +255,50 @@ int main(int argc, char *argv[])
 
             switch(event.type)
             {
+                // Klavesnice
+                case SDL_KEYDOWN:
+                    switch(event.key.keysym.sym)
+                    {
+                        case SDLK_ESCAPE:
+                            return false;
+                            break;
 
-                case SDL_ACTIVEEVENT :// Stop redraw when minimized
-                    if(event.active.state == SDL_APPACTIVE)
-                        active = event.active.gain;
+                        default:
+                            break;
+                    }
                     break;
 
-                case SDL_VIDEOEXPOSE :
-                  //  redraw = true;
+                // Zmena velikosti okna
+                case SDL_VIDEORESIZE:
+                    window = SDL_SetVideoMode(event.resize.w,
+                        event.resize.h, WIN_BPP, WIN_FLAGS);
+                    width = event.resize.w;
+                    height = event.resize.h;
+                    InitTexture();
+
+                    if(window == NULL)
+                    {
+                        fprintf(stderr,
+                            "Unable to resize window: %s\n",
+                            SDL_GetError());
+                        return false;
+                    }
                     break;
 
-			// Klavesnice
-			case SDL_KEYDOWN:
-				switch(event.key.keysym.sym)
-				{
-					case SDLK_ESCAPE:
-						return false;
-						break;
+                // Pozadavek na ukonceni
+                case SDL_QUIT:
+                    return false;
+                    break;
 
-					default:
-						break;
-				}
-				break;
-
-			// Zmena velikosti okna
-			case SDL_VIDEORESIZE:
-				window = SDL_SetVideoMode(event.resize.w,
-					event.resize.h, WIN_BPP, WIN_FLAGS);
-				width = event.resize.w;
-				height = event.resize.h;
-				InitTexture();
-
-				if(window == NULL)
-				{
-					fprintf(stderr,
-						"Unable to resize window: %s\n",
-						SDL_GetError());
-					return false;
-				}
-				//redraw = true;
-				break;
-
-			// Pozadavek na ukonceni
-			case SDL_QUIT:
-				return false;
-				break;
-
-			default:
-				break;
+                default:
+                    break;
             }
 
         } while(SDL_PollEvent(&event) == 1);
 
         Draw();
-
-        // Optionally redraw window
-//        if(active && redraw)
-//        {
-//            Draw();
-//            cout << "Draaaaaaaaaaw" << endl;
-//        }
-//        else
-//            cout << "NOT DRAW " << active << " " << redraw << endl;
     }
 
-
-	// Deinicializace a konec
 	Destroy();
 	return 0;
 }

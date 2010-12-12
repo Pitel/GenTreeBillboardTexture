@@ -8,7 +8,7 @@ LATEX=pdfcslatex
 
 OBJS=GenTreeBillboardTexture.o grammar.o param.o rules.o vis.o
 
-.PHONY: clean doc
+.PHONY: clean doc gui
 
 all: $(PROG)
 
@@ -24,9 +24,12 @@ rules.o: rules.cpp rules.h
 vis.o: vis.cpp vis.h grammar.h rules.h param.h
 
 #Slinkovani
-$(PROG): $(PROG)_gui.cpp $(PROG)_sdl.cpp $(OBJS)
-	$(CXX) $(OBJS) $(CXXFLAGS) $(GTK) $(SDL) $(PROG)_gui.cpp -o $(PROG)_gui
+$(PROG): $(PROG)_sdl.cpp $(OBJS)
 	$(CXX) $(OBJS) $(CXXFLAGS) $(SDL) $(PROG)_sdl.cpp -o $(PROG)
+
+gui: $(PROG)_gui.cpp $(PROG)_sdl.cpp $(OBJS)
+	$(CXX) $(OBJS) $(CXXFLAGS) $(SDL) $(PROG)_sdl.cpp -o $(PROG)	
+	$(CXX) $(OBJS) $(CXXFLAGS) $(GTK) $(SDL) $(PROG)_gui.cpp -o $(PROG)_gui
 
 doc:
 	cd doc; $(LATEX) pgr.tex

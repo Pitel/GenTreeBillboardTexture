@@ -37,7 +37,7 @@ typedef enum treetyp
     PALMA
 } TTree;
 
-/** Dialog window */
+/* Dialog window */
 GuiDialog guidialog;
 
 GtkWidget *colorseldlg = NULL;
@@ -45,21 +45,6 @@ GtkWidget *drawingarea = NULL;
 GdkColor color;
 GdkColor trunk_color = {0, 90*255,60*255,30*255};
 GdkColor leaf_color = {0,30*255,150*255,30*255};
-
-/*
-void
-gui_dialog_destroy ()
-{
-    gtk_widget_destroy (guidialog.gui_height);
-    gtk_widget_destroy (guidialog.gui_width);
-    gtk_widget_destroy (guidialog.gui_generate);
-    gtk_widget_destroy (guidialog.gui_cancel);
-    gtk_widget_destroy (guidialog.window);
-
-    cout << "Destroy - gui_dialog_destroy ()" << endl;
-}
-*/
-
 
 std::string IntToChar(int i)
 {
@@ -79,7 +64,7 @@ color_select (GtkWidget *, gpointer data)
       if (colorseldlg == NULL)
         colorseldlg = gtk_color_selection_dialog_new ("Select color");
 
-     //   cout << "SELEEECT" << endl;
+
       /* Get the ColorSelection widget */
       colorsel = GTK_COLOR_SELECTION (GTK_COLOR_SELECTION_DIALOG (colorseldlg)->colorsel);
 
@@ -93,14 +78,6 @@ color_select (GtkWidget *, gpointer data)
       if (response == GTK_RESPONSE_OK)
       {
         gtk_color_selection_get_current_color (colorsel, tmp);
-      /*  cout << (tmp->red) << endl;
-        cout << (tmp->green) << endl;
-        cout << (tmp->blue) << endl;
-
-        cout << IntToChar(tmp->red >> 8) << endl;
-        cout << IntToChar(tmp->green >> 8) << endl;
-        cout << IntToChar(tmp->blue >> 8) << endl;*/
-
 
         gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_trunk), GTK_STATE_NORMAL, &trunk_color);
         gtk_widget_modify_bg ( GTK_WIDGET (guidialog.gui_leaf), GTK_STATE_NORMAL, &leaf_color);
@@ -126,17 +103,7 @@ run_sdldemo_surface ( void )
 
     const gchar *gui_argv[13];
     GError *error;
-/*
- cout << "RUN" << endl;
-    cout << IntToChar(trunk_color.red) << endl;
-        cout << IntToChar(trunk_color.green) << endl;
-        cout << IntToChar(trunk_color.blue) << endl;
 
-    cout << IntToChar(leaf_color.red) << endl;
-        cout << IntToChar(leaf_color.green) << endl;
-        cout << IntToChar(leaf_color.blue) << endl;
-
-*/
     gui_argv[0] = "demo";
     gui_argv[1] = width_str;
     gui_argv[2] = height_str;
@@ -179,7 +146,7 @@ run_sdldemo_surface ( void )
     }
 }
 
-/**
+/*
 * Create main window
 */
 int
@@ -202,7 +169,6 @@ main ( int argc,  char **argv )
         g_error_free (error);
         return -1;
     }
-
 
     /* Obtain widgets that we need */
     guidialog.window = GTK_WIDGET ( gtk_builder_get_object( builder, "demo_gui" ));
