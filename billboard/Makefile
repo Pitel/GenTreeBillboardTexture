@@ -11,7 +11,7 @@ ifeq ($(OS), Windows_NT)
 	CFLAGS=$(CFLAGS_COMMON) -DWIN32 -I. -IGL -Wl,--enable-auto-import
 	LIBS=-lopengl32 -lglu32 -lSDL
 else
-	CFLAGS=$(CFLAGS_COMMON) `sdl-config --cflags` -I. -IGL
+	CFLAGS=$(CFLAGS_COMMON) `sdl-config --cflags` -I. -IGL -L/usr/lib
 	LIBS=`sdl-config --libs`  -L/usr/lib -lGL -lGLU -lXmu -lX11 -lXi -L/usr/X11R6/lib
 endif
 
